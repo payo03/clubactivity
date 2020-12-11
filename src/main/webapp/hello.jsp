@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="<c:url value='/main'/>"> 메인화면 </a>
+	<a href="<c:url value='/home'/>"> 메인화면 </a>
 </body>
 </html>
