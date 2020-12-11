@@ -11,7 +11,7 @@
 			<div>
 				<c:choose>
 					<c:when test="${empty sessionScope.login}">
-						<a href="${pageContext.request.contextPath}/login/login"><spring:message code="title.login" /></a>
+						<a href="${pageContext.request.contextPath}/login"><spring:message code="title.login" /></a>
 						<a href="${pageContext.request.contextPath}/signup/step1"><spring:message code="register.member" /></a>
 					</c:when>
 					<c:otherwise>

@@ -22,7 +22,7 @@ import clubactivity.vo.AuthInfo;
 import clubactivity.vo.LoginRequest;
 
 @Controller
-@RequestMapping("/login/login")
+@RequestMapping("/login")
 public class LoginController {
 
 	private LoginService loginService;

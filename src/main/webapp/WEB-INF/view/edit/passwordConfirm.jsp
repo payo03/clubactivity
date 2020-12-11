@@ -7,28 +7,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="title.change.password" /></title>
+<title>Insert title here</title>
 </head>
 <body>
-
 	<c:import url="../included/top.jsp">
 		<c:param value="main" name="type" />
 	</c:import>
-	
-	<form:form action="${pageContext.request.contextPath}/edit/changePassword"
-				method="post" modelAttribute="changePasswordCommand">
-		<p>
-			<label><spring:message code="currentPassword" /> <form:input
-					path="currentPassword" /> <form:errors path="currentPassword" />
-			</label>
-		</p>
-		<p>
-			<label><spring:message code="newPassword" /> <form:input
-					path="newPassword" /> <form:errors path="newPassword" /> </label>
-		</p>
-		<input type="submit" value="<spring:message code="btn.change" />">
-	</form:form>
 
+	<form:form action="${pageContext.request.contextPath}/edit/form"
+		method="post" modelAttribute="member">
+		<p>
+			<label><spring:message code="password" /> <form:input
+					path="memberPassword" /> <form:errors path="memberPassword" /> </label>
+		</p>
+		<input type="submit" value="<spring:message code="checkPassword" />">
+	</form:form>
+	
 	<c:import url="../included/bottom.jsp">
 		<c:param value="main" name="type" />
 	</c:import>

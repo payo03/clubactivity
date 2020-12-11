@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="title.change.password" /></title>
+<title><spring:message code="title.change.number" /></title>
 </head>
 <body>
 
@@ -15,16 +15,11 @@
 		<c:param value="main" name="type" />
 	</c:import>
 	
-	<form:form action="${pageContext.request.contextPath}/edit/changePassword"
-				method="post" modelAttribute="changePasswordCommand">
+	<form:form action="${pageContext.request.contextPath}/edit/changeNumber"
+				method="post" modelAttribute="changeNumberCommand">
 		<p>
-			<label><spring:message code="currentPassword" /> <form:input
-					path="currentPassword" /> <form:errors path="currentPassword" />
-			</label>
-		</p>
-		<p>
-			<label><spring:message code="newPassword" /> <form:input
-					path="newPassword" /> <form:errors path="newPassword" /> </label>
+			<label><spring:message code="newPhoneNumber" /> <form:input
+					path="newPhoneNumber" /> <form:errors path="newPhoneNumber" /> </label>
 		</p>
 		<input type="submit" value="<spring:message code="btn.change" />">
 	</form:form>

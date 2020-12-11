@@ -95,4 +95,8 @@ public class Member implements Serializable {
 		this.memberPassword = newPassword;
 	}
 
+	public void changeNumber(String newNumber) {
+		this.memberPhoneNumber = newNumber;
+	}
+
 }

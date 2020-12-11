@@ -15,7 +15,7 @@
 	</c:import>
 
 	<div id="main">
-		<form:form action="${pageContext.request.contextPath}/login/login"
+		<form:form action="${pageContext.request.contextPath}/login"
 			method="post" modelAttribute="loginRequest">
 
 			<h1>

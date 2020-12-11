@@ -26,6 +26,10 @@
 	<update id="updatePassword" parameterType="member">
 		update club.member SET MEMBER_PASSWORD = #{memberPassword} where MEMBER_ID = #{memberId}
 	</update>
+	
+	<update id="updateNumber" parameterType="member">
+		update club.member SET MEMBER_PHONE_NUMBER = #{memberPhoneNumber} where MEMBER_ID = #{memberId}
+	</update>
 
 	<resultMap type="member" id="memberListResultMap">
 		<id column="MEMBER_NUMBER" property="memberNumber" />

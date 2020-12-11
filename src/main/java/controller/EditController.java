@@ -11,33 +11,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import clubactivity.exception.MemberNotFoundException;
 import clubactivity.exception.WrongIdPasswordException;
+import clubactivity.service.ChangeNumberService;
 import clubactivity.service.ChangePasswordService;
 import clubactivity.vo.AuthInfo;
+import clubactivity.vo.ChangeNumberCommand;
 import clubactivity.vo.ChangePasswordCommand;
-
+import clubactivity.vo.Member;
 
 @Controller
 @RequestMapping("/edit")
 public class EditController {
 
 	private ChangePasswordService changePasswordService;
+	private ChangeNumberService changeNumberService;
 
 	@Autowired
 	public void setChangePasswordService(ChangePasswordService changePasswordService) {
 		this.changePasswordService = changePasswordService;
 	}
 
+	@Autowired
+	public void setChangeNumberService(ChangeNumberService changeNumberService) {
+		this.changeNumberService = changeNumberService;
+	}
+
 	@GetMapping
-	public String form(ChangePasswordCommand changePasswordCommand, HttpSession session) {
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
-		if (authInfo == null) {
-			return "redirect:/login/loginFormPage";
-		}
+	public String check(Member member, HttpSession session) {
+		return "edit/passwordConfirm";
+	}
+
+	@PostMapping("/form")
+	public String form() {
+		return "edit/changeForm";
+	}
+
+	@GetMapping("/numberForm")
+	public String numberform(ChangeNumberCommand changeNumberCommand, HttpSession session) {
+		return "edit/changeNumberForm";
+	}
+
+	@GetMapping("/passwordForm")
+	public String passwordform(ChangePasswordCommand changePasswordCommand, HttpSession session) {
 		return "edit/changePasswordForm";
 	}
 
-	@PostMapping
-	public String submit(ChangePasswordCommand changePasswordCommand, Errors errors, HttpSession session)
+	@PostMapping("/changeNumber")
+	public String submitNumber(ChangeNumberCommand changeNumberCommand, Errors errors, HttpSession session)
+			throws MemberNotFoundException {
+		if (errors.hasErrors()) {
+			return "edit/changeNumberForm";
+		}
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
+		
+		if (changeNumberCommand.getNewPhoneNumber() != "") {
+
+			changeNumberService.changeNumber(authInfo.getMemberId(), changeNumberCommand.getNewPhoneNumber());
+
+			return "edit/changeNumber";
+		}
+		errors.rejectValue("newPhoneNumber", "phoneNumber.null");
+
+		return "edit/changeNumberForm";
+	}
+
+	@PostMapping("/changePassword")
+	public String submitPassword(ChangePasswordCommand changePasswordCommand, Errors errors, HttpSession session)
 			throws MemberNotFoundException {
 		if (errors.hasErrors()) {
 			return "edit/changePasswordForm";
@@ -45,14 +83,14 @@ public class EditController {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
 		try {
 			if (changePasswordCommand.getNewPassword() != "") {
-				
+
 				changePasswordService.changePassword(authInfo.getMemberId(), changePasswordCommand.getCurrentPassword(),
 						changePasswordCommand.getNewPassword());
 
 				return "edit/changePassword";
 			}
 			errors.rejectValue("newPassword", "password.null");
-			
+
 			return "edit/changePasswordForm";
 		} catch (WrongIdPasswordException e) {
 			errors.rejectValue("currentPassword", "password.notMatch");

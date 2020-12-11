@@ -19,5 +19,7 @@ public interface MemberDAO {
 	int updateAuthStatus(String memberId);
 
 	int updatePassword(Member member);
+
+	void updateNumber(Member member);
 	
 }
