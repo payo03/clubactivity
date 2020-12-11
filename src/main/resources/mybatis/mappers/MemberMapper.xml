@@ -22,6 +22,10 @@
 		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER 
 		from club.member
 	</select>
+	
+	<update id="updatePassword" parameterType="member">
+		update club.member SET MEMBER_PASSWORD = #{memberPassword} where MEMBER_ID = #{memberId}
+	</update>
 
 	<resultMap type="member" id="memberListResultMap">
 		<id column="MEMBER_NUMBER" property="memberNumber" />

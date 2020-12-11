@@ -17,5 +17,7 @@ public interface MemberDAO {
 	int selectById(String memberId);
 
 	int updateAuthStatus(String memberId);
+
+	int updatePassword(Member member);
 	
 }

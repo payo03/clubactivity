@@ -16,7 +16,7 @@
 					</c:when>
 					<c:otherwise>
 						<a href="${pageContext.request.contextPath}/logout"><spring:message code="title.logout" /></a>
-						<a href="${pageContext.request.contextPath}/modify"><spring:message code="member.modify" /></a>
+						<a href="${pageContext.request.contextPath}/edit"><spring:message code="member.edit" /></a>
 						<c:if test="${sessionScope.login.memberlevel.memberLevelCode eq 0}">
 							관리자
 						</c:if>

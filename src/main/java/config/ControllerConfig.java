@@ -3,6 +3,7 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import controller.EditController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
@@ -25,4 +26,8 @@ public class ControllerConfig {
 		return new MemberRegisterController();
 	}
 
+	@Bean
+	public EditController editController() {
+		return new EditController();
+	}
 }
