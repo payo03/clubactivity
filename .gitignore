@@ -1,3 +1,4 @@
 
 src/main/resources/mybatis/config/S1.properties
 target/classes/mybatis/config/S1.properties
+/target/

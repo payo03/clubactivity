@@ -53,7 +53,7 @@ public class LoginController {
 	public String login(@Valid LoginRequest loginRequest, Errors errors, HttpSession session,
 			HttpServletResponse response, HttpServletRequest request) {
 		if (errors.hasErrors()) {
-			return "login/loginFormPage";
+			return "login/login";
 		}
 
 		try {
