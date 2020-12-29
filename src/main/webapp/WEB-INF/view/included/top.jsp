@@ -2,59 +2,111 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!-- VENDOR CSS -->
+<link rel="stylesheet"
+	href="assets/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="assets/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+<link rel="stylesheet"
+	href="assets/vendor/chartist/css/chartist-custom.css">
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="assets/css/main.css">
+<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+<link rel="stylesheet" href="assets/css/demo.css">
+<!-- GOOGLE FONTS -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+	rel="stylesheet">
+<!-- ICONS -->
+<link rel="apple-touch-icon" sizes="76x76"
+	href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="assets/img/favicon.png">
+</head>
+
 <header>
-	<div>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath}/home"><spring:message code="go.main" /></a>
-		</div>
-		<div>
-			<div>
-				<c:choose>
-					<c:when test="${empty sessionScope.login}">
-						<a href="${pageContext.request.contextPath}/login"><spring:message code="title.login" /></a>
-						<a href="${pageContext.request.contextPath}/signup/step1"><spring:message code="register.member" /></a>
-					</c:when>
-					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/logout"><spring:message code="title.logout" /></a>
-						<a href="${pageContext.request.contextPath}/edit"><spring:message code="member.edit" /></a>
-						<c:if test="${sessionScope.login.memberlevel.memberLevelCode eq 0}">
-							관리자
-						</c:if>
-					</c:otherwise>
-				</c:choose>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="${pageContext.request.contextPath}/home"><img
+					src="${pageContext.request.contextPath}/assets/img/logo-dark.png"
+					alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
-		</div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth">
+						<i class="lnr lnr-arrow-left-circle"></i>
+					</button>
+				</div>
+
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#"
+							class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
+								class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
+						</a>
+							<ul class="dropdown-menu notifications">
+								<li><a href="#" class="notification-item"><span
+										class="dot bg-warning"></span>System space is almost full</a></li>
+								<li><a href="#" class="notification-item"><span
+										class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+								<li><a href="#" class="notification-item"><span
+										class="dot bg-success"></span>Monthly report is available</a></li>
+								<li><a href="#" class="notification-item"><span
+										class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+								<li><a href="#" class="notification-item"><span
+										class="dot bg-success"></span>Your request has been approved</a></li>
+								<li><a href="#" class="more">See all notifications</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><img
+								src="${pageContext.request.contextPath}/assets/img/user.png"
+								class="img-circle" alt="image"> <span>${sessionScope.login.memberName}</span>
+								<i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<ul class="dropdown-menu">
+								<c:choose>
+									<c:when test="${empty sessionScope.login}">
+										<li><a href="${pageContext.request.contextPath}/login"><spring:message
+													code="title.login" /></a></li>
+										<li><a
+											href="${pageContext.request.contextPath}/signup/step1"><spring:message
+													code="register.member" /></a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="#"><i class="lnr lnr-user"></i> <span>My
+													Profile</span></a></li>
+										<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+										<li><a href="${pageContext.request.contextPath}/edit"><i
+												class="lnr lnr-cog"></i>
+											<spring:message code="member.edit" /></a></li>
+										<li><a href="${pageContext.request.contextPath}/logout"><i
+												class="lnr lnr-exit"></i>
+											<spring:message code="title.logout" /></a></li>
+									</c:otherwise>
+								</c:choose>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	</div>
-	
-	<!-- Mobile Menu 
-	<div class="col-12">
-		<div class="mobile_menu d-block d-lg-none"></div>
-		<%-- 모바일 해상도일때 로그인, 로그아웃 회원가입 버튼 보이도록 --%>
-		<div class="d-block d-lg-none"
-			style="float: right; margin-right: 40px; margin-top: -50px;">
-			<c:choose>
-				<c:when test="${empty sessionScope.login}">
-					<a href="${pageContext.request.contextPath}/login/login"
-						class="btn2"
-						style="border: none; padding: 5px 15px; text-transform: capitalize; border-radius: 10px; cursor: pointer; color: #fff; display: inline-block; font-size: 10px; transition: 0.6s; box-shadow: 0px 7px 21px 0px rgba(0, 0, 0, 0.12); background-image: linear-gradient(to left, #46C0BE, #6DD56F, #46C0BE); background-position: right; background-size: 200% margin-bottom:100px; margin-top: 12px;"><spring:message
-							code="btn.login" /></a>
-					<a href="${pageContext.request.contextPath}/signup/step1"
-						class="btn2"
-						style="border: none; padding: 5px 15px; text-transform: capitalize; border-radius: 10px; cursor: pointer; color: #fff; display: inline-block; font-size: 10px; transition: 0.6s; box-shadow: 0px 7px 21px 0px rgba(0, 0, 0, 0.12); background-image: linear-gradient(to left, #46C0BE, #6DD56F, #46C0BE); background-position: right; background-size: 200% margin-bottom:100px; margin-top: 12px;"><spring:message
-							code="register.member" /></a>
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/logout" class="btn2"
-						style="border: none; padding: 5px 15px; text-transform: capitalize; border-radius: 10px; cursor: pointer; color: #fff; display: inline-block; font-size: 10px; transition: 0.6s; box-shadow: 0px 7px 21px 0px rgba(0, 0, 0, 0.12); background-image: linear-gradient(to left, #46C0BE, #6DD56F, #46C0BE); background-position: right; background-size: 200% margin-bottom:100px; margin-top: 12px;"><spring:message
-							code="title.logout" /></a>
-					<c:if test="${sessionScope.login.memberlevel.memberLevelCode eq 0}">
-						<a href="${pageContext.request.contextPath}/admin/member/list"><img
-							src="${pageContext.request.contextPath}/img/logo/tts.jpg"
-							style="max-width: 30px; height: 30px;" alt=""></a>
-					</c:if>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
-	-->
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/scripts/klorofil-common.js"></script>
 </header>

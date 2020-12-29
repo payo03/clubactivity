@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <footer>
+	<br>
 	<div>
 		<a href="${pageContext.request.contextPath}/home"><spring:message code="go.main" /> </a>
 	</div>

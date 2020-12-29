@@ -12,6 +12,7 @@
 		<c:param value="main" name="type" />
 	</c:import>
 	
+	
 	<a href="${pageContext.request.contextPath}/edit/numberForm"><spring:message code="number.edit" /></a>
 	<a href="${pageContext.request.contextPath}/edit/passwordForm"><spring:message code="password.edit" /></a>
 	
