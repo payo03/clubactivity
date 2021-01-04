@@ -10,7 +10,7 @@
 	</select>
 
 	<select id="selectById" parameterType="String" resultType="int">
-		SELECT count(*) from club.member WHERE "MEMBER_ID" = #{memberId}
+		SELECT count(*) from club.member WHERE MEMBER_ID = #{memberId}
 	</select>
 
 	<insert id="insertMember" parameterType="memberRegisterRequest">

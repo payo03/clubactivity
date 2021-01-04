@@ -27,7 +27,6 @@ public class MemberRegisterService {
 	}
 
 	public int selectById(String memberId) throws Exception {
-		
 		int cnt = memberDAO.selectById(memberId);
 		if (cnt != 0) {
 			throw new MemberDuplicateException("duplicate memberId");

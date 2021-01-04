@@ -10,20 +10,30 @@
 <title><spring:message code="title.login" /></title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <!-- VENDOR CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendor/linearicons/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/vendor/linearicons/style.css">
 <!-- MAIN CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/main.css">
 <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/demo.css">
 <!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+	rel="stylesheet">
 <!-- ICONS -->
-<link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
-<link rel="icon" type="image/png" sizes="96x96" href="${pageContext.request.contextPath}/assets/img/favicon.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="${pageContext.request.contextPath}/assets/img/favicon.png">
 </head>
 
 <body>
@@ -36,12 +46,15 @@
 						<div class="content">
 							<div class="header">
 								<div class="logo text-center">
-									<img src="${pageContext.request.contextPath}/assets/img/school.png" alt="연암공과대학교"><br>
-									<img src="${pageContext.request.contextPath}/assets/img/school-logo.png" alt="연암공과대학교 로고">
+									<img
+										src="${pageContext.request.contextPath}/assets/img/apple-icon.png"
+										alt="연암공과대학교 로고">
 								</div>
 								<p class="lead">Login to your account</p>
 							</div>
-							<form:form action="${pageContext.request.contextPath}/login" method="post" modelAttribute="loginRequest" class="form-auth-small">
+							<form:form action="${pageContext.request.contextPath}/login"
+								method="post" modelAttribute="loginRequest"
+								class="form-auth-small">
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
 									<form:input path="memberId" placeholder="ID"
@@ -59,14 +72,20 @@
 									<form:errors path="memberPassword" />
 								</div>
 								<div class="form-group clearfix">
-									<label class="fancy-checkbox element-left"> <input type="checkbox" name="memory"/> 
-									<span><spring:message code="memberId.remember" /></span>
+									<label class="fancy-checkbox element-left"> <input
+										type="checkbox" name="memory" /> <span><spring:message
+												code="memberId.remember" /></span>
 									</label>
 								</div>
 								<button id="btn_login" type="submit"
 									class="btn btn-primary btn-lg btn-block">
 									<spring:message code="btn.login" />
 								</button>
+								<div class="bottom">
+									<span class="helper-text"><a
+										href="${pageContext.request.contextPath}/signup/step1"><spring:message
+												code="register.member" /></a></span>
+								</div>
 							</form:form>
 						</div>
 					</div>
@@ -83,5 +102,19 @@
 	</div>
 	<!-- END WRAPPER -->
 </body>
+
+
+<script
+	src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/vendor/chartist/js/chartist.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/scripts/klorofil-common.js"></script>
 
 </html>

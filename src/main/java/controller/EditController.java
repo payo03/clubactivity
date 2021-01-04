@@ -13,6 +13,7 @@ import clubactivity.exception.MemberNotFoundException;
 import clubactivity.exception.WrongIdPasswordException;
 import clubactivity.service.ChangeNumberService;
 import clubactivity.service.ChangePasswordService;
+import clubactivity.service.LoginService;
 import clubactivity.vo.AuthInfo;
 import clubactivity.vo.ChangeNumberCommand;
 import clubactivity.vo.ChangePasswordCommand;
@@ -24,6 +25,7 @@ public class EditController {
 
 	private ChangePasswordService changePasswordService;
 	private ChangeNumberService changeNumberService;
+	private LoginService loginService;
 
 	@Autowired
 	public void setChangePasswordService(ChangePasswordService changePasswordService) {
@@ -35,14 +37,31 @@ public class EditController {
 		this.changeNumberService = changeNumberService;
 	}
 
+	@Autowired
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
+	}
+
+	// 회원정보 수정 버튼 클릭시
 	@GetMapping
-	public String check(Member member, HttpSession session) {
+	public String check(Member member) {
 		return "edit/passwordConfirm";
 	}
 
+	// 비밀번호 확인 버튼 클릭시
 	@PostMapping("/form")
-	public String form() {
-		return "edit/changeForm";
+	public String form(Member member, Errors errors, HttpSession session) throws MemberNotFoundException {
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
+
+		try {
+			loginService.selectMemberById(authInfo.getMemberId(), member.getMemberPassword());
+			
+			return "edit/changeForm";
+		} catch (MemberNotFoundException e) {
+			errors.rejectValue("memberPassword", "password.notMatch");
+
+			return "edit/passwordConfirm";
+		}
 	}
 
 	@GetMapping("/numberForm")
@@ -62,7 +81,7 @@ public class EditController {
 			return "edit/changeNumberForm";
 		}
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
-		
+
 		if (changeNumberCommand.getNewPhoneNumber() != "") {
 
 			changeNumberService.changeNumber(authInfo.getMemberId(), changeNumberCommand.getNewPhoneNumber());

@@ -10,25 +10,26 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <!-- VENDOR CSS -->
 <link rel="stylesheet"
-	href="assets/vendor/bootstrap/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="assets/vendor/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+	href="${pageContext.request.contextPath}/assets/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="assets/vendor/chartist/css/chartist-custom.css">
+	href="${pageContext.request.contextPath}/assets/vendor/linearicons/style.css">
 <!-- MAIN CSS -->
-<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/main.css">
 <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-<link rel="stylesheet" href="assets/css/demo.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/demo.css">
 <!-- GOOGLE FONTS -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
 	rel="stylesheet">
 <!-- ICONS -->
 <link rel="apple-touch-icon" sizes="76x76"
-	href="assets/img/apple-icon.png">
+	href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
 <link rel="icon" type="image/png" sizes="96x96"
-	href="assets/img/favicon.png">
+	href="${pageContext.request.contextPath}/assets/img/favicon.png">
 </head>
 
 <header>
@@ -80,15 +81,14 @@
 													code="register.member" /></a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="#"><i class="lnr lnr-user"></i> <span>My
-													Profile</span></a></li>
+										<li><a href="${pageContext.request.contextPath}/profile"><i
+												class="lnr lnr-user"></i> <spring:message code="profile" /></a></li>
 										<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 										<li><a href="${pageContext.request.contextPath}/edit"><i
-												class="lnr lnr-cog"></i>
-											<spring:message code="member.edit" /></a></li>
+												class="lnr lnr-cog"></i> <spring:message code="member.edit" /></a></li>
 										<li><a href="${pageContext.request.contextPath}/logout"><i
-												class="lnr lnr-exit"></i>
-											<spring:message code="title.logout" /></a></li>
+												class="lnr lnr-exit"></i> <spring:message
+													code="title.logout" /></a></li>
 									</c:otherwise>
 								</c:choose>
 							</ul></li>
@@ -97,16 +97,4 @@
 			</div>
 		</nav>
 	</div>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/scripts/klorofil-common.js"></script>
 </header>

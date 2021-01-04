@@ -7,6 +7,7 @@ import controller.EditController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
+import controller.ProfileController;
 
 @Configuration
 public class ControllerConfig {
@@ -29,5 +30,10 @@ public class ControllerConfig {
 	@Bean
 	public EditController editController() {
 		return new EditController();
+	}
+	
+	@Bean
+	public ProfileController profileController() {
+		return new ProfileController();
 	}
 }

@@ -18,12 +18,16 @@ public class LoginService {
 	private MemberDAO memberDAO;
 
 	@Transactional(rollbackFor=SQLException.class)
-	public AuthInfo selectMemberById(String memberId, String memberPassword) throws Exception {
+	public AuthInfo selectMemberById(String memberId, String memberPassword) throws MemberNotFoundException {
 		Member member = memberDAO.selectMemberById(memberId);
 		if (member == null) {
 			throw new MemberNotFoundException("not found");
 		}
+		if(!member.getMemberPassword().equals(memberPassword)) {
+			throw new MemberNotFoundException("wrong password");
+		}
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),
 				member.getMemberRegisterDate(), member.getMemberlevel());
 	}
+
 }
