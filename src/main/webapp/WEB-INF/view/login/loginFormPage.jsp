@@ -91,7 +91,7 @@
 					</div>
 					<div class="right">
 						<div class="content text">
-							<h1 class="heading">뉴칼라 인재를 만드는 연암공과대학교</h1>
+							<h1 class="heading"><spring:message code="schoolInfo" /></h1>
 							<p></p>
 						</div>
 					</div>

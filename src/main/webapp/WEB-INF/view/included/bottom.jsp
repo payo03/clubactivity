@@ -24,7 +24,7 @@
 
 <footer>
 	<br>
-	<div class="brand">
+	<div class="container-fluid">
 		<a href="${pageContext.request.contextPath}/home"><img
 			src="${pageContext.request.contextPath}/assets/img/logo-dark.png"
 			alt="Klorofil Logo" class="img-responsive logo"></a>

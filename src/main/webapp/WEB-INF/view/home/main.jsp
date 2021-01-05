@@ -37,20 +37,50 @@
 </head>
 
 <body>
-	<c:import url="../included/top.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+	<div id="wrapper">
+		<!-- HEADER -->
+		<c:import url="../included/top.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- HEADER END -->
 
-	<br>
-	<br>
-	<br>
-	<br> hidsfssfsfsdfsdsfdfsdfds
+		<!-- LEFT -->
+		<c:import url="../included/left.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- LEFT END -->
 
-	<br>
-	<c:import url="../included/bottom.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						<c:choose>
+							<c:when test="${empty sessionScope.login}">
+								<li><a href="${pageContext.request.contextPath}/login"><spring:message
+											code="title.login" /></a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/signup/step1"><spring:message
+											code="register.member" /></a></li>
+							</c:when>
+							<c:otherwise>
 
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MAIN END -->
+
+		<!-- FOOTER -->
+		<c:import url="../included/bottom.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- FOOTER END -->
+	</div>
 </body>
 
 <script

@@ -1,25 +1,27 @@
 package clubactivity.vo;
 
 public class MemberRegisterRequest {
-	
+
 	private String memberId;
 	private String memberPassword;
 	private String checkPassword;
 	private String memberName;
 	private String memberPhoneNumber;
-	
+	private String memberWebsite;
+
 	public MemberRegisterRequest() {
 		super();
 	}
 
 	public MemberRegisterRequest(String memberId, String memberPassword, String checkPassword, String memberName,
-			String memberPhoneNumber) {
+			String memberPhoneNumber, String memberWebsite) {
 		super();
 		this.memberId = memberId;
 		this.memberPassword = memberPassword;
 		this.checkPassword = checkPassword;
 		this.memberName = memberName;
 		this.memberPhoneNumber = memberPhoneNumber;
+		this.memberWebsite = memberWebsite;
 	}
 
 	public String getMemberId() {
@@ -61,7 +63,15 @@ public class MemberRegisterRequest {
 	public void setMemberPhoneNumber(String memberPhoneNumber) {
 		this.memberPhoneNumber = memberPhoneNumber;
 	}
-	
+
+	public String getMemberWebsite() {
+		return memberWebsite;
+	}
+
+	public void setMemberWebsite(String memberWebsite) {
+		this.memberWebsite = memberWebsite;
+	}
+
 	public boolean isPasswordEqualToCheckPassword() {
 		return memberPassword.equals(checkPassword);
 	}

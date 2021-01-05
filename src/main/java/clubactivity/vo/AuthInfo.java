@@ -3,20 +3,21 @@ package clubactivity.vo;
 import java.util.Date;
 
 public class AuthInfo {
-	
+
 	private String memberId;
 	private int memberNumber;
 	private String memberName;
 	private String memberPhoneNumber;
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
-	
+	private String memberWebsite;
+
 	public AuthInfo() {
 		super();
 	}
 
 	public AuthInfo(String memberId, int memberNumber, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel) {
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite) {
 		super();
 		this.memberId = memberId;
 		this.memberNumber = memberNumber;
@@ -24,6 +25,7 @@ public class AuthInfo {
 		this.memberPhoneNumber = memberPhoneNumber;
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
+		this.memberWebsite = memberWebsite;
 	}
 
 	public String getMemberId() {
@@ -72,6 +74,14 @@ public class AuthInfo {
 
 	public void setMemberlevel(Memberlevel memberlevel) {
 		this.memberlevel = memberlevel;
+	}
+
+	public String getMemberWebsite() {
+		return memberWebsite;
+	}
+
+	public void setMemberWebsite(String memberWebsite) {
+		this.memberWebsite = memberWebsite;
 	}
 
 }

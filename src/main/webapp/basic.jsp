@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -45,79 +44,27 @@
 			<c:param value="main" name="type" />
 		</c:import>
 		<!-- HEADER END -->
-
+		
 		<!-- LEFT -->
 		<c:import url="../included/left.jsp">
 			<c:param value="main" name="type" />
 		</c:import>
 		<!-- LEFT END -->
-
+		
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<div class="panel panel-profile">
-						<div class="clearfix">
-							<!-- LEFT COLUMN -->
-							<div class="profile-left">
-								<!-- PROFILE HEADER -->
-								<div class="profile-header">
-									<div class="overlay"></div>
-									<div class="profile-main">
-										<img
-											src="${pageContext.request.contextPath}/assets/img/user-medium.png"
-											class="img-circle" alt="Avatar">
-										<h3 class="name">${authInfo.memberName }</h3>
-										<span class="online-status status-available">Available</span>
-									</div>
-								</div>
-								<!-- END PROFILE HEADER -->
-								<!-- PROFILE DETAIL -->
-								<div class="profile-detail">
-									<div class="profile-info">
-										<h4 class="heading">Basic Info</h4>
-										<ul class="list-unstyled list-justify">
-											<li>Registration Date <span><fmt:formatDate
-														value="${authInfo.memberRegisterDate}"
-														pattern="yyyy-MM-dd" /></span></li>
-											<li>Mobile <span>${authInfo.memberPhoneNumber }</span></li>
-											<li>Email <span>${authInfo.memberId }</span></li>
-											<li>Website <span><a
-													href="${authInfo.memberWebsite }">${authInfo.memberWebsite }</a></span></li>
-										</ul>
-									</div>
-									<div class="profile-info">
-										<h4 class="heading">Social</h4>
-										<ul class="list-inline social-icons">
-											<li><a
-												href="https://www.facebook.com/profile.php?id=100034820436628"
-												class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-											<li><a href="https://github.com/payo03"
-												class="github-bg"><i class="fa fa-github"></i></a></li>
-										</ul>
-									</div>
-									<div class="profile-info">
-										<h4 class="heading">About</h4>
-										<p>${authInfo.memberlevel.memberLevelDescription }</p>
-									</div>
-									<div class="text-center">
-										<a href="${pageContext.request.contextPath}/edit"
-											class="btn btn-primary"><spring:message
-												code="member.edit" /></a>
-									</div>
-								</div>
-								<!-- END PROFILE DETAIL -->
-							</div>
-							<!-- END LEFT COLUMN -->
-
-						</div>
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- MAIN END -->
-
+		
 		<!-- FOOTER -->
 		<c:import url="../included/bottom.jsp">
 			<c:param value="main" name="type" />

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="title.change.number" /></title>
+<title><spring:message code="main" /></title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -37,36 +38,53 @@
 </head>
 
 <body>
+	<div id="wrapper">
+		<!-- HEADER -->
+		<c:import url="../included/top.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- HEADER END -->
 
-	<c:import url="../included/top.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+		<!-- LEFT -->
+		<c:import url="../included/left.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- LEFT END -->
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						<form:form
+							action="${pageContext.request.contextPath}/edit/changeNumber"
+							method="post" modelAttribute="changeNumberCommand">
+							<p>
+								<label><spring:message code="newPhoneNumber" /> : <form:input
+										path="newPhoneNumber" placeholder="newPhoneNumber"
+										onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'newPhoneNumber'"
+										onKeyup="inputPhoneNumber(this);" maxlength="13"
+										pattern=".{13,13}" /> <form:errors path="newPhoneNumber" />
+								</label>
+							</p>
+							<input type="submit" value="<spring:message code="btn.change" />"
+								class="btn btn-primary">
+						</form:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MAIN END -->
 
-	<form:form
-		action="${pageContext.request.contextPath}/edit/changeNumber"
-		method="post" modelAttribute="changeNumberCommand">
-		<p>
-			<label><spring:message code="newPhoneNumber" /> : <form:input
-					path="newPhoneNumber" placeholder="newPhoneNumber"
-					onfocus="this.placeholder = ''"
-					onblur="this.placeholder = 'newPhoneNumber'"
-					onKeyup="inputPhoneNumber(this);" maxlength="13" pattern=".{13,13}" />
-				<form:errors path="newPhoneNumber" /> </label>
-		</p>
-		<input type="submit" value="<spring:message code="btn.change" />"
-			class="btn btn-primary">
-	</form:form>
-
-	<c:import url="../included/bottom.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+		<!-- FOOTER -->
+		<c:import url="../included/bottom.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- FOOTER END -->
+	</div>
 
 	<script>
 		function inputPhoneNumber(obj) {

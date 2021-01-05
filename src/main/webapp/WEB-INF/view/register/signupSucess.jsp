@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="title.login" /></title>
+<title><spring:message code="main" /></title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -36,31 +37,39 @@
 	href="${pageContext.request.contextPath}/assets/img/favicon.png">
 </head>
 
-<body class="text-center">
+<body>
+	<div id="wrapper">
+		<!-- HEADER -->
+		<c:import url="../included/top.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- HEADER END -->
 
-	<c:import url="../included/top.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+		<!-- MAIN -->
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box lockscreen clearfix">
+					<div class="content">
+						<div class="logo text-center">
+							<p>
+								<spring:message code="done.register">
+									<spring:argument value="${memberRegisterRequest.memberName}" />
+									<spring:argument value="${memberRegisterRequest.memberId}" />
+								</spring:message>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MAIN END -->
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
-	<div id="main">
-		<p>
-			<spring:message code="done.register">
-				<spring:argument value="${memberRegisterRequest.memberName}" />
-				<spring:argument value="${memberRegisterRequest.memberId}" />
-			</spring:message>
-		</p>
+		<!-- FOOTER -->
+		<c:import url="../included/bottom.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- FOOTER END -->
 	</div>
-
-	<c:import url="../included/bottom.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
 </body>
 
 <script

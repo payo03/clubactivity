@@ -33,68 +33,65 @@
 </head>
 
 <header>
-	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand">
-				<a href="${pageContext.request.contextPath}/home"><img
-					src="${pageContext.request.contextPath}/assets/img/logo-dark.png"
-					alt="Klorofil Logo" class="img-responsive logo"></a>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="brand">
+			<a href="${pageContext.request.contextPath}/home"><img
+				src="${pageContext.request.contextPath}/assets/img/logo-dark.png"
+				alt="Klorofil Logo" class="img-responsive logo"></a>
+		</div>
+		<div class="container-fluid">
+			<div class="navbar-btn">
+				<button type="button" class="btn-toggle-fullwidth">
+					<i class="lnr lnr-arrow-left-circle"></i>
+				</button>
 			</div>
-			<div class="container-fluid">
-				<div class="navbar-btn">
-					<button type="button" class="btn-toggle-fullwidth">
-						<i class="lnr lnr-arrow-left-circle"></i>
-					</button>
-				</div>
 
-				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="#"
-							class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
-								class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
-						</a>
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span
-										class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span
-										class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span
-										class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span
-										class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span
-										class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"><img
-								src="${pageContext.request.contextPath}/assets/img/user.png"
-								class="img-circle" alt="image"> <span>${sessionScope.login.memberName}</span>
-								<i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<c:choose>
-									<c:when test="${empty sessionScope.login}">
-										<li><a href="${pageContext.request.contextPath}/login"><spring:message
-													code="title.login" /></a></li>
-										<li><a
-											href="${pageContext.request.contextPath}/signup/step1"><spring:message
-													code="register.member" /></a></li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath}/profile"><i
-												class="lnr lnr-user"></i> <spring:message code="profile" /></a></li>
-										<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-										<li><a href="${pageContext.request.contextPath}/edit"><i
-												class="lnr lnr-cog"></i> <spring:message code="member.edit" /></a></li>
-										<li><a href="${pageContext.request.contextPath}/logout"><i
-												class="lnr lnr-exit"></i> <spring:message
-													code="title.logout" /></a></li>
-									</c:otherwise>
-								</c:choose>
-							</ul></li>
-					</ul>
-				</div>
+			<div id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#"
+						class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
+							class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
+					</a>
+						<ul class="dropdown-menu notifications">
+							<li><a href="#" class="notification-item"><span
+									class="dot bg-warning"></span>System space is almost full</a></li>
+							<li><a href="#" class="notification-item"><span
+									class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+							<li><a href="#" class="notification-item"><span
+									class="dot bg-success"></span>Monthly report is available</a></li>
+							<li><a href="#" class="notification-item"><span
+									class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+							<li><a href="#" class="notification-item"><span
+									class="dot bg-success"></span>Your request has been approved</a></li>
+							<li><a href="#" class="more">See all notifications</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><img
+							src="${pageContext.request.contextPath}/assets/img/user.png"
+							class="img-circle" alt="image"> <span>${sessionScope.login.memberName}</span>
+							<i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+							<c:choose>
+								<c:when test="${empty sessionScope.login}">
+									<li><a href="${pageContext.request.contextPath}/login"><spring:message
+												code="title.login" /></a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/signup/step1"><spring:message
+												code="register.member" /></a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${pageContext.request.contextPath}/profile"><i
+											class="lnr lnr-user"></i> <spring:message code="profile" /></a></li>
+									<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+									<li><a href="${pageContext.request.contextPath}/edit"><i
+											class="lnr lnr-cog"></i> <spring:message code="member.edit" /></a></li>
+									<li><a href="${pageContext.request.contextPath}/logout"><i
+											class="lnr lnr-exit"></i> <spring:message code="title.logout" /></a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul></li>
+				</ul>
 			</div>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </header>

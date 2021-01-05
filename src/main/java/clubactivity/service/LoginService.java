@@ -27,7 +27,7 @@ public class LoginService {
 			throw new MemberNotFoundException("wrong password");
 		}
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),
-				member.getMemberRegisterDate(), member.getMemberlevel());
+				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite());
 	}
 
 }

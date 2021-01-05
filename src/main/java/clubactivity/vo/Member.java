@@ -8,7 +8,7 @@ import clubactivity.exception.WrongIdPasswordException;
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int memberNumber;
 	private String memberId;
 	private String memberPassword;
@@ -16,13 +16,14 @@ public class Member implements Serializable {
 	private String memberPhoneNumber;
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
-	
+	private String memberWebsite;
+
 	public Member() {
 		super();
 	}
-	
+
 	public Member(int memberNumber, String memberId, String memberPassword, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel) {
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite) {
 		super();
 		this.memberNumber = memberNumber;
 		this.memberId = memberId;
@@ -31,6 +32,7 @@ public class Member implements Serializable {
 		this.memberPhoneNumber = memberPhoneNumber;
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
+		this.memberWebsite = memberWebsite;
 	}
 
 	public int getMemberNumber() {
@@ -87,6 +89,18 @@ public class Member implements Serializable {
 
 	public void setMemberlevel(Memberlevel memberlevel) {
 		this.memberlevel = memberlevel;
+	}
+
+	public String getMemberWebsite() {
+		return memberWebsite;
+	}
+
+	public void setMemberWebsite(String memberWebsite) {
+		this.memberWebsite = memberWebsite;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void changePassword(String oldPassword, String newPassword) {

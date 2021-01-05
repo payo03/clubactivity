@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="register.member" /></title>
+<title><spring:message code="main" /></title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -37,79 +38,102 @@
 </head>
 
 <body>
-	<c:import url="../included/top.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
+	<div id="wrapper">
+		<!-- HEADER -->
+		<c:import url="../included/top.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- HEADER END -->
 
-	<div id="main">
-		<div style="text-align: left">
-			<form:form action="${pageContext.request.contextPath}/signup/step2"
-				method="post" modelAttribute="memberRegisterRequest"
-				onsubmit="return validate()">
-				<h1>
-					<spring:message code="register.member" />
-				</h1>
-				<br>
+		<!-- MAIN -->
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box lockscreen clearfix">
+					<div class="content">
+						<div class="logo text-center">
+							<form:form
+								action="${pageContext.request.contextPath}/signup/step2"
+								method="post" modelAttribute="memberRegisterRequest"
+								onsubmit="return validate()">
+								<h1>
+									<spring:message code="register.member" />
+								</h1>
+								<br>
+								<br>
 
-				<form:errors />
-				<br>
-				<br>
-				<label> <form:input path="memberId" placeholder="아이디"
-						onfocus="this.placeholder = 'ID'"
-						onblur="this.placeholder = '아이디'" />
-				</label>
-				<label> <form:errors path="memberId" />
-				</label>
+								<br>
+								<label> <form:input path="memberId" placeholder="EMAIL"
+										onfocus="this.placeholder = 'ID'"
+										onblur="this.placeholder = 'EMAIL'" />
+								</label>
+								<label> <form:errors path="memberId" />
+								</label>
 
-				<br>
+								<br>
+								<label> <form:password path="memberPassword"
+										placeholder="PASSWORD" onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'PASSWORD'" />
 
-				<label> <form:password path="memberPassword"
-						placeholder="비밀번호" onfocus="this.placeholder = ''"
-						onblur="this.placeholder = '비밀번호'" />
+								</label>
+								<label> <form:errors path="memberPassword" />
+								</label>
 
-				</label>
-				<label> <form:errors path="memberPassword" />
-				</label>
+								<br>
+								<label> <form:password path="checkPassword"
+										placeholder="PASSWORD"
+										onfocus="this.placeholder = 'CHECK PASSWORD'"
+										onblur="this.placeholder = 'PASSWORD'" />
+								</label>
+								<label> <form:errors path="checkPassword" />
+								</label>
 
-				<br>
-				<label> <form:password path="checkPassword"
-						placeholder="비밀번호 확인" onfocus="this.placeholder = ''"
-						onblur="this.placeholder = '비밀번호 확인'" />
-				</label>
-				<label> <form:errors path="checkPassword" />
-				</label>
+								<br>
+								<label> <form:input path="memberName" placeholder="NAME"
+										onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'NAME'" />
+								</label>
+								<label> <form:errors path="memberName" />
+								</label>
 
-				<br>
-				<label> <form:input path="memberName" placeholder="이름"
-						onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'" />
-				</label>
-				<label> <form:errors path="memberName" />
-				</label>
-				<br>
-				<label> <form:input path="memberPhoneNumber"
-						placeholder="전화번호" onfocus="this.placeholder = ''"
-						onblur="this.placeholder = '전화번호'"
-						onKeyup="inputPhoneNumber(this);" maxlength="13"
-						pattern=".{13,13}" />
+								<br>
+								<label> <form:input path="memberPhoneNumber"
+										placeholder="PHONE" onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'PHONE'"
+										onKeyup="inputPhoneNumber(this);" maxlength="13"
+										pattern=".{13,13}" />
 
-				</label>
-				<label> <form:errors path="memberPhoneNumber" />
-				</label>
-				<br>
+								</label>
+								<label> <form:errors path="memberPhoneNumber" />
+								</label>
 
-				<button id="btn_register" type="submit">
-					<spring:message code="btn.register" />
-				</button>
-				<br>
-			</form:form>
+								<br>
+								<label> <form:input path="memberWebsite"
+										placeholder="WEBSITE" onfocus="this.placeholder = 'https://'"
+										onblur="this.placeholder = 'WEBSITE'" />
 
+								</label>
+								<label> <form:errors path="memberWebsite" />
+								</label>
+
+								<br>
+								<button id="btn_register" type="submit">
+									<spring:message code="btn.register" />
+								</button>
+								<br>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<!-- MAIN END -->
+
+		<!-- FOOTER -->
+		<c:import url="../included/bottom.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- FOOTER END -->
 	</div>
-
-	<c:import url="../included/bottom.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
-
 	<script>
 		function inputPhoneNumber(obj) {
 
@@ -139,6 +163,7 @@
 		}
 	</script>
 </body>
+
 <script defer type="text/javascript" charset="utf-8">
 	 $("#btn_register").click(function() {
 		if ($("#memberId").val() == "") {

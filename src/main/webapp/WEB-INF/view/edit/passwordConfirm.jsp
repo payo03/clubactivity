@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 
@@ -38,18 +38,14 @@
 </head>
 
 <body>
-	<c:import url="../included/top.jsp">
-		<c:param value="main" name="type" />
-	</c:import>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
 	<div id="wrapper">
+		<!-- HEADER -->
+		<c:import url="../included/top.jsp">
+			<c:param value="main" name="type" />
+		</c:import>
+		<!-- HEADER END -->
+
+		<!-- MAIN -->
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
 				<div class="auth-box lockscreen clearfix">
@@ -75,17 +71,21 @@
 										<i class="fa fa-arrow-right"></i>
 									</button></span>
 							</div>
+							<form:errors path="memberPassword" />
 						</form:form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- MAIN END -->
 
+	<!-- FOOTER -->
 	<c:import url="../included/bottom.jsp">
 		<c:param value="main" name="type" />
 	</c:import>
-
+	<!-- FOOTER END -->
+	</div>
 </body>
 
 <script
@@ -100,5 +100,5 @@
 	src="${pageContext.request.contextPath}/assets/vendor/chartist/js/chartist.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/assets/scripts/klorofil-common.js"></script>
-	
+
 </html>
