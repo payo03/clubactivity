@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <head>
 <meta charset="utf-8">
@@ -46,37 +47,60 @@
 				</button>
 			</div>
 
+			<form:form class="navbar-form navbar-left">
+				<div class="input-group">
+					<input type="text" value="" class="form-control"
+						placeholder="Search dashboard..."> <span
+						class="input-group-btn"><button type="button"
+							class="btn btn-primary">Go</button></span>
+				</div>
+			</form:form>
+			
 			<div id="navbar-menu">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#"
-						class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
-							class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
-					</a>
-						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span
-									class="dot bg-warning"></span>System space is almost full</a></li>
-							<li><a href="#" class="notification-item"><span
-									class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-							<li><a href="#" class="notification-item"><span
-									class="dot bg-success"></span>Monthly report is available</a></li>
-							<li><a href="#" class="notification-item"><span
-									class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-							<li><a href="#" class="notification-item"><span
-									class="dot bg-success"></span>Your request has been approved</a></li>
-							<li><a href="#" class="more">See all notifications</a></li>
-						</ul></li>
+					<c:choose>
+						<c:when test="${!empty sessionScope.login}">
+							<li class="dropdown"><a href="#"
+								class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
+									class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
+							</a>
+								<ul class="dropdown-menu notifications">
+									<li><a href="#" class="notification-item"><span
+											class="dot bg-warning"></span>System space is almost full</a></li>
+									<li><a href="#" class="notification-item"><span
+											class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+									<li><a href="#" class="notification-item"><span
+											class="dot bg-success"></span>Monthly report is available</a></li>
+									<li><a href="#" class="notification-item"><span
+											class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+									<li><a href="#" class="notification-item"><span
+											class="dot bg-success"></span>Your request has been approved</a></li>
+									<li><a href="#" class="more">See all notifications</a></li>
+								</ul></li>
+						</c:when>
+					</c:choose>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><img
-							src="${pageContext.request.contextPath}/assets/img/user.png"
-							class="img-circle" alt="image"> <span>${sessionScope.login.memberName}</span>
-							<i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						data-toggle="dropdown"> <c:choose>
+								<c:when test="${!empty sessionScope.login}">
+									<img
+										src="${pageContext.request.contextPath}/assets/img/user.png"
+										class="img-circle" alt="image">
+								</c:when>
+								<c:otherwise>
+									<img
+										src="${pageContext.request.contextPath}/assets/img/favicon.png"
+										class="img-circle" alt="image">
+								</c:otherwise>
+							</c:choose><span>${sessionScope.login.memberName}</span> <i
+							class="icon-submenu lnr lnr-chevron-down"></i></a>
 						<ul class="dropdown-menu">
 							<c:choose>
 								<c:when test="${empty sessionScope.login}">
-									<li><a href="${pageContext.request.contextPath}/login"><spring:message
-												code="title.login" /></a></li>
+									<li><a href="${pageContext.request.contextPath}/login"><i
+											class="lnr lnr-enter"></i> <spring:message code="title.login" /></a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/signup/step1"><spring:message
+										href="${pageContext.request.contextPath}/signup/step1"><i
+											class="lnr lnr-pencil"></i> <spring:message
 												code="register.member" /></a></li>
 								</c:when>
 								<c:otherwise>

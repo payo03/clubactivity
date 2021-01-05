@@ -48,75 +48,78 @@
 		<!-- MAIN -->
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
-				<div class="auth-box lockscreen clearfix">
+				<div class="auth-box" style="width: 40%;">
 					<div class="content">
 						<div class="logo text-center">
 							<form:form
 								action="${pageContext.request.contextPath}/signup/step2"
 								method="post" modelAttribute="memberRegisterRequest"
 								onsubmit="return validate()">
-								<h1>
+								<h3>
 									<spring:message code="register.member" />
-								</h1>
-								<br>
+								</h3>
 								<br>
 
-								<br>
-								<label> <form:input path="memberId" placeholder="EMAIL"
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:input path="memberId" placeholder="EMAIL"
 										onfocus="this.placeholder = 'ID'"
-										onblur="this.placeholder = 'EMAIL'" />
-								</label>
-								<label> <form:errors path="memberId" />
-								</label>
-
+										onblur="this.placeholder = 'EMAIL'" class="form-control" />
+								</div>
+								<form:errors path="memberId" />
 								<br>
-								<label> <form:password path="memberPassword"
+								
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:password path="memberPassword"
 										placeholder="PASSWORD" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'PASSWORD'" />
-
-								</label>
-								<label> <form:errors path="memberPassword" />
-								</label>
-
+										onblur="this.placeholder = 'PASSWORD'" class="form-control" />
+								</div>
+								<form:errors path="memberPassword" />
 								<br>
-								<label> <form:password path="checkPassword"
+
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:password path="checkPassword"
 										placeholder="PASSWORD"
 										onfocus="this.placeholder = 'CHECK PASSWORD'"
-										onblur="this.placeholder = 'PASSWORD'" />
-								</label>
-								<label> <form:errors path="checkPassword" />
-								</label>
-
+										onblur="this.placeholder = 'PASSWORD'" class="form-control" />
+								</div>
+								<form:errors path="checkPassword" />
 								<br>
-								<label> <form:input path="memberName" placeholder="NAME"
+
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:input path="memberName" placeholder="NAME"
 										onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'NAME'" />
-								</label>
-								<label> <form:errors path="memberName" />
-								</label>
-
+										onblur="this.placeholder = 'NAME'" class="form-control" />
+								</div>
+								<form:errors path="memberName" />
 								<br>
-								<label> <form:input path="memberPhoneNumber"
+
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:input path="memberPhoneNumber"
 										placeholder="PHONE" onfocus="this.placeholder = ''"
 										onblur="this.placeholder = 'PHONE'"
 										onKeyup="inputPhoneNumber(this);" maxlength="13"
-										pattern=".{13,13}" />
+										pattern=".{13,13}" class="form-control" />
 
-								</label>
-								<label> <form:errors path="memberPhoneNumber" />
-								</label>
-
+								</div>
+								<form:errors path="memberPhoneNumber" />
 								<br>
-								<label> <form:input path="memberWebsite"
+
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<form:input path="memberWebsite"
 										placeholder="WEBSITE" onfocus="this.placeholder = 'https://'"
-										onblur="this.placeholder = 'WEBSITE'" />
+										onblur="this.placeholder = 'WEBSITE'" class="form-control" />
 
-								</label>
-								<label> <form:errors path="memberWebsite" />
-								</label>
-
+								</div>
+								<form:errors path="memberWebsite" />
 								<br>
-								<button id="btn_register" type="submit">
+
+								<button id="btn_register" type="submit" class="btn btn-primary">
 									<spring:message code="btn.register" />
 								</button>
 								<br>

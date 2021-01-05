@@ -101,11 +101,6 @@
 										<h4 class="heading">About</h4>
 										<p>${authInfo.memberlevel.memberLevelDescription }</p>
 									</div>
-									<div class="text-center">
-										<a href="${pageContext.request.contextPath}/edit"
-											class="btn btn-primary"><spring:message
-												code="member.edit" /></a>
-									</div>
 								</div>
 								<!-- END PROFILE DETAIL -->
 							</div>

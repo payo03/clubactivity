@@ -1068,14 +1068,16 @@ ul.activity-list > li {
     text-align: center; }
   .auth-box.lockscreen {
     width: 50%;
-    padding: 40px 60px; }
+    padding: 40px 60px;
+    margin-bottom: 30px; }
     .auth-box.lockscreen .logo {
       margin-bottom: 30px; }
     .auth-box.lockscreen .user {
       margin-bottom: 30px; }
       .auth-box.lockscreen .user .name {
         font-size: 18px;
-        margin-top: 10px; }
+        margin-top: 10px;
+        margin-bottom: 30px; }
   @media screen and (min-width: 1440px) {
     .auth-box.lockscreen {
       width: 35%; } }

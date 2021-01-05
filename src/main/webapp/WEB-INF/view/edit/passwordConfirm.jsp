@@ -85,7 +85,6 @@
 		<c:param value="main" name="type" />
 	</c:import>
 	<!-- FOOTER END -->
-	</div>
 </body>
 
 <script

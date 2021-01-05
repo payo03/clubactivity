@@ -41,7 +41,7 @@
 	<div id="wrapper">
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
-				<div class="auth-box ">
+				<div class="auth-box">
 					<div class="left">
 						<div class="content">
 							<div class="header">
@@ -95,7 +95,6 @@
 							<p></p>
 						</div>
 					</div>
-					<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
