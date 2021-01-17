@@ -14,12 +14,8 @@ import clubactivity.vo.Member;
 @Component
 public class ChangeNumberService {
 	
-	private MemberDAO memberDAO;
-
 	@Autowired
-	public void setMemberDao(MemberDAO memberDAO) {
-		this.memberDAO = memberDAO;
-	}
+	private MemberDAO memberDAO;
 	
 	@Transactional(rollbackFor=SQLException.class)
 	public void changeNumber(String memberId, String newNumber) throws MemberNotFoundException, WrongIdPasswordException {

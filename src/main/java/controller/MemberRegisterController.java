@@ -19,12 +19,8 @@ import clubactivity.vo.MemberRegisterRequest;
 @RequestMapping("/signup")
 public class MemberRegisterController {
 
-	private MemberRegisterService memberRegisterService;
-
 	@Autowired
-	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
-		this.memberRegisterService = memberRegisterService;
-	}
+	private MemberRegisterService memberRegisterService;
 
 	public MemberRegisterController() {
 		super();

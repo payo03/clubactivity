@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import interceptor.AdminCheckInterceptor;
 import interceptor.AuthCheckInterceptor;
 
 
@@ -31,12 +32,14 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/home").setViewName("home/main");
+		registry.addViewController("/profile").setViewName("profile/info");
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/edit/**").addPathPatterns("/profile/**")
+		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/edit/**", "/profile/**", "/admin/**")
 				.excludePathPatterns("/edit/help/**");
+		registry.addInterceptor(adminCheckInterceptor()).addPathPatterns("/admin/**");
 	}
 	
 	@Bean
@@ -51,6 +54,11 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Bean
 	public AuthCheckInterceptor authCheckInterceptor() {
 		return new AuthCheckInterceptor();
+	}
+	
+	@Bean
+	public AdminCheckInterceptor adminCheckInterceptor() {
+		return new AdminCheckInterceptor();
 	}
 
 }

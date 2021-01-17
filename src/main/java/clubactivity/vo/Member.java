@@ -3,8 +3,6 @@ package clubactivity.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import clubactivity.exception.WrongIdPasswordException;
-
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -104,8 +102,6 @@ public class Member implements Serializable {
 	}
 
 	public void changePassword(String oldPassword, String newPassword) {
-		if (!memberPassword.contentEquals(oldPassword))
-			throw new WrongIdPasswordException("not Matching");
 		this.memberPassword = newPassword;
 	}
 

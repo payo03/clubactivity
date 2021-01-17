@@ -3,6 +3,7 @@ package clubactivity.service;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,21 +15,23 @@ import clubactivity.vo.Member;
 @Component
 public class ChangePasswordService {
 	
-	private MemberDAO memberDAO;
-
 	@Autowired
-	public void setMemberDao(MemberDAO memberDAO) {
-		this.memberDAO = memberDAO;
-	}
+	private MemberDAO memberDAO;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Transactional(rollbackFor=SQLException.class)
-	public void changePassword(String memberId, String oldPassword, String newPassword) throws MemberNotFoundException, WrongIdPasswordException {
+	public void changePassword(String memberId, String oldPassword, String newPassword) throws Exception {
 		Member member = memberDAO.selectMemberById(memberId);
 		if(member == null) {
 			throw new MemberNotFoundException("NOT FOUND");
 		}
+		if (!bCryptPasswordEncoder.matches(oldPassword, member.getMemberPassword())) {
+			throw new WrongIdPasswordException("password.notMatch");
+		}
 		
-		member.changePassword(oldPassword, newPassword);
+		member.changePassword(oldPassword, bCryptPasswordEncoder.encode(newPassword));
 		memberDAO.updatePassword(member);
 	}
 

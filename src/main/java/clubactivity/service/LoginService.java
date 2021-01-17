@@ -3,6 +3,7 @@ package clubactivity.service;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,9 @@ public class LoginService {
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Transactional(rollbackFor=SQLException.class)
 	public AuthInfo selectMemberById(String memberId, String memberPassword) throws MemberNotFoundException {
@@ -23,7 +27,8 @@ public class LoginService {
 		if (member == null) {
 			throw new MemberNotFoundException("not found");
 		}
-		if(!member.getMemberPassword().equals(memberPassword)) {
+		// param1 : 사용자 입력값, param2 : 암호화된 값
+		if(!bCryptPasswordEncoder.matches(memberPassword, member.getMemberPassword())) {
 			throw new MemberNotFoundException("wrong password");
 		}
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),

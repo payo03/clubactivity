@@ -24,12 +24,8 @@ import clubactivity.vo.LoginRequest;
 @RequestMapping("/login")
 public class LoginController {
 
-	private LoginService loginService;
-
 	@Autowired
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
-	}
+	private LoginService loginService;
 
 	public LoginController() {
 		super();

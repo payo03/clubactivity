@@ -45,10 +45,12 @@
 		</c:import>
 		<!-- HEADER END -->
 
+		<br>
 		<!-- MAIN -->
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
-				<div class="auth-box" style="width: 40%;">
+				<div class="auth-box lockscreen"
+					style="width: 40%; height: 80%">
 					<div class="content">
 						<div class="logo text-center">
 							<form:form
@@ -59,7 +61,6 @@
 									<spring:message code="register.member" />
 								</h3>
 								<br>
-
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user"></i></span>
 									<form:input path="memberId" placeholder="EMAIL"
@@ -68,20 +69,19 @@
 								</div>
 								<form:errors path="memberId" />
 								<br>
-								
+
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<form:password path="memberPassword"
-										placeholder="PASSWORD" onfocus="this.placeholder = ''"
+									<span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
+									<form:password path="memberPassword" placeholder="PASSWORD"
+										onfocus="this.placeholder = ''"
 										onblur="this.placeholder = 'PASSWORD'" class="form-control" />
 								</div>
 								<form:errors path="memberPassword" />
 								<br>
 
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<form:password path="checkPassword"
-										placeholder="PASSWORD"
+									<span class="input-group-addon"><i class="lnr lnr-lock"></i></span>
+									<form:password path="checkPassword" placeholder="PASSWORD"
 										onfocus="this.placeholder = 'CHECK PASSWORD'"
 										onblur="this.placeholder = 'PASSWORD'" class="form-control" />
 								</div>
@@ -98,9 +98,10 @@
 								<br>
 
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<form:input path="memberPhoneNumber"
-										placeholder="PHONE" onfocus="this.placeholder = ''"
+									<span class="input-group-addon"><i
+										class="lnr lnr-smartphone"></i></span>
+									<form:input path="memberPhoneNumber" placeholder="PHONE"
+										onfocus="this.placeholder = ''"
 										onblur="this.placeholder = 'PHONE'"
 										onKeyup="inputPhoneNumber(this);" maxlength="13"
 										pattern=".{13,13}" class="form-control" />
@@ -110,9 +111,9 @@
 								<br>
 
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<form:input path="memberWebsite"
-										placeholder="WEBSITE" onfocus="this.placeholder = 'https://'"
+									<span class="input-group-addon"><i class="lnr lnr-home"></i></span>
+									<form:input path="memberWebsite" placeholder="WEBSITE"
+										onfocus="this.placeholder = 'https://'"
 										onblur="this.placeholder = 'WEBSITE'" class="form-control" />
 
 								</div>

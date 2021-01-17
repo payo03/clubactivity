@@ -44,7 +44,8 @@
 			<c:param value="main" name="type" />
 		</c:import>
 		<!-- HEADER END -->
-
+		
+		<br>
 		<!-- MAIN -->
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
@@ -61,10 +62,10 @@
 								class="img-circle" alt="Avatar">
 							<h2 class="name">${sessionScope.login.memberName }</h2>
 						</div>
-						<form:form action="${pageContext.request.contextPath}/edit/form"
+						<form:form action="${pageContext.request.contextPath}/edit"
 							method="post" modelAttribute="member">
 							<div class="input-group">
-								<form:input path="memberPassword" class="form-control"
+								<form:password path="memberPassword" class="form-control"
 									placeholder="Enter your password ..." />
 								<span class="input-group-btn"><button type="submit"
 										class="btn btn-primary">

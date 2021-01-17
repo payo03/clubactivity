@@ -21,26 +21,16 @@ import clubactivity.vo.Member;
 
 @Controller
 @RequestMapping("/edit")
-public class EditController {
+public class MemberEditController {
 
+	@Autowired
 	private ChangePasswordService changePasswordService;
+	
+	@Autowired
 	private ChangeNumberService changeNumberService;
+	
+	@Autowired
 	private LoginService loginService;
-
-	@Autowired
-	public void setChangePasswordService(ChangePasswordService changePasswordService) {
-		this.changePasswordService = changePasswordService;
-	}
-
-	@Autowired
-	public void setChangeNumberService(ChangeNumberService changeNumberService) {
-		this.changeNumberService = changeNumberService;
-	}
-
-	@Autowired
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
-	}
 
 	// 회원정보 수정 버튼 클릭시
 	@GetMapping
@@ -49,7 +39,7 @@ public class EditController {
 	}
 
 	// 비밀번호 확인 버튼 클릭시
-	@PostMapping("/form")
+	@PostMapping
 	public String form(Member member, Errors errors, HttpSession session) throws MemberNotFoundException {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
 
@@ -64,38 +54,14 @@ public class EditController {
 		}
 	}
 
-	@GetMapping("/numberForm")
-	public String numberform(ChangeNumberCommand changeNumberCommand, HttpSession session) {
-		return "edit/changeNumberForm";
-	}
-
-	@GetMapping("/passwordForm")
+	@GetMapping("/changePassword")
 	public String passwordform(ChangePasswordCommand changePasswordCommand, HttpSession session) {
 		return "edit/changePasswordForm";
 	}
 
-	@PostMapping("/changeNumber")
-	public String submitNumber(ChangeNumberCommand changeNumberCommand, Errors errors, HttpSession session)
-			throws MemberNotFoundException {
-		if (errors.hasErrors()) {
-			return "edit/changeNumberForm";
-		}
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
-
-		if (changeNumberCommand.getNewPhoneNumber() != "") {
-
-			changeNumberService.changeNumber(authInfo.getMemberId(), changeNumberCommand.getNewPhoneNumber());
-
-			return "edit/changeNumber";
-		}
-		errors.rejectValue("newPhoneNumber", "phoneNumber.null");
-
-		return "edit/changeNumberForm";
-	}
-
 	@PostMapping("/changePassword")
 	public String submitPassword(ChangePasswordCommand changePasswordCommand, Errors errors, HttpSession session)
-			throws MemberNotFoundException {
+			throws Exception {
 		if (errors.hasErrors()) {
 			return "edit/changePasswordForm";
 		}
@@ -116,6 +82,30 @@ public class EditController {
 
 			return "edit/changePasswordForm";
 		}
+	}
+
+	@GetMapping("/changeNumber")
+	public String numberform(ChangeNumberCommand changeNumberCommand, HttpSession session) {
+		return "edit/changeNumberForm";
+	}
+	
+	@PostMapping("/changeNumber")
+	public String submitNumber(ChangeNumberCommand changeNumberCommand, Errors errors, HttpSession session)
+			throws MemberNotFoundException {
+		if (errors.hasErrors()) {
+			return "edit/changeNumberForm";
+		}
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
+
+		if (changeNumberCommand.getNewPhoneNumber() != "") {
+
+			changeNumberService.changeNumber(authInfo.getMemberId(), changeNumberCommand.getNewPhoneNumber());
+
+			return "edit/changeNumber";
+		}
+		errors.rejectValue("newPhoneNumber", "phoneNumber.null");
+
+		return "edit/changeNumberForm";
 	}
 
 }

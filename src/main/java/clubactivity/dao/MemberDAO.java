@@ -13,14 +13,14 @@ public interface MemberDAO {
 
 	Member selectMemberById(@Param("memberId") String memberId);
 
-	int insertMember(MemberRegisterRequest memberRegisterRequest);
+	int insertMember(@Param("memberRegisterRequest") MemberRegisterRequest memberRegisterRequest);
 
-	int selectById(String memberId);
+	int selectById(@Param("memberId") String memberId);
 
 	int updateAuthStatus(String memberId);
 
-	int updatePassword(Member member);
+	void updatePassword(@Param("member") Member member);
 
-	void updateNumber(Member member);
+	void updateNumber(@Param("member") Member member);
 	
 }

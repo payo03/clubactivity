@@ -47,8 +47,7 @@
 							<div class="header">
 								<div class="logo text-center">
 									<img
-										src="${pageContext.request.contextPath}/assets/img/apple-icon.png"
-										alt="연암공과대학교 로고">
+										src="${pageContext.request.contextPath}/assets/img/apple-icon.png">
 								</div>
 								<p class="lead">Login to your account</p>
 							</div>
@@ -91,7 +90,9 @@
 					</div>
 					<div class="right">
 						<div class="content text">
-							<h1 class="heading"><spring:message code="schoolInfo" /></h1>
+							<h1 class="heading">
+								<spring:message code="schoolInfo" />
+							</h1>
 							<p></p>
 						</div>
 					</div>

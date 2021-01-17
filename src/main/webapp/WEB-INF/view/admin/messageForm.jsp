@@ -57,11 +57,32 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- OVERVIEW -->
-					<div class="panel panel-headline">
-						<a href="${pageContext.request.contextPath}/edit/changeNumber"><spring:message
-								code="number.edit" /></a> <br> <a
-							href="${pageContext.request.contextPath}/edit/changePassword"><spring:message
-								code="password.edit" /></a>
+					<h3 class="page-title">
+						<spring:message code="admin.member.message" />
+					</h3>
+					<div class="row">
+						<div class="panel">
+							<div class="panel-heading">
+								<h3>To : ${member.memberName }</h3>
+							</div>
+							<div class="panel-body">
+								<form:form
+									action="${pageContext.request.contextPath}/admin/messageSend"
+									modelAttribute="messagecommand">
+									<input type="hidden" name="memberNumber"
+										value="${member.memberNumber }" />
+									<form:input path="title" class="form-control"
+										placeholder="TITLE" />
+									<br>
+									<textarea name="message" class="form-control"
+										placeholder="write message..." rows="6"></textarea>
+									<br>
+									<button type="submit" class="btn btn-default">
+										<i class="fa fa-plus-square"></i> SEND
+									</button>
+								</form:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

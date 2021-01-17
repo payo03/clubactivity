@@ -62,12 +62,12 @@
 							action="${pageContext.request.contextPath}/edit/changePassword"
 							method="post" modelAttribute="changePasswordCommand">
 							<p>
-								<label><spring:message code="currentPassword" /> <form:input
+								<label><spring:message code="currentPassword" /> <form:password
 										path="currentPassword" /> <form:errors path="currentPassword" />
 								</label>
 							</p>
 							<p>
-								<label><spring:message code="newPassword" /> <form:input
+								<label><spring:message code="newPassword" /> <form:password
 										path="newPassword" /> <form:errors path="newPassword" /> </label>
 							</p>
 							<input type="submit" value="<spring:message code="btn.change" />">

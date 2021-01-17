@@ -47,7 +47,7 @@
 				</button>
 			</div>
 
-			<form:form class="navbar-form navbar-left">
+			<form:form action="#" class="navbar-form navbar-left">
 				<div class="input-group">
 					<input type="text" value="" class="form-control"
 						placeholder="Search dashboard..."> <span
@@ -55,7 +55,7 @@
 							class="btn btn-primary">Go</button></span>
 				</div>
 			</form:form>
-			
+
 			<div id="navbar-menu">
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
@@ -105,15 +105,20 @@
 								</c:when>
 								<c:otherwise>
 									<li><a href="${pageContext.request.contextPath}/profile"><i
-											class="lnr lnr-user"></i> <spring:message code="profile" /></a></li>
+											class="lnr lnr-user"></i> <span>Profile</span></a></li>
 									<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/edit"><i
-											class="lnr lnr-cog"></i> <spring:message code="member.edit" /></a></li>
+											class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"><i
-											class="lnr lnr-exit"></i> <spring:message code="title.logout" /></a></li>
+											class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul></li>
+					<li><c:if
+							test="${sessionScope.login.memberlevel.memberLevelCode eq 0}">
+							<a href="${pageContext.request.contextPath}/admin/memberList"><i
+								class="lnr lnr-cog"></i></a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>

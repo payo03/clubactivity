@@ -68,7 +68,7 @@
 										<img
 											src="${pageContext.request.contextPath}/assets/img/user-medium.png"
 											class="img-circle" alt="Avatar">
-										<h3 class="name">${authInfo.memberName }</h3>
+										<h3 class="name">${sessionScope.login.memberName }</h3>
 										<span class="online-status status-available">Available</span>
 									</div>
 								</div>
@@ -79,12 +79,12 @@
 										<h4 class="heading">Basic Info</h4>
 										<ul class="list-unstyled list-justify">
 											<li>Registration Date <span><fmt:formatDate
-														value="${authInfo.memberRegisterDate}"
+														value="${sessionScope.login.memberRegisterDate}"
 														pattern="yyyy-MM-dd" /></span></li>
-											<li>Mobile <span>${authInfo.memberPhoneNumber }</span></li>
-											<li>Email <span>${authInfo.memberId }</span></li>
+											<li>Mobile <span>${sessionScope.login.memberPhoneNumber }</span></li>
+											<li>Email <span>${sessionScope.login.memberId }</span></li>
 											<li>Website <span><a
-													href="${authInfo.memberWebsite }">${authInfo.memberWebsite }</a></span></li>
+													href="${sessionScope.login.memberWebsite }">${sessionScope.login.memberWebsite }</a></span></li>
 										</ul>
 									</div>
 									<div class="profile-info">
@@ -99,7 +99,7 @@
 									</div>
 									<div class="profile-info">
 										<h4 class="heading">About</h4>
-										<p>${authInfo.memberlevel.memberLevelDescription }</p>
+										<p>${sessionScope.login.memberlevel.memberLevelDescription }</p>
 									</div>
 								</div>
 								<!-- END PROFILE DETAIL -->
