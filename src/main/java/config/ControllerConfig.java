@@ -9,6 +9,8 @@ import controller.MemberEditController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
+import controller.MessageDetailController;
+import controller.MessageListController;
 import controller.admin.MemberListController;
 import controller.admin.MessageSendController;
 
@@ -49,6 +51,16 @@ public class ControllerConfig {
 	@Bean
 	public MessageSendController messageSendController() {
 		return new MessageSendController();
+	}
+	
+	@Bean
+	public MessageDetailController messageDetailController() {
+		return new MessageDetailController();
+	}
+	
+	@Bean
+	public MessageListController messageListController() {
+		return new MessageListController();
 	}
 	
 }

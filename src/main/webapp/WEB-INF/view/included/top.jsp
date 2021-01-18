@@ -62,20 +62,19 @@
 						<c:when test="${!empty sessionScope.login}">
 							<li class="dropdown"><a href="#"
 								class="dropdown-toggle icon-menu" data-toggle="dropdown"> <i
-									class="lnr lnr-alarm"></i> <span class="badge bg-danger">5</span>
-							</a>
+									class="lnr lnr-alarm"></i> <span class="badge bg-danger"><c:if
+											test="${!empty sessionScope.messageLength}">${sessionScope.messageLength }</c:if></span></a>
 								<ul class="dropdown-menu notifications">
-									<li><a href="#" class="notification-item"><span
-											class="dot bg-warning"></span>System space is almost full</a></li>
-									<li><a href="#" class="notification-item"><span
-											class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-									<li><a href="#" class="notification-item"><span
-											class="dot bg-success"></span>Monthly report is available</a></li>
-									<li><a href="#" class="notification-item"><span
-											class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-									<li><a href="#" class="notification-item"><span
-											class="dot bg-success"></span>Your request has been approved</a></li>
-									<li><a href="#" class="more">See all notifications</a></li>
+									<c:forEach var="messagecommand"
+										items="${sessionScope.login.messagecommand }"
+										varStatus="status">
+										<li><a
+											href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}"
+											class="notification-item"><span class="dot bg-danger"></span>${messagecommand.title }</a></li>
+									</c:forEach>
+									<li><a
+										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"
+										class="more">See all notifications</a></li>
 								</ul></li>
 						</c:when>
 					</c:choose>
@@ -106,7 +105,9 @@
 								<c:otherwise>
 									<li><a href="${pageContext.request.contextPath}/profile"><i
 											class="lnr lnr-user"></i> <span>Profile</span></a></li>
-									<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"><i
+											class="lnr lnr-envelope"></i> <span>Message<span class="badge">4</span></span></a></li>
 									<li><a href="${pageContext.request.contextPath}/edit"><i
 											class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"><i

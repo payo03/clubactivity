@@ -1,6 +1,7 @@
 package clubactivity.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class AuthInfo {
 
@@ -11,13 +12,15 @@ public class AuthInfo {
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
 	private String memberWebsite;
+	private List<Messagecommand> messagecommand;
 
 	public AuthInfo() {
 		super();
 	}
 
 	public AuthInfo(String memberId, int memberNumber, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite) {
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite,
+			List<Messagecommand> messagecommand) {
 		super();
 		this.memberId = memberId;
 		this.memberNumber = memberNumber;
@@ -26,6 +29,7 @@ public class AuthInfo {
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
 		this.memberWebsite = memberWebsite;
+		this.messagecommand = messagecommand;
 	}
 
 	public String getMemberId() {
@@ -82,6 +86,14 @@ public class AuthInfo {
 
 	public void setMemberWebsite(String memberWebsite) {
 		this.memberWebsite = memberWebsite;
+	}
+
+	public List<Messagecommand> getMessagecommand() {
+		return messagecommand;
+	}
+
+	public void setMessagecommand(List<Messagecommand> messagecommand) {
+		this.messagecommand = messagecommand;
 	}
 
 }

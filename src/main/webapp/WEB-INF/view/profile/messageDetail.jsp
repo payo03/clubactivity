@@ -57,44 +57,34 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- OVERVIEW -->
-					<h3 class="page-title">
-						<spring:message code="admin.member.message.send" />
-					</h3>
-					<div class="row">
-						<div class="panel">
-							<div class="panel-heading">
-								<h3>To : ${member.memberName }</h3>
-							</div>
-							<div class="panel-body">
-								<form:form
-									action="${pageContext.request.contextPath}/admin/messageSend"
-									modelAttribute="messagecommand">
-									<input type="hidden" name="memberNumber"
-										value="${member.memberNumber }" />
-									<form:input path="title" class="form-control"
-										placeholder="TITLE" />
-									<br>
-									<form:textarea path="message" class="form-control"
-										placeholder="write message..." rows="6" />
-									<br>
-									<button type="submit" class="btn btn-default">
-										<i class="fa fa-plus-square"></i> SEND
-									</button>
-								</form:form>
-							</div>
+					<div class="panel panel-headline">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								From :
+								<spring:message code="admin" />
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-control">${messagecommand.title }</div>
+							<br>
+							<textarea class="form-control" placeholder="write message..."
+								rows="6" readonly>${messagecommand.title }</textarea>
+							<br>
+							<button type="submit" class="btn btn-default">
+								<i class="fa fa-plus-square"></i> REPLY
+							</button>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- MAIN END -->
+			<!-- MAIN END -->
 
-		<!-- FOOTER -->
-		<c:import url="../included/bottom.jsp">
-			<c:param value="main" name="type" />
-		</c:import>
-		<!-- FOOTER END -->
-	</div>
+			<!-- FOOTER -->
+			<c:import url="../included/bottom.jsp">
+				<c:param value="main" name="type" />
+			</c:import>
+			<!-- FOOTER END -->
+		</div>
 </body>
 
 <script

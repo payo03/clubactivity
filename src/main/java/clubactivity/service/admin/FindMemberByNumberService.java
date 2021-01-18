@@ -16,7 +16,7 @@ public class FindMemberByNumberService {
 	private AdminDAO adminDAO;
 
 	@Transactional(rollbackFor=SQLException.class)
-	public Member find(String memberNumber) {
+	public Member find(int memberNumber) {
 		Member member = adminDAO.findMemberByNumber(memberNumber);
 		
 		return member;

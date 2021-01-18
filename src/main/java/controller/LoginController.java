@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,17 +18,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import clubactivity.exception.MemberNotFoundException;
-import clubactivity.service.LoginService;
-import clubactivity.vo.AuthInfo;
+import clubactivity.service.CreateSessionService;
 import clubactivity.vo.LoginRequest;
+import clubactivity.vo.Messagecommand;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;
-
+	private CreateSessionService createSessionService;
+	
 	public LoginController() {
 		super();
 	}
@@ -40,6 +42,8 @@ public class LoginController {
 			loginRequest.setMemory(true);
 		}
 		session.setAttribute("refererPage", request.getAttribute("refererPage"));
+		
+		System.out.println("LoginController Get refererPage : " + request.getAttribute("refererPage"));
 		return "login/loginFormPage";
 	}
 
@@ -51,11 +55,10 @@ public class LoginController {
 		}
 
 		try {
-			AuthInfo authInfo = loginService.selectMemberById(loginRequest.getMemberId(),
-					loginRequest.getMemberPassword());
-
-			session.setAttribute("login", authInfo);
-
+			List<Messagecommand> messagecommands = createSessionService.createAuthInfoSession(loginRequest, session);
+			
+			createSessionService.createMessageLengthSession(messagecommands, session);
+			
 			Cookie memoryCookie = new Cookie("memory", loginRequest.getMemberId());
 			memoryCookie.setPath("/");
 			if (loginRequest.isMemory()) {

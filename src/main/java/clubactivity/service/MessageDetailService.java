@@ -1,4 +1,4 @@
-package clubactivity.service.admin;
+package clubactivity.service;
 
 import java.sql.SQLException;
 
@@ -7,23 +7,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import clubactivity.dao.MessageDAO;
-import clubactivity.exception.MessageSendException;
 import clubactivity.vo.Messagecommand;
 
 @Component
-public class MessageSendService {
+public class MessageDetailService {
 	
 	@Autowired
 	private MessageDAO messageDAO;
-
+	
 	@Transactional(rollbackFor=SQLException.class)
-	public int sendMessage(Messagecommand messagecommand) {
+	public Messagecommand viewMessage(int messageNumber) {
 		
-		int cnt = messageDAO.sendMessage(messagecommand);
-		if (cnt == 0) {
-			throw new MessageSendException("Message Send Failed");
-		}
-		return cnt;
+		Messagecommand messagecommand = messageDAO.selectByMessageNumber(messageNumber);
+		messageDAO.updateMessage(messageNumber);
+		
+		return messagecommand; 
 	}
-
 }

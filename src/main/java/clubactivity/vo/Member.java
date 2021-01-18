@@ -1,11 +1,9 @@
 package clubactivity.vo;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Member implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Member {
 
 	private int memberNumber;
 	private String memberId;
@@ -15,13 +13,15 @@ public class Member implements Serializable {
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
 	private String memberWebsite;
+	private List<Messagecommand> messagecommand;
 
 	public Member() {
 		super();
 	}
 
 	public Member(int memberNumber, String memberId, String memberPassword, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite) {
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite,
+			List<Messagecommand> messagecommand) {
 		super();
 		this.memberNumber = memberNumber;
 		this.memberId = memberId;
@@ -31,6 +31,7 @@ public class Member implements Serializable {
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
 		this.memberWebsite = memberWebsite;
+		this.messagecommand = messagecommand;
 	}
 
 	public int getMemberNumber() {
@@ -97,8 +98,12 @@ public class Member implements Serializable {
 		this.memberWebsite = memberWebsite;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public List<Messagecommand> getMessagecommand() {
+		return messagecommand;
+	}
+
+	public void setMessagecommand(List<Messagecommand> messagecommand) {
+		this.messagecommand = messagecommand;
 	}
 
 	public void changePassword(String oldPassword, String newPassword) {

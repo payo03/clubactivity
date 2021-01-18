@@ -45,6 +45,8 @@
 				<li><a href="#" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
 
 				<li><a href="#" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
+
+				<li><a href="#" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
 				<c:choose>
 					<c:when test="${!empty sessionScope.login}">
 						<li><a href="#subPages" data-toggle="collapse"
@@ -54,16 +56,15 @@
 								<ul class="nav">
 									<li><a href="${pageContext.request.contextPath}/profile"
 										class="">Profile</a></li>
-									<li><a href="#" class="">Message</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"
+										class="">Message</a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"
 										class="">Logout</a></li>
 								</ul>
 							</div></li>
 					</c:when>
 				</c:choose>
-
-				<li><a href="#" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
-
 				<li><a href="${pageContext.request.contextPath}/edit" class=""><i
 						class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 			</ul>

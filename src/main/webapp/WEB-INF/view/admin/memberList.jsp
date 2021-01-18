@@ -140,9 +140,9 @@
 								</table>
 								<!-- here -->
 								<div id="paging" class="paging"
-									style="text-align: center; padding-bottom: 20px;">
+									style="text-align: center; padding-bottom: 20px;"><h4>
 									<span class="lnr lnr-arrow-left-circle"></span> &nbsp; <strong>1</strong>
-									&nbsp; <span class="lnr lnr-arrow-right-circle"></span>
+									&nbsp; <span class="lnr lnr-arrow-right-circle"></span></h4>
 								</div>
 								<!-- end -->
 							</div>

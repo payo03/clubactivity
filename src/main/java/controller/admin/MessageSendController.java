@@ -23,7 +23,7 @@ public class MessageSendController {
 	private MessageSendService messageSendService;
 	
 	@PostMapping("/messageForm")
-	public String messageForm(@RequestParam("memberNumber") String memberNumber, Model model, Messagecommand messagecommand) {
+	public String messageForm(@RequestParam("memberNumber") int memberNumber, Model model, Messagecommand messagecommand) {
 		Member member = memberFindByNumberService.find(memberNumber);
 		
 		model.addAttribute("member", member);

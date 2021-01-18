@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="clubactivity.dao.MessageDAO">
+	
+	<insert id="sendMessage" parameterType="messagecommand">
+		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE)
+		VALUES (#{messagecommand.memberNumber}, #{messagecommand.title}, #{messagecommand.message});
+	</insert>
+	
+	<select id="selectByMessageNumber" parameterType="int" resultType="messagecommand">
+		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		FROM club.messagecommand
+		WHERE MESSAGE_NUMBER = #{messageNumber }
+	</select>
+	
+	<update id="updateMessage" parameterType="int" >
+		update club.messagecommand
+		set messagecommand.READ = 1
+		where MESSAGE_NUMBER = #{messageNumber }
+	</update>
+	
+	<select id="findListByMemberNumber" parameterType="int" resultType="messagecommand">
+		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		FROM club.messagecommand
+		WHERE MEMBER_NUMBER = #{memberNumber }
+	</select>
+</mapper>

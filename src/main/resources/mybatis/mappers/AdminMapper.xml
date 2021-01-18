@@ -10,7 +10,7 @@
 		from club.member
 	</select>
 	
-	<select id="findMemberByNumber" parameterType="String" resultType="member">
+	<select id="findMemberByNumber" parameterType="int" resultType="member">
 		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE
 		from club.member
 		where MEMBER_NUMBER = #{memberNumber }
@@ -31,7 +31,7 @@
 		<association select="MEMBER_LEVEL"
 			property="memberlevel" column="{memberLevelCode=MEMBER_LEVEL_CODE}" />
 	</resultMap>
-
+	
 	<select id="MEMBER_LEVEL" parameterType="memberlevel"
 		resultType="memberlevel">
 		SELECT MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION 

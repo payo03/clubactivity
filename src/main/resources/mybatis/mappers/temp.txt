@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="">
+
+	<!--  1:1 관계에서의 매핑, 한테이블에서 가져와서 실행 -->
+	<select id="listShop" resultMap="shopJoinToyResultMap" parameterType="shop">	<!--  parameter로 shop를 줌 -->
+		SELECT SHOP_NO, SHOP_NAME, TOY_NO FROM SHOP
+		<where>
+			<if test="shopName!=null and shopName!=''">
+				AND SHOP_NAME = #{shopName}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="shopJoinToyResultMap" type="shop">
+		<id column="SHOP_NO" property="shopNo" />
+		<result column="SHOP_NAME" property="shopName" />
+		<!-- property="toy" : vo객체에 toy라는 필드에 값 넣어줌 -->
+		<association property="toy" select="selectToy" column="{toyNo=TOY_NO}" />
+		<!--  column에 있는 값을 밑의 select절에 던짐  -->
+	</resultMap>
+	
+	<select id="selectToy" resultType="toy" parameterType="toy">
+		SELECT TOY_NO, TOY_NAME FROM toy WHERE TOY_NO = #{toyNO}
+	</select>
+	
+	
+	<!-- 1:N 관계에서의 매핑, 처음부터 다가져와서 실행 -->
+	<select id="listShop" parameterType="shop" resultMap="shopJoinToyResultMap">
+		SELECT SHOP_NO, SHOP_NAME, TOY_NAME
+		FROM SHOP LEFT OUTER JOIN TOY on SHOP.SHOP_NO = TOY.SHOP_NO
+		<where>
+			<if test="shopName!=null and shopName!=''">
+				AND SHOP_NAME = #{shopName}
+			</if>
+		</where>
+	</select>
+	
+	<!-- type : shop기준으로 가져오기 -->
+	<resultMap type="shop" id="shopJoinToyResultMap" >
+		<id column="SHOP_NO" property="shopNo" />
+		<result column="SHOP_NAME" property="shopName" />	<!-- property = vo객체, ofType = domain.toy, javaType = 반환받는 타입 -->
+		<collection property="toys" ofType="toy" javaType="java.util.ArrayList" resultMap="toyResult">
+		
+		</collection>
+	</resultMap>
+	
+	<!-- oftype = type, collection의 값을 세팅해주는 resultMap -->
+	<resultMap type="toy" id="toyResult">
+		<id column="TOY_NO" property="toyNo" />
+		<result column="TOY_NAME" property="toyName" />
+	</resultMap>
+	
+	
+	<!-- N:M의 관계 -->
+	<select id="listShop" resultMap="shopJoinSalesResultMap" parameterType="shop">
+		SELECT SHOP.SHOP_NO, SHOP_NAME, SAELS.TOY_NO
+		FROM shop LEFT OUTER JOIN SALES on SHOP.SHOP_NO = SALES.SHOP_NO
+		<where>
+			<if test="shopName!=null and shopName!=''" />
+		</where>
+	</select>
+	
+	<resultMap type="shop" id="shopJoinSalesResultMap" >
+		<id column="SHOP_NO" property="shopNo" />
+		<result column="SHOP_NAME" property="shopName" />
+		<collection property="saleses" javaType="java.util.ArrayList" ofType="sales" resultMap="salesResultMap" />
+	</resultMap>
+	
+	<resultMap type="sales" id="salesResultMap" >
+		<id column="SHOP_NO" property="shopNo" />
+		<id column="TOY_NO" property="toyNo" />
+		<association property="toy" select="toyResultMap" column="{toyNo = TOY_NO}" />
+	</resultMap>
+	
+	<select id="toyResultMap" parameterType="toy" resultType="toy" >
+		SELECT TOY_NO, TOY_NAME FROM toy WHERE TOY_NO = #{toyNo}
+	</select>
+</mapper>

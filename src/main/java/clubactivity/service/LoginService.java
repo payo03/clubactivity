@@ -32,7 +32,7 @@ public class LoginService {
 			throw new MemberNotFoundException("wrong password");
 		}
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),
-				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite());
+				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite(), member.getMessagecommand());
 	}
 
 }

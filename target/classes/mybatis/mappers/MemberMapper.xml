@@ -5,8 +5,9 @@
 
 <mapper namespace="clubactivity.dao.MemberDAO">
 	<select id="selectMemberById" parameterType="String" resultMap="memberResultMap">
-		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE
-		from club.member WHERE MEMBER_ID = #{memberId}
+		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		from club.member LEFT OUTER JOIN club.messagecommand on club.member.MEMBER_NUMBER = club.messagecommand.MEMBER_NUMBER
+		WHERE MEMBER_ID = #{memberId}
 	</select>
 
 	<select id="selectById" parameterType="String" resultType="int">
@@ -17,20 +18,18 @@
 		INSERT INTO club.member (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER,MEMBER_REGISTRATION_DATE, MEMBER_WEBSITE)
 		VALUES (#{memberRegisterRequest.memberId}, #{memberRegisterRequest.memberPassword}, #{memberRegisterRequest.memberName}, #{memberRegisterRequest.memberPhoneNumber}, now(), #{memberRegisterRequest.memberWebsite});
 	</insert>
-	
+
 	<update id="updatePassword" parameterType="member">
-		update club.member SET MEMBER_PASSWORD = #{member.memberPassword} where MEMBER_ID = #{member.memberId}
+		update club.member 
+		SET MEMBER_PASSWORD = #{member.memberPassword} 
+		where MEMBER_ID = #{member.memberId}
 	</update>
-	
+
 	<update id="updateNumber" parameterType="member">
-		update club.member SET MEMBER_PHONE_NUMBER = #{member.memberPhoneNumber} where MEMBER_ID = #{member.memberId}
+		update club.member 
+		SET MEMBER_PHONE_NUMBER = #{member.memberPhoneNumber} 
+		where MEMBER_ID = #{member.memberId}
 	</update>
-	
-	<select id="selectMemberlevel" parameterType="memberlevel"
-		resultType="memberlevel">
-		SELECT MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION 
-		from club.memberlevel WHERE MEMBER_LEVEL_CODE = #{memberLevelCode}
-	</select>
 
 	<resultMap type="member" id="memberResultMap">
 		<id column="MEMBER_NUMBER" property="memberNumber" />
@@ -41,10 +40,25 @@
 			property="memberPhoneNumber" />
 		<result column="MEMBER_REGISTRATION_DATE"
 			property="memberRegisterDate" />
-		<result column="MEMBER_WEBSITE"
-			property="memberWebsite" />
+		<result column="MEMBER_WEBSITE" property="memberWebsite" />
 		<association select="selectMemberlevel"
 			property="memberlevel" column="{memberLevelCode=MEMBER_LEVEL_CODE}" />
+		<collection property="messagecommand" ofType="messagecommand" javaType="java.util.ArrayList" resultMap="messageResultMap"/>
+		<!-- property = vo객체, ofType = typeAlias, javaType = 반환받는 타입 -->
+	</resultMap>
+	
+	<select id="selectMemberlevel" parameterType="memberlevel" resultType="memberlevel">
+		SELECT MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION
+		from club.memberlevel WHERE MEMBER_LEVEL_CODE = #{memberLevelCode}
+	</select>
+	
+	<!-- type = ofType, id = resultMap -->
+	<resultMap type="messagecommand" id="messageResultMap" >
+		<id column="MESSAGE_NUMBER" property="messageNumber" />
+		<result column="MEMBER_NUMBER" property="memberNumber" />
+		<result column="TITLE" property="title" />
+		<result column="MESSAGE" property="message" />
+		<result column="READ" property="read" />
 	</resultMap>
 
 </mapper>
