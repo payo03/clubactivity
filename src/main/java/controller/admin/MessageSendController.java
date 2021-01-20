@@ -32,7 +32,6 @@ public class MessageSendController {
 	
 	@PostMapping("messageSend")
 	public String messageSend(Messagecommand messagecommand) {
-		
 		messageSendService.sendMessage(messagecommand);
 		
 		return "redirect:/admin/memberList";

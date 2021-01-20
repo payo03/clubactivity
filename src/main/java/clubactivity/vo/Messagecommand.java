@@ -7,18 +7,23 @@ public class Messagecommand {
 	private String title;
 	private String message;
 	private boolean read;
+	private int fromMemberNumber;
+	private Member member;
 
 	public Messagecommand() {
 		super();
 	}
 
-	public Messagecommand(int memberNumber, int messageNumber, String title, String message, boolean read) {
+	public Messagecommand(int memberNumber, int messageNumber, String title, String message, boolean read,
+			int fromMemberNumber, Member member) {
 		super();
 		this.memberNumber = memberNumber;
 		this.messageNumber = messageNumber;
 		this.title = title;
 		this.message = message;
 		this.read = read;
+		this.fromMemberNumber = fromMemberNumber;
+		this.member = member;
 	}
 
 	public int getMemberNumber() {
@@ -59,6 +64,22 @@ public class Messagecommand {
 
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+
+	public int getFromMemberNumber() {
+		return fromMemberNumber;
+	}
+
+	public void setFromMemberNumber(int fromMemberNumber) {
+		this.fromMemberNumber = fromMemberNumber;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 }

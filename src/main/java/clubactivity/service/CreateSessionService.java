@@ -28,7 +28,7 @@ public class CreateSessionService {
 		return messagecommands;
 	}
 
-	public void createMessageLengthSession(List<Messagecommand> messsagecommands, HttpSession session) {
+	public void createMessageSession(List<Messagecommand> messsagecommands, HttpSession session) {
 		
 		int messageLength = 0;
 		
@@ -41,5 +41,6 @@ public class CreateSessionService {
 		} else if(messageLength == 0) {
 			session.removeAttribute("messageLength");
 		}
+		session.setAttribute("messagecommands", messsagecommands);
 	}
 }

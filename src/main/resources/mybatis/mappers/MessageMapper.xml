@@ -6,12 +6,12 @@
 <mapper namespace="clubactivity.dao.MessageDAO">
 	
 	<insert id="sendMessage" parameterType="messagecommand">
-		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE)
-		VALUES (#{messagecommand.memberNumber}, #{messagecommand.title}, #{messagecommand.message});
+		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE, FROM_MEMBER_NUMBER)
+		VALUES (#{messagecommand.memberNumber}, #{messagecommand.title}, #{messagecommand.message}, #{messagecommand.fromMemberNumber});
 	</insert>
 	
-	<select id="selectByMessageNumber" parameterType="int" resultType="messagecommand">
-		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+	<select id="selectByMessageNumber" parameterType="int" resultMap="messageResultMap">
+		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ, FROM_MEMBER_NUMBER
 		FROM club.messagecommand
 		WHERE MESSAGE_NUMBER = #{messageNumber }
 	</select>
@@ -22,9 +22,24 @@
 		where MESSAGE_NUMBER = #{messageNumber }
 	</update>
 	
-	<select id="findListByMemberNumber" parameterType="int" resultType="messagecommand">
-		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+	<select id="findListByMemberNumber" parameterType="int" resultMap="messageResultMap">
+		SELECT MEMBER_NUMBER, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ, FROM_MEMBER_NUMBER
 		FROM club.messagecommand
+		WHERE MEMBER_NUMBER = #{memberNumber }
+	</select>
+	
+	<resultMap type="messagecommand" id="messageResultMap">
+		<id column="MESSAGE_NUMBER" property="messageNumber" />
+		<result column="TITLE" property="title" />
+		<result column="MESSAGE" property="message" />
+		<result column="READ" property="read" />
+		<association select="selectMemberName"
+			property="member" column="{memberNumber=FROM_MEMBER_NUMBER}" />
+	</resultMap>
+	
+	<select id="selectMemberName" parameterType="member" resultType="member" >
+		SELECT MEMBER_NAME
+		FROM club.member
 		WHERE MEMBER_NUMBER = #{memberNumber }
 	</select>
 </mapper>

@@ -57,7 +57,7 @@
 									<li><a href="${pageContext.request.contextPath}/profile"
 										class="">Profile</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"
+										href="${pageContext.request.contextPath}/profile/message"
 										class="">Message</a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"
 										class="">Logout</a></li>

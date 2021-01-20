@@ -57,24 +57,41 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- OVERVIEW -->
-					<div class="panel panel-headline">
-						<div class="panel-heading">
-							<h3 class="panel-title">Message List</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<c:forEach var="messagecommand" items="${messagecommands}"
+					<div class="col-md-4">
+						<div class="panel panel-headline">
+							<div class="panel-heading">
+								<h3 class="panel-title">Message List</h3>
+							</div>
+							<div class="panel-body">
+								<c:forEach var="messagecommand" items="${sessionScope.messagecommands}"
 									varStatus="status">
-									<div class="col-md-3">
-										<div class="metric">
-											<span class="icon"><i class="lnr lnr-envelope"></i></span>
-											<p>
-												<span class="number">${messagecommand.title }</span> <span
-													class="title"> ${messagecommand.title }</span>
-											</p>
-										</div>
+									<div class="metric">
+										<a href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}"> <span class="icon"><i
+												class="lnr lnr-envelope"></i></span></a>
+										<p>
+											<span class="number">${messagecommand.title }</span> <span
+												class="title"> ${messagecommand.member.memberName }</span>
+										</p>
 									</div>
 								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="panel panel-headline">
+							<div class="panel-heading">
+								<h3 class="panel-title">From :
+									${messagecommand.member.memberName }</h3>
+							</div>
+							<div class="panel-body">
+								<div class="form-control">${messagecommand.title }</div>
+								<br>
+								<textarea class="form-control" placeholder="message text..."
+									rows="6" readonly>${messagecommand.message }</textarea>
+								<br>
+								<button type="submit" class="btn btn-default">
+									<i class="fa fa-plus-square"></i> REPLY
+								</button>
 							</div>
 						</div>
 					</div>

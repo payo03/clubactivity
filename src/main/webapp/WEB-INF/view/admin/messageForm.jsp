@@ -71,6 +71,8 @@
 									modelAttribute="messagecommand">
 									<input type="hidden" name="memberNumber"
 										value="${member.memberNumber }" />
+									<input type="hidden" name="fromMemberNumber"
+										value="${sessionScope.login.memberNumber }" />
 									<form:input path="title" class="form-control"
 										placeholder="TITLE" />
 									<br>

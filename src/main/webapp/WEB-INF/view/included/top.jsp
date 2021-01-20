@@ -66,14 +66,15 @@
 											test="${!empty sessionScope.messageLength}">${sessionScope.messageLength }</c:if></span></a>
 								<ul class="dropdown-menu notifications">
 									<c:forEach var="messagecommand"
-										items="${sessionScope.login.messagecommand }"
-										varStatus="status">
-										<li><a
-											href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}"
-											class="notification-item"><span class="dot bg-danger"></span>${messagecommand.title }</a></li>
+										items="${sessionScope.messagecommands }" varStatus="status">
+										<c:if test="${!messagecommand.read }">
+											<li><a
+												href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}"
+												class="notification-item"><span class="dot bg-danger"></span>${messagecommand.title }</a></li>
+										</c:if>
 									</c:forEach>
 									<li><a
-										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"
+										href="${pageContext.request.contextPath}/profile/message"
 										class="more">See all notifications</a></li>
 								</ul></li>
 						</c:when>
@@ -106,8 +107,9 @@
 									<li><a href="${pageContext.request.contextPath}/profile"><i
 											class="lnr lnr-user"></i> <span>Profile</span></a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/profile/messageList/${sessionScope.login.memberNumber }"><i
-											class="lnr lnr-envelope"></i> <span>Message<span class="badge">4</span></span></a></li>
+										href="${pageContext.request.contextPath}/profile/message"><i
+											class="lnr lnr-envelope"></i> <span>Message<span
+												class="badge">4</span></span></a></li>
 									<li><a href="${pageContext.request.contextPath}/edit"><i
 											class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"><i

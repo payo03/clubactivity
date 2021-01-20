@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import clubactivity.service.CreateSessionService;
 import clubactivity.service.MessageDetailService;
 import clubactivity.service.MessageListService;
-import clubactivity.service.CreateSessionService;
 import clubactivity.vo.Messagecommand;
 
 @Controller
 @RequestMapping("/profile")
-public class MessageDetailController {
+public class MessageController {
 
 	@Autowired
 	private MessageDetailService messageDetailService;
@@ -32,13 +32,14 @@ public class MessageDetailController {
 	@GetMapping("/messageDetail/{messageNumber}")
 	public String detail(@PathVariable("messageNumber") int messageNumber, HttpSession session, Model model) {
 		Messagecommand messagecommand = messageDetailService.viewMessage(messageNumber);
-		
 		List<Messagecommand> messagecommands = messageListService.findListByMemberNumber(messagecommand.getMemberNumber());
 		
-		createSessionService.createMessageLengthSession(messagecommands, session);
+		//세션 갱신 역활(read column을 위해)
+		createSessionService.createMessageSession(messagecommands, session);
 		
 		model.addAttribute("messagecommand", messagecommand);
 
-		return "profile/messageDetail";
+		return "profile/message";
 	}
+	
 }

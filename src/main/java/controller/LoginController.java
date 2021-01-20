@@ -57,7 +57,7 @@ public class LoginController {
 		try {
 			List<Messagecommand> messagecommands = createSessionService.createAuthInfoSession(loginRequest, session);
 			
-			createSessionService.createMessageLengthSession(messagecommands, session);
+			createSessionService.createMessageSession(messagecommands, session);
 			
 			Cookie memoryCookie = new Cookie("memory", loginRequest.getMemberId());
 			memoryCookie.setPath("/");
