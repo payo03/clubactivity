@@ -9,6 +9,12 @@
 		from club.member LEFT OUTER JOIN club.messagecommand on club.member.MEMBER_NUMBER = club.messagecommand.MEMBER_NUMBER
 		WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+	<select id="selectMemberByMemberNumber" parameterType="int" resultMap="memberResultMap">
+		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		from club.member LEFT OUTER JOIN club.messagecommand on club.member.MEMBER_NUMBER = club.messagecommand.MEMBER_NUMBER
+		WHERE member.MEMBER_NUMBER = #{memberNumber}
+	</select>
 
 	<select id="selectById" parameterType="String" resultType="int">
 		SELECT count(*) from club.member WHERE MEMBER_ID = #{memberId}

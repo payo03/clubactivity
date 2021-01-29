@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import clubactivity.dao.MemberDAO;
 import clubactivity.exception.MemberNotFoundException;
 import clubactivity.exception.WrongIdPasswordException;
+import clubactivity.vo.ChangeNumberCommand;
 import clubactivity.vo.Member;
 
 @Component
@@ -18,13 +19,13 @@ public class ChangeNumberService {
 	private MemberDAO memberDAO;
 	
 	@Transactional(rollbackFor=SQLException.class)
-	public void changeNumber(String memberId, String newNumber) throws MemberNotFoundException, WrongIdPasswordException {
-		Member member = memberDAO.selectMemberById(memberId);
+	public void changeNumber(ChangeNumberCommand changeNumberCommand) throws MemberNotFoundException, WrongIdPasswordException {
+		Member member = memberDAO.selectMemberByMemberNumber(changeNumberCommand.getMemberNumber());
 		if(member == null) {
 			throw new MemberNotFoundException("NOT FOUND");
 		}
 		
-		member.changeNumber(newNumber);
+		member.changeNumber(changeNumberCommand.getMemberPhoneNumber());
 		memberDAO.updateNumber(member);
 	}
 

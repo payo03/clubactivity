@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,10 +26,10 @@ public class MemberEditController {
 
 	@Autowired
 	private ChangePasswordService changePasswordService;
-	
+
 	@Autowired
 	private ChangeNumberService changeNumberService;
-	
+
 	@Autowired
 	private LoginService loginService;
 
@@ -45,7 +46,7 @@ public class MemberEditController {
 
 		try {
 			loginService.selectMemberById(authInfo.getMemberId(), member.getMemberPassword());
-			
+
 			return "edit/changeForm";
 		} catch (MemberNotFoundException e) {
 			errors.rejectValue("memberPassword", "password.notMatch");
@@ -84,28 +85,30 @@ public class MemberEditController {
 		}
 	}
 
-	@GetMapping("/changeNumber")
-	public String numberform(ChangeNumberCommand changeNumberCommand, HttpSession session) {
-		return "edit/changeNumberForm";
+	@GetMapping("/updatePhoneNumber")
+	public String numberform(ChangeNumberCommand changeNumberCommand, Model model) {
+		model.addAttribute("updatePhoneNumber", true);
+
+		return "profile/info";
 	}
-	
-	@PostMapping("/changeNumber")
-	public String submitNumber(ChangeNumberCommand changeNumberCommand, Errors errors, HttpSession session)
-			throws MemberNotFoundException {
-		if (errors.hasErrors()) {
-			return "edit/changeNumberForm";
-		}
+
+	@PostMapping("/updatePhoneNumber")
+	public String submitNumber(ChangeNumberCommand changeNumberCommand, Errors errors, HttpSession session) throws MemberNotFoundException {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
+		if (errors.hasErrors()) {
+			errors.rejectValue("memberPhoneNumber", "error");
 
-		if (changeNumberCommand.getNewPhoneNumber() != "") {
+			return "profile/info";
+		}
+		if (changeNumberCommand.getMemberPhoneNumber() != "") {
+			changeNumberService.changeNumber(changeNumberCommand);
 
-			changeNumberService.changeNumber(authInfo.getMemberId(), changeNumberCommand.getNewPhoneNumber());
-
-			return "edit/changeNumber";
+			authInfo.setMemberPhoneNumber(changeNumberCommand.getMemberPhoneNumber());
+			return "profile/info";
 		}
 		errors.rejectValue("newPhoneNumber", "phoneNumber.null");
 
-		return "edit/changeNumberForm";
+		return "profile/info";
 	}
 
 }

@@ -12,6 +12,8 @@ import clubactivity.vo.MemberRegisterRequest;
 public interface MemberDAO {
 
 	Member selectMemberById(@Param("memberId") String memberId);
+	
+	Member selectMemberByMemberNumber(@Param("memberNumber") int memberNumber);
 
 	int insertMember(@Param("memberRegisterRequest") MemberRegisterRequest memberRegisterRequest);
 

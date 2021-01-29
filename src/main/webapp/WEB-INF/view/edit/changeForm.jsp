@@ -58,8 +58,7 @@
 				<div class="container-fluid">
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
-						<a href="${pageContext.request.contextPath}/edit/changeNumber"><spring:message
-								code="number.edit" /></a> <br> <a
+						소셜 로그인 링크 연결 <br> <a
 							href="${pageContext.request.contextPath}/edit/changePassword"><spring:message
 								code="password.edit" /></a>
 					</div>

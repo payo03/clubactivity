@@ -81,10 +81,22 @@
 											<li>Registration Date <span><fmt:formatDate
 														value="${sessionScope.login.memberRegisterDate}"
 														pattern="yyyy-MM-dd" /></span></li>
-											<li>Mobile <span>${sessionScope.login.memberPhoneNumber }</span></li>
-											<li>Email <span>${sessionScope.login.memberId }</span></li>
+
+											<li>Mobile <span>${sessionScope.login.memberPhoneNumber }
+													<a
+													href="${pageContext.request.contextPath }/edit/updatePhoneNumber"><i
+														class="lnr lnr-pencil"></i></a>
+											</span></li>
+
+											<li>Email <span>${sessionScope.login.memberId } <a
+													href="${pageContext.request.contextPath }/edit/updateId"><i
+														class="lnr lnr-pencil"></i></a></span></li>
+
 											<li>Website <span><a
-													href="${sessionScope.login.memberWebsite }">${sessionScope.login.memberWebsite }</a></span></li>
+													href="${sessionScope.login.memberWebsite }">${sessionScope.login.memberWebsite }
+												</a><a
+													href="${pageContext.request.contextPath }/edit/updateMemberWebsite"><i
+														class="lnr lnr-pencil"></i></a></span></li>
 										</ul>
 									</div>
 									<div class="profile-info">
@@ -106,6 +118,203 @@
 							</div>
 							<!-- END LEFT COLUMN -->
 
+							<!-- RIGHT COLUMN -->
+							<div class="profile-right">
+								<h4 class="heading">Update Profile</h4>
+								<!-- Profile Update Form -->
+								<div class="awards">
+									<div class="input-group">
+										<c:choose>
+											<c:when test="${!empty updatePhoneNumber }">
+												<div class="btn btn-default">Mobile Update</div>
+												<br>
+												<br>
+												<form:form
+													action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
+													modelAttribute="changeNumberCommand"
+													class="form-auth-small">
+													<div class="input-group">
+														<form:input path="memberPhoneNumber"
+															value="${sessionScope.login.memberPhoneNumber }"
+															onKeyup="inputPhoneNumber(this);" maxlength="13"
+															pattern=".{13,13}" class="form-control" />
+														<input type="hidden" name="memberNumber"
+															value="${sessionScope.login.memberNumber }" /> <span
+															class="input-group-btn">
+															<button type="submit" class="btn btn-success">Update</button>
+															<a href="${pageContext.request.contextPath}/profile">
+																<button type="button" class="btn btn-danger">Cancel</button>
+														</a>
+														</span>
+													</div>
+													<form:errors path="memberPhoneNumber" />
+												</form:form>
+											</c:when>
+											
+											<c:when test="${!empty updateId }" >
+											
+											</c:when>
+											
+											<c:when test="${!empty updateWebsite }" >
+											
+											</c:when>
+										</c:choose>
+									</div>
+									<br>
+									<div class="text-center">
+										<a href="#" class="btn btn-default">See all awards</a>
+									</div>
+								</div>
+								<!-- END AWARDS -->
+								<!-- TABBED CONTENT -->
+								<div class="custom-tabs-line tabs-line-bottom left-aligned">
+									<ul class="nav" role="tablist">
+										<li class="active"><a href="#tab-bottom-left1" role="tab"
+											data-toggle="tab">Recent Activity</a></li>
+										<li><a href="#tab-bottom-left2" role="tab"
+											data-toggle="tab">Projects <span class="badge">7</span></a></li>
+									</ul>
+								</div>
+								<div class="tab-content">
+									<div class="tab-pane fade in active" id="tab-bottom-left1">
+										<ul class="list-unstyled activity-timeline">
+											<li><i class="fa fa-comment activity-icon"></i>
+												<p>
+													Commented on post <a href="#">Prototyping</a> <span
+														class="timestamp">2 minutes ago</span>
+												</p></li>
+											<li><i class="fa fa-cloud-upload activity-icon"></i>
+												<p>
+													Uploaded new file <a href="#">Proposal.docx</a> to project
+													<a href="#">New Year Campaign</a> <span class="timestamp">7
+														hours ago</span>
+												</p></li>
+											<li><i class="fa fa-plus activity-icon"></i>
+												<p>
+													Added <a href="#">Martin</a> and <a href="#">3 others
+														colleagues</a> to project repository <span class="timestamp">Yesterday</span>
+												</p></li>
+											<li><i class="fa fa-check activity-icon"></i>
+												<p>
+													Finished 80% of all <a href="#">assigned tasks</a> <span
+														class="timestamp">1 day ago</span>
+												</p></li>
+										</ul>
+										<div class="margin-top-30 text-center">
+											<a href="#" class="btn btn-default">See all activity</a>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="tab-bottom-left2">
+										<div class="table-responsive">
+											<table class="table project-table">
+												<thead>
+													<tr>
+														<th>Title</th>
+														<th>Progress</th>
+														<th>Leader</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><a href="#">Spot Media</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar"
+																	aria-valuenow="60" aria-valuemin="0"
+																	aria-valuemax="100" style="width: 60%;">
+																	<span>60% Complete</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user2.png" alt="Avatar"
+															class="avatar img-circle"> <a href="#">Michael</a></td>
+														<td><span class="label label-success">ACTIVE</span></td>
+													</tr>
+													<tr>
+														<td><a href="#">E-Commerce Site</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar"
+																	aria-valuenow="33" aria-valuemin="0"
+																	aria-valuemax="100" style="width: 33%;">
+																	<span>33% Complete</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user1.png" alt="Avatar"
+															class="avatar img-circle"> <a href="#">Antonius</a></td>
+														<td><span class="label label-warning">PENDING</span></td>
+													</tr>
+													<tr>
+														<td><a href="#">Project 123GO</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar"
+																	aria-valuenow="68" aria-valuemin="0"
+																	aria-valuemax="100" style="width: 68%;">
+																	<span>68% Complete</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user1.png" alt="Avatar"
+															class="avatar img-circle"> <a href="#">Antonius</a></td>
+														<td><span class="label label-success">ACTIVE</span></td>
+													</tr>
+													<tr>
+														<td><a href="#">Wordpress Theme</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar" role="progressbar"
+																	aria-valuenow="75" aria-valuemin="0"
+																	aria-valuemax="100" style="width: 75%;">
+																	<span>75%</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user2.png" alt="Avatar"
+															class="avatar img-circle"> <a href="#">Michael</a></td>
+														<td><span class="label label-success">ACTIVE</span></td>
+													</tr>
+													<tr>
+														<td><a href="#">Project 123GO</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar progress-bar-success"
+																	role="progressbar" aria-valuenow="100"
+																	aria-valuemin="0" aria-valuemax="100"
+																	style="width: 100%;">
+																	<span>100%</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user1.png" alt="Avatar"
+															class="avatar img-circle" /> <a href="#">Antonius</a></td>
+														<td><span class="label label-default">CLOSED</span></td>
+													</tr>
+													<tr>
+														<td><a href="#">Redesign Landing Page</a></td>
+														<td>
+															<div class="progress">
+																<div class="progress-bar progress-bar-success"
+																	role="progressbar" aria-valuenow="100"
+																	aria-valuemin="0" aria-valuemax="100"
+																	style="width: 100%;">
+																	<span>100%</span>
+																</div>
+															</div>
+														</td>
+														<td><img src="assets/img/user5.png" alt="Avatar"
+															class="avatar img-circle" /> <a href="#">Jason</a></td>
+														<td><span class="label label-default">CLOSED</span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- END TABBED CONTENT -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -119,6 +328,34 @@
 		</c:import>
 		<!-- FOOTER END -->
 	</div>
+	<script>
+		function inputPhoneNumber(obj) {
+
+			var number = obj.value.replace(/[^0-9]/g, "");
+			var phone = "";
+
+			if (number.length < 4) {
+				return number;
+			} else if (number.length < 7) {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3);
+			} else if (number.length < 11) {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3, 3);
+				phone += "-";
+				phone += number.substr(6);
+			} else {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3, 4);
+				phone += "-";
+				phone += number.substr(7);
+			}
+			obj.value = phone;
+		}
+	</script>
 </body>
 
 <script
