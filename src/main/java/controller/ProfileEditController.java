@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import clubactivity.dao.MemberDAO;
 import clubactivity.exception.MemberNotFoundException;
 import clubactivity.exception.WrongIdPasswordException;
 import clubactivity.service.ChangeProfileService;
@@ -22,13 +23,16 @@ import clubactivity.vo.Member;
 
 @Controller
 @RequestMapping("/edit")
-public class MemberEditController {
+public class ProfileEditController {
 
 	@Autowired
 	private ChangeProfileService changeProfileService;
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private MemberDAO memberDAO;
 
 	// 회원정보 수정 버튼 클릭시
 	@GetMapping
@@ -53,7 +57,7 @@ public class MemberEditController {
 	}
 
 	@GetMapping("/changePassword")
-	public String passwordform(ChangePasswordCommand changePasswordCommand, HttpSession session) {
+	public String passwordform(ChangePasswordCommand changePasswordCommand) {
 		return "edit/changePasswordForm";
 	}
 
@@ -121,4 +125,18 @@ public class MemberEditController {
 		return "profile/info";
 	}
 
+	@GetMapping("/status")
+	public String controlStatus(HttpSession session) {
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
+		
+		if(authInfo.getMemberonline().isMemberStatus()) {
+			memberDAO.updateOffline(authInfo.getMemberNumber());
+			authInfo.getMemberonline().setMemberStatus(false);
+		}else {
+			memberDAO.updateOnline(authInfo.getMemberNumber());
+			authInfo.getMemberonline().setMemberStatus(true);
+		}
+		
+		return "profile/info";
+	}
 }

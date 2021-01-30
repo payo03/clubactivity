@@ -108,8 +108,7 @@
 											class="lnr lnr-user"></i> <span>Profile</span></a></li>
 									<li><a
 										href="${pageContext.request.contextPath}/profile/message"><i
-											class="lnr lnr-envelope"></i> <span>Message<span
-												class="badge">4</span></span></a></li>
+											class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/edit"><i
 											class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 									<li><a href="${pageContext.request.contextPath}/logout"><i

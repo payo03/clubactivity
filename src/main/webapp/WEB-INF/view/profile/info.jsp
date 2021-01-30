@@ -69,7 +69,17 @@
 											src="${pageContext.request.contextPath}/assets/img/user-medium.png"
 											class="img-circle" alt="Avatar">
 										<h3 class="name">${sessionScope.login.memberName }</h3>
-										<span class="online-status status-available">Available</span>
+										<c:choose>
+											<c:when
+												test="${sessionScope.login.memberonline.memberStatus }">
+												<a href="#" class="notification-item"><span
+													class="dot bg-success"></span>Online</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#" class="notification-item"><span
+													class="dot bg-warning"></span>Clocking</a>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								<!-- END PROFILE HEADER -->
@@ -82,15 +92,15 @@
 														value="${sessionScope.login.memberRegisterDate}"
 														pattern="yyyy-MM-dd" /></span></li>
 
+											<li>Email <span>${sessionScope.login.memberId } <a
+													href="${pageContext.request.contextPath }/edit/updateId"><i
+														class="lnr lnr-pencil"></i></a></span></li>
+
 											<li>Mobile <span>${sessionScope.login.memberPhoneNumber }
 													<a
 													href="${pageContext.request.contextPath }/edit/updatePhoneNumber"><i
 														class="lnr lnr-pencil"></i></a>
 											</span></li>
-
-											<li>Email <span>${sessionScope.login.memberId } <a
-													href="${pageContext.request.contextPath }/edit/updateId"><i
-														class="lnr lnr-pencil"></i></a></span></li>
 
 											<li>Website <span><a
 													href="${sessionScope.login.memberWebsite }">${sessionScope.login.memberWebsite }
@@ -109,10 +119,6 @@
 												class="github-bg"><i class="fa fa-github"></i></a></li>
 										</ul>
 									</div>
-									<div class="profile-info">
-										<h4 class="heading">About</h4>
-										<p>${sessionScope.login.memberlevel.memberLevelDescription }</p>
-									</div>
 								</div>
 								<!-- END PROFILE DETAIL -->
 							</div>
@@ -124,34 +130,33 @@
 								<!-- Profile Update Form -->
 								<div class="awards">
 									<c:choose>
+										<c:when test="${!empty updateId }">
+
+										</c:when>
+
 										<c:when test="${!empty updatePhoneNumber }">
 											<div class="btn btn-default">Mobile Update</div>
 											<br>
 											<br>
-											<div class="input-group">
-												<form:form
-													action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
-													modelAttribute="changeNumberCommand"
-													class="form-auth-small">
+											<form:form
+												action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
+												modelAttribute="changeNumberCommand" class="form-auth-small">
+												<div class="input-group">
 													<form:input path="memberPhoneNumber"
 														value="${sessionScope.login.memberPhoneNumber }"
 														onKeyup="inputPhoneNumber(this);" maxlength="13"
 														pattern=".{13,13}" class="form-control" />
 													<input type="hidden" name="memberNumber"
-														value="${sessionScope.login.memberNumber }" />
-													<span class="input-group-btn">
-														<button type="submit" class="btn btn-success">Update</button>
+														value="${sessionScope.login.memberNumber }" /> <span
+														class="input-group-btn">
+														<button type="submit" class="btn btn-success">Update</button> &nbsp; 
 														<a href="${pageContext.request.contextPath}/profile">
 															<button type="button" class="btn btn-danger">Cancel</button>
 													</a>
 													</span>
-													<form:errors path="memberPhoneNumber" />
-												</form:form>
-											</div>
-										</c:when>
-
-										<c:when test="${!empty updateId }">
-
+												</div>
+												<form:errors path="memberPhoneNumber" />
+											</form:form>
 										</c:when>
 
 										<c:when test="${!empty updateWebsite }">
@@ -162,25 +167,33 @@
 												action="${pageContext.request.contextPath }/edit/updateWebsite"
 												modelAttribute="changeWebsiteCommand"
 												class="form-auth-small">
-												<div class="input-group">
-													<textarea name="memberWebsite" class="form-control"
-														rows="3">${sessionScope.login.memberWebsite }</textarea>
-													<input type="hidden" name="memberNumber"
-														value="${sessionScope.login.memberNumber }" /> <span
-														class="input-group-btn">
-														<button type="submit" class="btn btn-success">Update</button>
-														<a href="${pageContext.request.contextPath}/profile">
-															<button type="button" class="btn btn-danger">Cancel</button>
-													</a>
-													</span>
-												</div>
+												<textarea name="memberWebsite" class="form-control" rows="3">${sessionScope.login.memberWebsite }</textarea>
+												<input type="hidden" name="memberNumber"
+													value="${sessionScope.login.memberNumber }" />
+												<span class="input-group-btn">
+													<button type="submit" class="btn btn-success">Update</button> &nbsp; 
+													<a href="${pageContext.request.contextPath}/profile">
+														<button type="button" class="btn btn-danger">Cancel</button>
+												</a>
+												</span>
 												<form:errors path="memberWebsite" />
 											</form:form>
 										</c:when>
 									</c:choose>
 									<br>
+
 									<div class="text-center">
-										<a href="#" class="btn btn-default">See all awards</a>
+										<a href="${pageContext.request.contextPath}/edit/status">
+											<c:choose>
+												<c:when
+													test="${sessionScope.login.memberonline.memberStatus }">
+													<button class="btn label-default">Clocking Mode</button>
+												</c:when>
+												<c:otherwise>
+													<button class="btn label-success">Online</button>
+												</c:otherwise>
+											</c:choose>
+										</a>
 									</div>
 								</div>
 								<!-- END AWARDS -->
@@ -188,9 +201,9 @@
 								<div class="custom-tabs-line tabs-line-bottom left-aligned">
 									<ul class="nav" role="tablist">
 										<li class="active"><a href="#tab-bottom-left1" role="tab"
-											data-toggle="tab">Recent Activity</a></li>
+											data-toggle="tab">Message History</a></li>
 										<li><a href="#tab-bottom-left2" role="tab"
-											data-toggle="tab">Projects <span class="badge">7</span></a></li>
+											data-toggle="tab">Meet Friends</a></li>
 									</ul>
 								</div>
 								<div class="tab-content">
@@ -223,112 +236,7 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="tab-bottom-left2">
-										<div class="table-responsive">
-											<table class="table project-table">
-												<thead>
-													<tr>
-														<th>Title</th>
-														<th>Progress</th>
-														<th>Leader</th>
-														<th>Status</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td><a href="#">Spot Media</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar" role="progressbar"
-																	aria-valuenow="60" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 60%;">
-																	<span>60% Complete</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user2.png" alt="Avatar"
-															class="avatar img-circle"> <a href="#">Michael</a></td>
-														<td><span class="label label-success">ACTIVE</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">E-Commerce Site</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar" role="progressbar"
-																	aria-valuenow="33" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 33%;">
-																	<span>33% Complete</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user1.png" alt="Avatar"
-															class="avatar img-circle"> <a href="#">Antonius</a></td>
-														<td><span class="label label-warning">PENDING</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">Project 123GO</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar" role="progressbar"
-																	aria-valuenow="68" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 68%;">
-																	<span>68% Complete</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user1.png" alt="Avatar"
-															class="avatar img-circle"> <a href="#">Antonius</a></td>
-														<td><span class="label label-success">ACTIVE</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">Wordpress Theme</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar" role="progressbar"
-																	aria-valuenow="75" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 75%;">
-																	<span>75%</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user2.png" alt="Avatar"
-															class="avatar img-circle"> <a href="#">Michael</a></td>
-														<td><span class="label label-success">ACTIVE</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">Project 123GO</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar progress-bar-success"
-																	role="progressbar" aria-valuenow="100"
-																	aria-valuemin="0" aria-valuemax="100"
-																	style="width: 100%;">
-																	<span>100%</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user1.png" alt="Avatar"
-															class="avatar img-circle" /> <a href="#">Antonius</a></td>
-														<td><span class="label label-default">CLOSED</span></td>
-													</tr>
-													<tr>
-														<td><a href="#">Redesign Landing Page</a></td>
-														<td>
-															<div class="progress">
-																<div class="progress-bar progress-bar-success"
-																	role="progressbar" aria-valuenow="100"
-																	aria-valuemin="0" aria-valuemax="100"
-																	style="width: 100%;">
-																	<span>100%</span>
-																</div>
-															</div>
-														</td>
-														<td><img src="assets/img/user5.png" alt="Avatar"
-															class="avatar img-circle" /> <a href="#">Jason</a></td>
-														<td><span class="label label-default">CLOSED</span></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+										<div class="table-responsive"></div>
 									</div>
 								</div>
 								<!-- END TABBED CONTENT -->

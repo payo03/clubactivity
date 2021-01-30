@@ -6,12 +6,12 @@
 <mapper namespace="clubactivity.dao.AdminDAO">
 	
 	<select id="selectMemberList" resultMap="memberListResultMap">
-		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE
+		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS
 		from club.member
 	</select>
 	
 	<select id="findMemberByNumber" parameterType="int" resultType="member">
-		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE
+		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS
 		from club.member
 		where MEMBER_NUMBER = #{memberNumber }
 	</select>
@@ -30,12 +30,18 @@
 		<result column="MEMBER_WEBSITE" property="memberWebsite" />
 		<association select="MEMBER_LEVEL"
 			property="memberlevel" column="{memberLevelCode=MEMBER_LEVEL_CODE}" />
+		<association select="selectMemberonline"
+			property="memberonline" column="{memberStatus=MEMBER_STATUS}" />
 	</resultMap>
 	
-	<select id="MEMBER_LEVEL" parameterType="memberlevel"
-		resultType="memberlevel">
+	<select id="MEMBER_LEVEL" parameterType="memberlevel" resultType="memberlevel">
 		SELECT MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION 
 		from club.memberlevel WHERE MEMBER_LEVEL_CODE = #{memberLevelCode}
 	</select>
 
+	<select id="selectMemberonline" parameterType="memberonline" resultType="memberonline">
+		SELECT MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION
+		from club.memberonline WHERE MEMBER_STATUS = #{memberStatus}
+	</select>
+	
 </mapper>

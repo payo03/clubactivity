@@ -5,13 +5,13 @@
 
 <mapper namespace="clubactivity.dao.MemberDAO">
 	<select id="selectMemberById" parameterType="String" resultMap="memberResultMap">
-		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, MEMBER_STATUS, TITLE, MESSAGE, messagecommand.READ
 		from club.member LEFT OUTER JOIN club.messagecommand on club.member.MEMBER_NUMBER = club.messagecommand.MEMBER_NUMBER
 		WHERE MEMBER_ID = #{memberId}
 	</select>
 	
 	<select id="selectMemberByMemberNumber" parameterType="int" resultMap="memberResultMap">
-		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, TITLE, MESSAGE, messagecommand.READ
+		SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, member.MEMBER_NUMBER, MEMBER_WEBSITE, MESSAGE_NUMBER, MEMBER_STATUS, TITLE, MESSAGE, messagecommand.READ
 		from club.member LEFT OUTER JOIN club.messagecommand on club.member.MEMBER_NUMBER = club.messagecommand.MEMBER_NUMBER
 		WHERE member.MEMBER_NUMBER = #{memberNumber}
 	</select>
@@ -25,6 +25,18 @@
 		VALUES (#{memberRegisterRequest.memberId}, #{memberRegisterRequest.memberPassword}, #{memberRegisterRequest.memberName}, #{memberRegisterRequest.memberPhoneNumber}, now(), #{memberRegisterRequest.memberWebsite});
 	</insert>
 
+	<update id="updateOnline" parameterType="int">
+		update club.member 
+		SET MEMBER_STATUS = 1
+		where MEMBER_NUMBER = #{memberNumber}
+	</update>
+	
+	<update id="updateOffline" parameterType="int">
+		update club.member 
+		SET MEMBER_STATUS = 0
+		where MEMBER_NUMBER = #{memberNumber}
+	</update>
+	
 	<update id="updatePassword" parameterType="member">
 		update club.member 
 		SET MEMBER_PASSWORD = #{member.memberPassword} 
@@ -48,13 +60,13 @@
 		<result column="MEMBER_ID" property="memberId" />
 		<result column="MEMBER_PASSWORD" property="memberPassword" />
 		<result column="MEMBER_NAME" property="memberName" />
-		<result column="MEMBER_PHONE_NUMBER"
-			property="memberPhoneNumber" />
-		<result column="MEMBER_REGISTRATION_DATE"
-			property="memberRegisterDate" />
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber" />
+		<result column="MEMBER_REGISTRATION_DATE" property="memberRegisterDate" />
 		<result column="MEMBER_WEBSITE" property="memberWebsite" />
 		<association select="selectMemberlevel"
 			property="memberlevel" column="{memberLevelCode=MEMBER_LEVEL_CODE}" />
+		<association select="selectMemberonline"
+			property="memberonline" column="{memberStatus=MEMBER_STATUS}" />
 		<collection property="messagecommand" ofType="messagecommand" javaType="java.util.ArrayList" resultMap="messageResultMap"/>
 		<!-- property = vo객체, ofType = typeAlias, javaType = 반환받는 타입 -->
 	</resultMap>
@@ -62,6 +74,11 @@
 	<select id="selectMemberlevel" parameterType="memberlevel" resultType="memberlevel">
 		SELECT MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION
 		from club.memberlevel WHERE MEMBER_LEVEL_CODE = #{memberLevelCode}
+	</select>
+	
+	<select id="selectMemberonline" parameterType="memberonline" resultType="memberonline">
+		SELECT MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION
+		from club.memberonline WHERE MEMBER_STATUS = #{memberStatus}
 	</select>
 	
 	<!-- type = ofType, id = resultMap -->

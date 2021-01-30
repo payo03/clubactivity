@@ -12,19 +12,21 @@ import clubactivity.vo.MemberRegisterRequest;
 public interface MemberDAO {
 
 	Member selectMemberById(@Param("memberId") String memberId);
-	
+
 	Member selectMemberByMemberNumber(@Param("memberNumber") int memberNumber);
 
 	int insertMember(@Param("memberRegisterRequest") MemberRegisterRequest memberRegisterRequest);
 
 	int selectById(@Param("memberId") String memberId);
 
-	int updateAuthStatus(String memberId);
+	int updateOnline(@Param("memberNumber") int memberNumber);
+
+	int updateOffline(@Param("memberNumber") int memberNumber);
 
 	void updatePassword(@Param("member") Member member);
 
 	void updateNumber(@Param("member") Member member);
 
 	void updateWebsite(@Param("member") Member member);
-	
+
 }

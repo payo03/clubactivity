@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import controller.MemberEditController;
+import controller.ProfileEditController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
@@ -38,8 +38,8 @@ public class ControllerConfig {
 	}
 
 	@Bean
-	public MemberEditController memberEditController() {
-		return new MemberEditController();
+	public ProfileEditController profileEditController() {
+		return new ProfileEditController();
 	}
 	
 	@Bean

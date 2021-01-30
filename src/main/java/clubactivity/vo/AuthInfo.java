@@ -12,6 +12,7 @@ public class AuthInfo {
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
 	private String memberWebsite;
+	private Memberonline memberonline;
 	private List<Messagecommand> messagecommand;
 
 	public AuthInfo() {
@@ -19,7 +20,7 @@ public class AuthInfo {
 	}
 
 	public AuthInfo(String memberId, int memberNumber, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite,
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite, Memberonline memberonline,
 			List<Messagecommand> messagecommand) {
 		super();
 		this.memberId = memberId;
@@ -29,6 +30,7 @@ public class AuthInfo {
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
 		this.memberWebsite = memberWebsite;
+		this.memberonline = memberonline;
 		this.messagecommand = messagecommand;
 	}
 
@@ -86,6 +88,14 @@ public class AuthInfo {
 
 	public void setMemberWebsite(String memberWebsite) {
 		this.memberWebsite = memberWebsite;
+	}
+
+	public Memberonline getMemberonline() {
+		return memberonline;
+	}
+
+	public void setMemberonline(Memberonline memberonline) {
+		this.memberonline = memberonline;
 	}
 
 	public List<Messagecommand> getMessagecommand() {

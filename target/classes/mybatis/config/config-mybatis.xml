@@ -8,15 +8,12 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="clubactivity.vo.LoginRequest"
-			alias="loginRequest" />
+		<typeAlias type="clubactivity.vo.LoginRequest" alias="loginRequest" />
 		<typeAlias type="clubactivity.vo.Member" alias="member" />
-		<typeAlias type="clubactivity.vo.Memberlevel"
-			alias="memberlevel" />
-		<typeAlias type="clubactivity.vo.MemberRegisterRequest"
-			alias="memberRegisterRequest" />
-		<typeAlias type="clubactivity.vo.Messagecommand"
-			alias="messagecommand" />
+		<typeAlias type="clubactivity.vo.Memberlevel" alias="memberlevel" />
+		<typeAlias type="clubactivity.vo.Memberonline" alias="memberonline" />
+		<typeAlias type="clubactivity.vo.MemberRegisterRequest" alias="memberRegisterRequest" />
+		<typeAlias type="clubactivity.vo.Messagecommand" alias="messagecommand" />
 	</typeAliases>
 
 </configuration>

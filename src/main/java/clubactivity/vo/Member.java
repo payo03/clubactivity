@@ -13,6 +13,7 @@ public class Member {
 	private Date memberRegisterDate;
 	private Memberlevel memberlevel;
 	private String memberWebsite;
+	private Memberonline memberonline;
 	private List<Messagecommand> messagecommand;
 
 	public Member() {
@@ -20,7 +21,7 @@ public class Member {
 	}
 
 	public Member(int memberNumber, String memberId, String memberPassword, String memberName, String memberPhoneNumber,
-			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite,
+			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite, Memberonline memberonline,
 			List<Messagecommand> messagecommand) {
 		super();
 		this.memberNumber = memberNumber;
@@ -31,6 +32,7 @@ public class Member {
 		this.memberRegisterDate = memberRegisterDate;
 		this.memberlevel = memberlevel;
 		this.memberWebsite = memberWebsite;
+		this.memberonline = memberonline;
 		this.messagecommand = messagecommand;
 	}
 
@@ -98,6 +100,14 @@ public class Member {
 		this.memberWebsite = memberWebsite;
 	}
 
+	public Memberonline getMemberonline() {
+		return memberonline;
+	}
+
+	public void setMemberonline(Memberonline memberonline) {
+		this.memberonline = memberonline;
+	}
+
 	public List<Messagecommand> getMessagecommand() {
 		return messagecommand;
 	}
@@ -109,11 +119,11 @@ public class Member {
 	public void changePassword(String newPassword) {
 		this.memberPassword = newPassword;
 	}
-	
+
 	public void changeProfile(Object object) {
-		if(object instanceof ChangeNumberCommand) {
+		if (object instanceof ChangeNumberCommand) {
 			this.memberPhoneNumber = ((ChangeNumberCommand) object).getMemberPhoneNumber();
-		}else if(object instanceof ChangeWebsiteCommand) {
+		} else if (object instanceof ChangeWebsiteCommand) {
 			this.memberWebsite = ((ChangeWebsiteCommand) object).getMemberWebsite();
 		}
 	}
