@@ -106,12 +106,16 @@ public class Member {
 		this.messagecommand = messagecommand;
 	}
 
-	public void changePassword(String oldPassword, String newPassword) {
+	public void changePassword(String newPassword) {
 		this.memberPassword = newPassword;
 	}
-
-	public void changeNumber(String newNumber) {
-		this.memberPhoneNumber = newNumber;
+	
+	public void changeProfile(Object object) {
+		if(object instanceof ChangeNumberCommand) {
+			this.memberPhoneNumber = ((ChangeNumberCommand) object).getMemberPhoneNumber();
+		}else if(object instanceof ChangeWebsiteCommand) {
+			this.memberWebsite = ((ChangeWebsiteCommand) object).getMemberWebsite();
+		}
 	}
 
 }

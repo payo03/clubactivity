@@ -24,5 +24,7 @@ public interface MemberDAO {
 	void updatePassword(@Param("member") Member member);
 
 	void updateNumber(@Param("member") Member member);
+
+	void updateWebsite(@Param("member") Member member);
 	
 }

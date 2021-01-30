@@ -95,7 +95,7 @@
 											<li>Website <span><a
 													href="${sessionScope.login.memberWebsite }">${sessionScope.login.memberWebsite }
 												</a><a
-													href="${pageContext.request.contextPath }/edit/updateMemberWebsite"><i
+													href="${pageContext.request.contextPath }/edit/updateWebsite"><i
 														class="lnr lnr-pencil"></i></a></span></li>
 										</ul>
 									</div>
@@ -123,43 +123,61 @@
 								<h4 class="heading">Update Profile</h4>
 								<!-- Profile Update Form -->
 								<div class="awards">
-									<div class="input-group">
-										<c:choose>
-											<c:when test="${!empty updatePhoneNumber }">
-												<div class="btn btn-default">Mobile Update</div>
-												<br>
-												<br>
+									<c:choose>
+										<c:when test="${!empty updatePhoneNumber }">
+											<div class="btn btn-default">Mobile Update</div>
+											<br>
+											<br>
+											<div class="input-group">
 												<form:form
 													action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
 													modelAttribute="changeNumberCommand"
 													class="form-auth-small">
-													<div class="input-group">
-														<form:input path="memberPhoneNumber"
-															value="${sessionScope.login.memberPhoneNumber }"
-															onKeyup="inputPhoneNumber(this);" maxlength="13"
-															pattern=".{13,13}" class="form-control" />
-														<input type="hidden" name="memberNumber"
-															value="${sessionScope.login.memberNumber }" /> <span
-															class="input-group-btn">
-															<button type="submit" class="btn btn-success">Update</button>
-															<a href="${pageContext.request.contextPath}/profile">
-																<button type="button" class="btn btn-danger">Cancel</button>
-														</a>
-														</span>
-													</div>
+													<form:input path="memberPhoneNumber"
+														value="${sessionScope.login.memberPhoneNumber }"
+														onKeyup="inputPhoneNumber(this);" maxlength="13"
+														pattern=".{13,13}" class="form-control" />
+													<input type="hidden" name="memberNumber"
+														value="${sessionScope.login.memberNumber }" />
+													<span class="input-group-btn">
+														<button type="submit" class="btn btn-success">Update</button>
+														<a href="${pageContext.request.contextPath}/profile">
+															<button type="button" class="btn btn-danger">Cancel</button>
+													</a>
+													</span>
 													<form:errors path="memberPhoneNumber" />
 												</form:form>
-											</c:when>
-											
-											<c:when test="${!empty updateId }" >
-											
-											</c:when>
-											
-											<c:when test="${!empty updateWebsite }" >
-											
-											</c:when>
-										</c:choose>
-									</div>
+											</div>
+										</c:when>
+
+										<c:when test="${!empty updateId }">
+
+										</c:when>
+
+										<c:when test="${!empty updateWebsite }">
+											<div class="btn btn-default">Website Update</div>
+											<br>
+											<br>
+											<form:form
+												action="${pageContext.request.contextPath }/edit/updateWebsite"
+												modelAttribute="changeWebsiteCommand"
+												class="form-auth-small">
+												<div class="input-group">
+													<textarea name="memberWebsite" class="form-control"
+														rows="3">${sessionScope.login.memberWebsite }</textarea>
+													<input type="hidden" name="memberNumber"
+														value="${sessionScope.login.memberNumber }" /> <span
+														class="input-group-btn">
+														<button type="submit" class="btn btn-success">Update</button>
+														<a href="${pageContext.request.contextPath}/profile">
+															<button type="button" class="btn btn-danger">Cancel</button>
+													</a>
+													</span>
+												</div>
+												<form:errors path="memberWebsite" />
+											</form:form>
+										</c:when>
+									</c:choose>
 									<br>
 									<div class="text-center">
 										<a href="#" class="btn btn-default">See all awards</a>

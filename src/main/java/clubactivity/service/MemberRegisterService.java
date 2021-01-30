@@ -21,6 +21,7 @@ public class MemberRegisterService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
+	@Transactional(rollbackFor=SQLException.class)
 	public int insertMember(MemberRegisterRequest memberRegisterRequest) throws Exception {
 
 		String password = passwordEncoder.encode(memberRegisterRequest.getMemberPassword());

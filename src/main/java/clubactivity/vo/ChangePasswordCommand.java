@@ -1,9 +1,22 @@
 package clubactivity.vo;
 
+import javax.validation.constraints.NotBlank;
+
 public class ChangePasswordCommand {
 
+	private int memberNumber;
+	@NotBlank
 	private String currentPassword;
+	@NotBlank
 	private String newPassword;
+
+	public int getMemberNumber() {
+		return memberNumber;
+	}
+
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
 
 	public String getCurrentPassword() {
 		return currentPassword;

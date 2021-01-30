@@ -34,7 +34,13 @@
 	<update id="updateNumber" parameterType="member">
 		update club.member 
 		SET MEMBER_PHONE_NUMBER = #{member.memberPhoneNumber} 
-		where MEMBER_ID = #{member.memberId}
+		where MEMBER_NUMBER = #{member.memberNumber}
+	</update>
+	
+	<update id="updateWebsite" parameterType="member">
+		update club.member 
+		SET MEMBER_WEBSITE = #{member.memberWebsite} 
+		where MEMBER_NUMBER = #{member.memberNumber}
 	</update>
 
 	<resultMap type="member" id="memberResultMap">

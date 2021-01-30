@@ -2,11 +2,11 @@ package clubactivity.vo;
 
 import javax.validation.constraints.NotBlank;
 
-public class ChangeNumberCommand {
+public class ChangeWebsiteCommand {
 
 	private int memberNumber;
 	@NotBlank
-	private String memberPhoneNumber;
+	private String memberWebsite;
 
 	public int getMemberNumber() {
 		return memberNumber;
@@ -16,12 +16,12 @@ public class ChangeNumberCommand {
 		this.memberNumber = memberNumber;
 	}
 
-	public String getMemberPhoneNumber() {
-		return memberPhoneNumber;
+	public String getMemberWebsite() {
+		return memberWebsite;
 	}
 
-	public void setMemberPhoneNumber(String memberPhoneNumber) {
-		this.memberPhoneNumber = memberPhoneNumber;
+	public void setMemberWebsite(String memberWebsite) {
+		this.memberWebsite = memberWebsite;
 	}
 
 }

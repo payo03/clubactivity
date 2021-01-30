@@ -70,6 +70,7 @@
 								<label><spring:message code="newPassword" /> <form:password
 										path="newPassword" /> <form:errors path="newPassword" /> </label>
 							</p>
+							<input type="hidden" name="memberNumber" value="${sessionScope.login.memberNumber }" />
 							<input type="submit" value="<spring:message code="btn.change" />">
 						</form:form>
 					</div>
