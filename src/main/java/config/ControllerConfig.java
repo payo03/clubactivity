@@ -6,12 +6,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import controller.ProfileEditController;
+import controller.AdminMemberListController;
+import controller.AdminMemberRegisterController;
+import controller.AdminMessageSendController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
 import controller.MessageController;
-import controller.admin.MemberListController;
-import controller.admin.MessageSendController;
+import controller.ProfileController;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +38,11 @@ public class ControllerConfig {
 	public MemberRegisterController memberRegisterController() {
 		return new MemberRegisterController();
 	}
+	
+	@Bean
+	public ProfileController profileController() {
+		return new ProfileController();
+	}
 
 	@Bean
 	public ProfileEditController profileEditController() {
@@ -43,13 +50,13 @@ public class ControllerConfig {
 	}
 	
 	@Bean
-	public MemberListController memberListController() {
-		return new MemberListController();
+	public AdminMemberListController memberListController() {
+		return new AdminMemberListController();
 	}
 	
 	@Bean
-	public MessageSendController messageSendController() {
-		return new MessageSendController();
+	public AdminMessageSendController messageSendController() {
+		return new AdminMessageSendController();
 	}
 	
 	@Bean
@@ -57,4 +64,8 @@ public class ControllerConfig {
 		return new MessageController();
 	}
 	
+	@Bean
+	public AdminMemberRegisterController adminMemberRegisterController() {
+		return new AdminMemberRegisterController();
+	}
 }

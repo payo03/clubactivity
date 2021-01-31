@@ -55,8 +55,7 @@
 						<div class="logo text-center">
 							<form:form
 								action="${pageContext.request.contextPath}/signup/step2"
-								method="post" modelAttribute="memberRegisterRequest"
-								onsubmit="return validate()">
+								method="post" modelAttribute="memberRegisterRequest">
 								<h3>
 									<spring:message code="register.member" />
 								</h3>

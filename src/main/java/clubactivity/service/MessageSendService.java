@@ -1,4 +1,4 @@
-package clubactivity.service.admin;
+package clubactivity.service;
 
 import java.sql.SQLException;
 

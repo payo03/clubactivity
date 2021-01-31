@@ -75,7 +75,7 @@
 									</c:forEach>
 									<li><a
 										href="${pageContext.request.contextPath}/profile/message"
-										class="more">See all notifications</a></li>
+										class="more">See all message</a></li>
 								</ul></li>
 						</c:when>
 					</c:choose>
@@ -104,7 +104,7 @@
 												code="register.member" /></a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${pageContext.request.contextPath}/profile"><i
+									<li><a href="${pageContext.request.contextPath}/profile/refresh"><i
 											class="lnr lnr-user"></i> <span>Profile</span></a></li>
 									<li><a
 										href="${pageContext.request.contextPath}/profile/message"><i
@@ -117,8 +117,8 @@
 							</c:choose>
 						</ul></li>
 					<li><c:if
-							test="${sessionScope.login.memberlevel.memberLevelCode eq 0}">
-							<a href="${pageContext.request.contextPath}/admin/memberList"><i
+							test="${sessionScope.login.memberlevel.memberLevelCode == 1}">
+							<a href="${pageContext.request.contextPath}/admin/refresh"><i
 								class="lnr lnr-cog"></i></a>
 						</c:if></li>
 				</ul>

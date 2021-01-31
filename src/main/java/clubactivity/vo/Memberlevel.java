@@ -2,13 +2,13 @@ package clubactivity.vo;
 
 public class Memberlevel {
 	
-	private String memberLevelCode;
+	private int memberLevelCode;
 	private String memberLevelDescription;
 	
-	public String getMemberLevelCode() {
+	public int getMemberLevelCode() {
 		return memberLevelCode;
 	}
-	public void setMemberLevelCode(String memberLevelCode) {
+	public void setMemberLevelCode(int memberLevelCode) {
 		this.memberLevelCode = memberLevelCode;
 	}
 	public String getMemberLevelDescription() {

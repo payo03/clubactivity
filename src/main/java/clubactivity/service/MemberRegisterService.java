@@ -34,6 +34,7 @@ public class MemberRegisterService {
 		return cnt;
 	}
 
+	@Transactional(rollbackFor=SQLException.class)
 	public int selectById(String memberId) throws Exception {
 		int cnt = memberDAO.selectById(memberId);
 		if (cnt != 0) {
@@ -46,6 +47,5 @@ public class MemberRegisterService {
 	public void memberRegister(MemberRegisterRequest memberRegisterRequest) throws Exception {
 		this.selectById(memberRegisterRequest.getMemberId());
 		this.insertMember(memberRegisterRequest);
-		System.out.println("here");
 	}
 }

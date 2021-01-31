@@ -149,8 +149,9 @@
 													<input type="hidden" name="memberNumber"
 														value="${sessionScope.login.memberNumber }" /> <span
 														class="input-group-btn">
-														<button type="submit" class="btn btn-success">Update</button> &nbsp; 
-														<a href="${pageContext.request.contextPath}/profile">
+														<button type="submit" class="btn btn-success">Update</button>
+														&nbsp; <a
+														href="${pageContext.request.contextPath}/profile/refresh">
 															<button type="button" class="btn btn-danger">Cancel</button>
 													</a>
 													</span>
@@ -167,12 +168,12 @@
 												action="${pageContext.request.contextPath }/edit/updateWebsite"
 												modelAttribute="changeWebsiteCommand"
 												class="form-auth-small">
-												<textarea name="memberWebsite" class="form-control" rows="3">${sessionScope.login.memberWebsite }</textarea>
+												<textarea name="memberWebsite" class="form-control" rows="3" placeholder="https://...">${sessionScope.login.memberWebsite }</textarea>
 												<input type="hidden" name="memberNumber"
 													value="${sessionScope.login.memberNumber }" />
 												<span class="input-group-btn">
-													<button type="submit" class="btn btn-success">Update</button> &nbsp; 
-													<a href="${pageContext.request.contextPath}/profile">
+													<button type="submit" class="btn btn-success">Update</button>
+													&nbsp; <a href="${pageContext.request.contextPath}/profile/refresh">
 														<button type="button" class="btn btn-danger">Cancel</button>
 												</a>
 												</span>
@@ -187,7 +188,7 @@
 											<c:choose>
 												<c:when
 													test="${sessionScope.login.memberonline.memberStatus }">
-													<button class="btn label-default">Clocking Mode</button>
+													<button class="btn label-default">Clocking</button>
 												</c:when>
 												<c:otherwise>
 													<button class="btn label-success">Online</button>
@@ -200,14 +201,14 @@
 								<!-- TABBED CONTENT -->
 								<div class="custom-tabs-line tabs-line-bottom left-aligned">
 									<ul class="nav" role="tablist">
-										<li class="active"><a href="#tab-bottom-left1" role="tab"
-											data-toggle="tab">Message History</a></li>
-										<li><a href="#tab-bottom-left2" role="tab"
-											data-toggle="tab">Meet Friends</a></li>
+										<li class="active"><a href="#tab-bottom-left" role="tab"
+											data-toggle="tab">Notifications History</a></li>
+										<li><a href="#tab-bottom-right" role="tab"
+											data-toggle="tab">Find Friends</a></li>
 									</ul>
 								</div>
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="tab-bottom-left1">
+									<div class="tab-pane fade in active" id="tab-bottom-left">
 										<ul class="list-unstyled activity-timeline">
 											<li><i class="fa fa-comment activity-icon"></i>
 												<p>
@@ -232,11 +233,64 @@
 												</p></li>
 										</ul>
 										<div class="margin-top-30 text-center">
-											<a href="#" class="btn btn-default">See all activity</a>
+											<a href="#" class="btn btn-default">See all Notifications</a>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="tab-bottom-left2">
-										<div class="table-responsive"></div>
+									<div class="tab-pane fade" id="tab-bottom-right">
+										<div class="table-responsive">
+											<div class="col-md-12 text-right">
+												<a href="${pageContext.request.contextPath}/profile/refresh">
+													<button type="button" class="btn btn-primary">
+														<i class="fa fa-refresh"></i>
+													</button>
+												</a>
+											</div>
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th width="10%"><div class="btn btn-default">
+																<spring:message code="name" />
+															</div></th>
+														<th width="20%"><div class="btn btn-default">
+																<spring:message code="memberId" />
+															</div></th>
+														<th width="10%"><div class="btn btn-default">
+																<i class="fa fa-envelope"></i> &nbsp; <i
+																	class="lnr lnr-highlight"></i>
+															</div></th>
+														<th width="3%"><div class="btn btn-default">
+																<spring:message code="memberonline" />
+															</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="member" items="${memberList}"
+														varStatus="status">
+														<tr>
+															<td width="10%">${member.memberName }</td>
+															<td width="20%">${member.memberId }</td>
+															<td width="10%"><form:form action="#">
+																	<input type="hidden" name="memberNumber"
+																		value="${member.memberNumber }">
+																	<button type="submit" class="btn btn-default">
+																		<i class="fa fa-plus-square"></i> SEND
+																	</button>
+																</form:form></td>
+															<td width="3%"><c:choose>
+																	<c:when test="${member.memberonline.memberStatus }">
+																		<a href="#" class="notification-item"><span
+																			class="dot bg-success"></span>Online</a>
+																	</c:when>
+																	<c:otherwise>
+																		<a class="notification-item"><span
+																			class="dot bg-warning"></span>Offline</a>
+																	</c:otherwise>
+																</c:choose></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 								<!-- END TABBED CONTENT -->

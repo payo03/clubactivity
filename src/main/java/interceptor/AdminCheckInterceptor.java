@@ -22,7 +22,7 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
 		
 		Memberlevel memberLevel = authInfo.getMemberlevel();
 		
-		if (!"0".equals(memberLevel.getMemberLevelCode())) {
+		if (memberLevel.getMemberLevelCode()!=1) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");

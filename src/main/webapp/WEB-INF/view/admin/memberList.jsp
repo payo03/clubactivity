@@ -101,8 +101,9 @@
 													<i class="fa fa-envelope"></i> &nbsp; <i
 														class="lnr lnr-highlight"></i>
 												</div></th>
-											<th width="20%"><a href="#"><button type="button"
-														class="btn btn-success">
+											<th width="20%"><a
+												href="${pageContext.request.contextPath}/admin/register"><button
+														type="button" class="btn btn-success">
 														<i class="fa fa-check-circle"></i> NEW
 													</button></a></th>
 										</tr>
@@ -135,14 +136,49 @@
 														</button></a></td>
 											</tr>
 										</c:forEach>
-
+										<c:if test="${!empty register }">
+											<tr>
+												<form:form
+													action="${pageContext.request.contextPath }/admin/register"
+													modelAttribute="adminMemberRegisterCommand">
+													<td><button type="button"
+															class="btn btn-primary btn-xs">
+															<i class="fa fa-plus-square"></i>
+														</button></td>
+													<td><form:select path="memberLevelDescription">
+															<c:forEach var="memberlevel" items="${memberlevelList}"
+																varStatus="status">
+																<option value="${memberlevel.memberLevelDescription}">${memberlevel.memberLevelDescription}</option>
+															</c:forEach>
+													</form:select></td>
+													<td><form:input path="memberName" placeholder="NAME"
+															onfocus="this.placeholder = ''"
+															onblur="this.placeholder = 'NAME'" class="form-control" /></td>
+													<td><form:input path="memberId" placeholder="EMAIL"
+															onfocus="this.placeholder = 'ID'"
+															onblur="this.placeholder = 'EMAIL'" class="form-control" /></td>
+													<td><form:input path="memberPhoneNumber"
+															placeholder="PHONE" onfocus="this.placeholder = ''"
+															onblur="this.placeholder = 'PHONE'"
+															onKeyup="inputPhoneNumber(this);" maxlength="13"
+															pattern=".{13,13}" class="form-control" /></td>
+													<td></td>
+													<td colspan="2"><button type="submit"
+															class="btn btn-primary">Register</button> <a
+														href="${pageContext.request.contextPath }/admin/refresh"><button
+																type="button" class="btn btn-danger">Cancel</button></a></td>
+												</form:form>
+											</tr>
+										</c:if>
 									</tbody>
 								</table>
 								<!-- here -->
 								<div id="paging" class="paging"
-									style="text-align: center; padding-bottom: 20px;"><h4>
-									<span class="lnr lnr-arrow-left-circle"></span> &nbsp; <strong>1</strong>
-									&nbsp; <span class="lnr lnr-arrow-right-circle"></span></h4>
+									style="text-align: center; padding-bottom: 20px;">
+									<h4>
+										<span class="lnr lnr-arrow-left-circle"></span> &nbsp; <strong>1</strong>
+										&nbsp; <span class="lnr lnr-arrow-right-circle"></span>
+									</h4>
 								</div>
 								<!-- end -->
 							</div>
@@ -159,6 +195,34 @@
 		</c:import>
 		<!-- FOOTER END -->
 	</div>
+	<script>
+		function inputPhoneNumber(obj) {
+
+			var number = obj.value.replace(/[^0-9]/g, "");
+			var phone = "";
+
+			if (number.length < 4) {
+				return number;
+			} else if (number.length < 7) {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3);
+			} else if (number.length < 11) {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3, 3);
+				phone += "-";
+				phone += number.substr(6);
+			} else {
+				phone += number.substr(0, 3);
+				phone += "-";
+				phone += number.substr(3, 4);
+				phone += "-";
+				phone += number.substr(7);
+			}
+			obj.value = phone;
+		}
+	</script>
 </body>
 
 <script

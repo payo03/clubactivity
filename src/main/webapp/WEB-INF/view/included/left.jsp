@@ -54,7 +54,7 @@
 								<i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
-									<li><a href="${pageContext.request.contextPath}/profile"
+									<li><a href="${pageContext.request.contextPath}/profile/refresh"
 										class="">Profile</a></li>
 									<li><a
 										href="${pageContext.request.contextPath}/profile/message"

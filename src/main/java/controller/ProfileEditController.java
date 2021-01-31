@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,10 +77,10 @@ public class ProfileEditController {
 	}
 
 	@GetMapping("/updatePhoneNumber")
-	public String numberform(ChangeNumberCommand changeNumberCommand, Model model) {
-		model.addAttribute("updatePhoneNumber", true);
+	public String numberform(ChangeNumberCommand changeNumberCommand, HttpSession session) {
+		session.setAttribute("updatePhoneNumber", true);
 
-		return "profile/info";
+		return "redirect:/profile";
 	}
 
 	@PostMapping("/updatePhoneNumber")
@@ -89,23 +88,24 @@ public class ProfileEditController {
 			throws MemberNotFoundException {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
 		if (errors.hasErrors()) {
-			return "profile/info";
+			return "redirect:/profile";
 		}
 		if (changeNumberCommand.getMemberPhoneNumber() != "") {
 			changeProfileService.changeProfile(changeNumberCommand, changeNumberCommand.getMemberNumber());
 
 			authInfo.setMemberPhoneNumber(changeNumberCommand.getMemberPhoneNumber());
-			return "profile/info";
+			session.removeAttribute("updatePhoneNumber");
+			return "redirect:/profile";
 		}
 
-		return "profile/info";
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/updateWebsite")
-	public String websiteForm(ChangeWebsiteCommand changeWebsiteCommand, Model model) {
-		model.addAttribute("updateWebsite", true);
+	public String websiteForm(ChangeWebsiteCommand changeWebsiteCommand, HttpSession session) {
+		session.setAttribute("updateWebsite", true);
 
-		return "profile/info";
+		return "redirect:/profile";
 	}
 
 	@PostMapping("/updateWebsite")
@@ -113,16 +113,17 @@ public class ProfileEditController {
 			throws MemberNotFoundException {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("login");
 		if (errors.hasErrors()) {
-			return "profile/info";
+			return "redirect:/profile";
 		}
 		if (changeWebsiteCommand.getMemberWebsite() != "") {
 			changeProfileService.changeProfile(changeWebsiteCommand, changeWebsiteCommand.getMemberNumber());
 
 			authInfo.setMemberWebsite(changeWebsiteCommand.getMemberWebsite());
-			return "profile/info";
+			session.removeAttribute("updateWebsite");
+			return "redirect:/profile";
 		}
 
-		return "profile/info";
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/status")
@@ -137,6 +138,6 @@ public class ProfileEditController {
 			authInfo.getMemberonline().setMemberStatus(true);
 		}
 		
-		return "profile/info";
+		return "redirect:/profile";
 	}
 }

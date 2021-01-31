@@ -1,4 +1,4 @@
-package controller.admin;
+package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,24 +7,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import clubactivity.service.admin.FindMemberByNumberService;
-import clubactivity.service.admin.MessageSendService;
+import clubactivity.dao.MemberDAO;
+import clubactivity.service.MessageSendService;
 import clubactivity.vo.Member;
 import clubactivity.vo.Messagecommand;
 
 @Controller
 @RequestMapping("/admin")
-public class MessageSendController {
-
+public class AdminMessageSendController {
+	
 	@Autowired
-	private FindMemberByNumberService memberFindByNumberService;
+	private MemberDAO memberDAO;
 	
 	@Autowired
 	private MessageSendService messageSendService;
 	
 	@PostMapping("/messageForm")
 	public String messageForm(@RequestParam("memberNumber") int memberNumber, Model model, Messagecommand messagecommand) {
-		Member member = memberFindByNumberService.find(memberNumber);
+		Member member = memberDAO.selectMemberByMemberNumber(memberNumber);
 		
 		model.addAttribute("member", member);
 		return "/admin/messageForm";

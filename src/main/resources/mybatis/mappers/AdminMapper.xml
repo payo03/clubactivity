@@ -8,19 +8,23 @@
 	<select id="selectMemberList" resultMap="memberListResultMap">
 		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS
 		from club.member
+		order by MEMBER_LEVEL_CODE desc
 	</select>
 	
-	<select id="findMemberByNumber" parameterType="int" resultType="member">
-		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS
-		from club.member
-		where MEMBER_NUMBER = #{memberNumber }
+	<select id="selectMemberlevel" resultType="memberlevel">
+		select MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION
+		from club.memberlevel
 	</select>
-	
-	<insert id="sendMessage" parameterType="messagecommand">
-		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE)
-		VALUES (#{messagecommand.memberNumber}, #{messagecommand.title}, #{messagecommand.message});
-	</insert>
 
+	<select id="selectById" parameterType="String" resultType="int">
+		SELECT count(*) from club.member WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<insert id="insertMember" parameterType="adminMemberRegisterCommand">
+		INSERT INTO club.member (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE)
+		VALUES (#{adminMemberRegisterCommand.memberId}, #{adminMemberRegisterCommand.memberPassword}, #{adminMemberRegisterCommand.memberName}, #{adminMemberRegisterCommand.memberPhoneNumber}, now(), #{adminMemberRegisterCommand.memberLevelCode});
+	</insert>
+	
 	<resultMap type="member" id="memberListResultMap">
 		<id column="MEMBER_NUMBER" property="memberNumber" />
 		<result column="MEMBER_ID" property="memberId" />
