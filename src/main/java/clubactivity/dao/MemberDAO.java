@@ -19,9 +19,9 @@ public interface MemberDAO {
 
 	List<Member> selectMemberList(@Param("memberNumber") int memberNumber);
 
-	int insertMember(@Param("memberRegisterRequest") MemberRegisterRequest memberRegisterRequest);
-
 	int selectById(@Param("memberId") String memberId);
+
+	int insertMember(@Param("memberRegisterRequest") MemberRegisterRequest memberRegisterRequest);
 
 	int updateOnline(@Param("memberNumber") int memberNumber);
 

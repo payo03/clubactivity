@@ -12,16 +12,16 @@ import clubactivity.vo.Messagecommand;
 @Component
 public interface MessageDAO {
 
-	int sendMessage(@Param("messagecommand") Messagecommand messagecommand);
-	
-	int selectMemberNumberById(@Param("memberId") String memberId);
-
-	int sendWelcomeMessage(@Param("memberNumber") int memberNumber);
-
 	List<Messagecommand> findListByMemberNumber(@Param("memberNumber") int memberNumber);
 
 	Messagecommand selectByMessageNumber(@Param("messageNumber") int messageNumber);
 
+	int selectMemberNumberById(@Param("memberId") String memberId);
+
+	int sendMessage(@Param("messagecommand") Messagecommand messagecommand);
+
+	int sendWelcomeMessage(@Param("memberNumber") int memberNumber);
+
 	void updateMessage(@Param("messageNumber") int messageNumber);
-	
+
 }
