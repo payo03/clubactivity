@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import clubactivity.vo.AdminMemberRegisterCommand;
+import clubactivity.vo.AdminMemberCommand;
 import clubactivity.vo.Member;
 import clubactivity.vo.Memberlevel;
 
@@ -20,6 +20,10 @@ public interface AdminDAO {
 	
 	int selectById(@Param("memberId") String memberId);
 
-	int insertMember(@Param("adminMemberRegisterCommand") AdminMemberRegisterCommand adminMemberRegisterCommand);
+	int insertMember(@Param("adminMemberCommand") AdminMemberCommand adminMemberCommand);
+
+	int updateMember(@Param("adminMemberCommand") AdminMemberCommand adminMemberCommand);
+
+	void deleteMember(@Param("memberNumber") int memberNumber);
 
 }

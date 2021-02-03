@@ -13,34 +13,32 @@ import clubactivity.vo.Messagecommand;
 
 @Component
 public class CreateSessionService {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	public List<Messagecommand> createAuthInfoSession(LoginRequest loginRequest, HttpSession session) {
-		
-		AuthInfo authInfo = loginService.selectMemberById(loginRequest.getMemberId(),
-				loginRequest.getMemberPassword());
+
+		AuthInfo authInfo = loginService.selectMemberById(loginRequest.getMemberId(), loginRequest.getMemberPassword());
 		List<Messagecommand> messagecommands = authInfo.getMessagecommand();
-		
+
 		session.setAttribute("login", authInfo);
-		
+
 		return messagecommands;
 	}
 
-	public void createMessageSession(List<Messagecommand> messsagecommands, HttpSession session) {
-		
+	public void createMessageSession(List<Messagecommand> messagecommands, HttpSession session) {
 		int messageLength = 0;
-		
-		for(Messagecommand messagecommand : messsagecommands) {
-			if(!messagecommand.isRead())
+
+		for (Messagecommand messagecommand : messagecommands) {
+			if (!messagecommand.isRead())
 				messageLength++;
 		}
 		if (messageLength > 0) {
 			session.setAttribute("messageLength", messageLength);
-		} else if(messageLength == 0) {
+		} else if (messageLength == 0) {
 			session.removeAttribute("messageLength");
 		}
-		session.setAttribute("messagecommands", messsagecommands);
+		session.setAttribute("messagecommands", messagecommands);
 	}
 }

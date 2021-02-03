@@ -27,7 +27,7 @@ public class AdminMessageSendController {
 		Member member = memberDAO.selectMemberByMemberNumber(memberNumber);
 		
 		model.addAttribute("member", member);
-		return "/admin/messageForm";
+		return "admin/messageForm";
 	}
 	
 	@PostMapping("messageSend")

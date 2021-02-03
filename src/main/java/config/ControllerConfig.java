@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import controller.ProfileEditController;
 import controller.AdminMemberListController;
-import controller.AdminMemberRegisterController;
+import controller.AdminMemberController;
 import controller.AdminMessageSendController;
 import controller.LoginController;
 import controller.LogoutController;
@@ -65,7 +65,7 @@ public class ControllerConfig {
 	}
 	
 	@Bean
-	public AdminMemberRegisterController adminMemberRegisterController() {
-		return new AdminMemberRegisterController();
+	public AdminMemberController adminMemberController() {
+		return new AdminMemberController();
 	}
 }

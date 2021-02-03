@@ -20,11 +20,25 @@
 		SELECT count(*) from club.member WHERE MEMBER_ID = #{memberId}
 	</select>
 	
-	<insert id="insertMember" parameterType="adminMemberRegisterCommand">
+	<insert id="insertMember" parameterType="adminMemberCommand">
 		INSERT INTO club.member (MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE)
-		VALUES (#{adminMemberRegisterCommand.memberId}, #{adminMemberRegisterCommand.memberPassword}, #{adminMemberRegisterCommand.memberName}, #{adminMemberRegisterCommand.memberPhoneNumber}, now(), #{adminMemberRegisterCommand.memberLevelCode});
+		VALUES (#{adminMemberCommand.memberId}, #{adminMemberCommand.memberPassword}, #{adminMemberCommand.memberName}, #{adminMemberCommand.memberPhoneNumber}, now(), #{adminMemberCommand.memberLevelCode});
 	</insert>
 	
+	<update id="updateMember" parameterType="adminMemberCommand">
+		UPDATE club.member 
+		set MEMBER_LEVEL_CODE = #{adminMemberCommand.memberLevelCode}, 
+			MEMBER_NAME = #{adminMemberCommand.memberName}, 
+			MEMBER_ID = #{adminMemberCommand.memberId}, 
+			MEMBER_PHONE_NUMBER = #{adminMemberCommand.memberPhoneNumber}
+		WHERE MEMBER_NUMBER = #{adminMemberCommand.memberNumber}
+	</update>
+	
+	<delete id="deleteMember" parameterType="int">
+		DELETE FROM club.member
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+		
 	<resultMap type="member" id="memberListResultMap">
 		<id column="MEMBER_NUMBER" property="memberNumber" />
 		<result column="MEMBER_ID" property="memberId" />

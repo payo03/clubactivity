@@ -112,35 +112,84 @@
 										<c:forEach var="member" items="${memberList}"
 											varStatus="status">
 											<tr>
-												<td>${member.memberNumber}</td>
-												<td width="10%">${member.memberlevel.memberLevelDescription }</td>
-												<td width="10%">${member.memberName }</td>
-												<td width="20%">${member.memberId }</td>
-												<td width="15%">${member.memberPhoneNumber }</td>
-												<td width="15%"><fmt:formatDate
-														value="${member.memberRegisterDate}" pattern="yyyy-MM-dd" /></td>
-												<td width="10%"><form:form
-														action="${pageContext.request.contextPath}/admin/messageForm">
-														<input type="hidden" name="memberNumber"
-															value="${member.memberNumber }">
-														<button type="submit" class="btn btn-default">
-															<i class="fa fa-plus-square"></i> SEND
-														</button>
-													</form:form></td>
-												<td width="20%"><a href="#"><button type="button"
-															class="btn btn-info">
-															<i class="lnr lnr-pencil"></i>
-														</button></a> &nbsp; <a href="#"><button type="button"
-															class="btn btn-danger">
-															<i class="fa fa-trash-o"></i>
-														</button></a></td>
+												<c:choose>
+													<c:when test="${member.memberNumber!=updateMemberNumber }">
+														<td>${member.memberNumber}</td>
+														<td>${member.memberlevel.memberLevelDescription }</td>
+														<td>${member.memberName }</td>
+														<td>${member.memberId }</td>
+														<td>${member.memberPhoneNumber }</td>
+														<td><fmt:formatDate
+																value="${member.memberRegisterDate}"
+																pattern="yyyy-MM-dd" /></td>
+														<td><form:form
+																action="${pageContext.request.contextPath}/admin/messageForm">
+																<input type="hidden" name="memberNumber"
+																	value="${member.memberNumber }">
+																<button type="submit" class="btn btn-default">
+																	<i class="fa fa-plus-square"></i> SEND
+																</button>
+															</form:form></td>
+														<td><c:if
+																test="${member.memberlevel.memberLevelCode !=1 }">
+																<a
+																	href="${pageContext.request.contextPath}/admin/update?memberNumber=${member.memberNumber}"><button
+																		type="button" class="btn btn-info">
+																		<i class="lnr lnr-pencil"></i>
+																	</button></a> &nbsp; <a
+																	href="${pageContext.request.contextPath}/admin/delete?memberNumber=${member.memberNumber}">
+																	<button type="button" class="btn btn-danger">
+																		<i class="fa fa-trash-o"></i>
+																	</button>
+																</a>
+															</c:if></td>
+													</c:when>
+													<c:otherwise>
+														<form:form
+															action="${pageContext.request.contextPath }/admin/update"
+															modelAttribute="adminMemberCommand">
+															<td>${member.memberNumber}</td>
+															<td><form:select path="memberLevelDescription">
+																	<c:forEach var="memberlevel" items="${memberlevelList}"
+																		varStatus="status">
+																		<option value="${memberlevel.memberLevelDescription}">${memberlevel.memberLevelDescription}</option>
+																	</c:forEach>
+																</form:select></td>
+															<td><form:input path="memberName" placeholder="NAME"
+																	onfocus="this.placeholder = ''"
+																	onblur="this.placeholder = 'NAME'" class="form-control"
+																	value="${member.memberName }" /></td>
+															<td><form:input path="memberId" placeholder="EMAIL"
+																	onfocus="this.placeholder = 'ID'"
+																	onblur="this.placeholder = 'EMAIL'"
+																	class="form-control" value="${member.memberId }" /></td>
+															<td><form:input path="memberPhoneNumber"
+																	placeholder="PHONE" onfocus="this.placeholder = ''"
+																	onblur="this.placeholder = 'PHONE'"
+																	onKeyup="inputPhoneNumber(this);" maxlength="13"
+																	pattern=".{13,13}" class="form-control"
+																	value="${member.memberPhoneNumber }" /></td>
+															<td><fmt:formatDate
+																	value="${member.memberRegisterDate}"
+																	pattern="yyyy-MM-dd" /></td>
+															<td colspan="2"><input type="hidden"
+																name="memberNumber" value="${member.memberNumber }" />
+																<button type="submit" class="btn btn-info">Update</button>
+																&nbsp; <a
+																href="${pageContext.request.contextPath}/admin/refresh">
+																	<button type="button" class="btn btn-danger">
+																		Cancel</button>
+															</a></td>
+														</form:form>
+													</c:otherwise>
+												</c:choose>
 											</tr>
 										</c:forEach>
 										<c:if test="${!empty register }">
 											<tr>
 												<form:form
 													action="${pageContext.request.contextPath }/admin/register"
-													modelAttribute="adminMemberRegisterCommand">
+													modelAttribute="adminMemberCommand">
 													<td><button type="button"
 															class="btn btn-primary btn-xs">
 															<i class="fa fa-plus-square"></i>
@@ -150,7 +199,7 @@
 																varStatus="status">
 																<option value="${memberlevel.memberLevelDescription}">${memberlevel.memberLevelDescription}</option>
 															</c:forEach>
-													</form:select></td>
+														</form:select></td>
 													<td><form:input path="memberName" placeholder="NAME"
 															onfocus="this.placeholder = ''"
 															onblur="this.placeholder = 'NAME'" class="form-control" /></td>

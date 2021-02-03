@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import clubactivity.dao.AdminDAO;
 import clubactivity.service.MemberListService;
-import clubactivity.vo.AdminMemberRegisterCommand;
+import clubactivity.vo.AdminMemberCommand;
 import clubactivity.vo.Member;
 
 @Controller
@@ -19,10 +21,13 @@ import clubactivity.vo.Member;
 public class AdminMemberListController {
 
 	@Autowired
+	private AdminDAO adminDAO;
+	
+	@Autowired
 	private MemberListService memberListService;
 
 	@GetMapping("/memberList")
-	public String listMember(Model model, HttpSession session, AdminMemberRegisterCommand adminMemberRegisterCommand) {
+	public String listMember(Model model, HttpSession session, AdminMemberCommand adminMemberCommand) {
 		try {
 			List<Member> memberList = memberListService.selectMemberList(session);
 			model.addAttribute("memberList", memberList);
@@ -33,10 +38,18 @@ public class AdminMemberListController {
 		return "admin/memberList";
 	}
 	
+	@GetMapping("/delete")
+	public String deleteMember(@RequestParam("memberNumber") int memberNumber) {
+		adminDAO.deleteMember(memberNumber);
+		
+		return "redirect:/admin/memberList";
+	}
+	
 	@GetMapping("/refresh")
 	public String refresh(HttpSession session) {
 		session.removeAttribute("register");
 		session.removeAttribute("memberlevelList");
+		session.removeAttribute("updateMemberNumber");
 		
 		return "redirect:/admin/memberList";
 	}

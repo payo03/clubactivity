@@ -21,7 +21,7 @@ public class MemberRegisterController {
 
 	@Autowired
 	private MemberRegisterService memberRegisterService;
-
+	
 	public MemberRegisterController() {
 		super();
 	}

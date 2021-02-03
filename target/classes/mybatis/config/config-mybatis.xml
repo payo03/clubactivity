@@ -14,7 +14,7 @@
 		<typeAlias type="clubactivity.vo.Memberonline" alias="memberonline" />
 		<typeAlias type="clubactivity.vo.MemberRegisterRequest" alias="memberRegisterRequest" />
 		<typeAlias type="clubactivity.vo.Messagecommand" alias="messagecommand" />
-		<typeAlias type="clubactivity.vo.AdminMemberRegisterCommand" alias="adminMemberRegisterCommand" />
+		<typeAlias type="clubactivity.vo.AdminMemberCommand" alias="adminMemberCommand" />
 	</typeAliases>
 
 </configuration>

@@ -1,13 +1,22 @@
 package clubactivity.vo;
 
-public class AdminMemberRegisterCommand {
+public class AdminMemberCommand {
 
+	private int memberNumber;
 	private String memberLevelDescription;
 	private String memberName;
 	private String memberPassword;
 	private String memberId;
 	private String memberPhoneNumber;
 	private int memberLevelCode;
+
+	public int getMemberNumber() {
+		return memberNumber;
+	}
+
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
 
 	public String getMemberLevelDescription() {
 		return memberLevelDescription;
@@ -57,11 +66,11 @@ public class AdminMemberRegisterCommand {
 		this.memberLevelCode = memberLevelCode;
 	}
 
-	public void insertLevelCode(AdminMemberRegisterCommand adminMemberRegisterCommand) {
-		if (adminMemberRegisterCommand.getMemberLevelDescription().equals("회원")) {
-			adminMemberRegisterCommand.setMemberLevelCode(0);
+	public void insertLevelCode(AdminMemberCommand adminMemberCommand) {
+		if (adminMemberCommand.getMemberLevelDescription().equals("회원")) {
+			adminMemberCommand.setMemberLevelCode(0);
 		} else {
-			adminMemberRegisterCommand.setMemberLevelCode(1);
+			adminMemberCommand.setMemberLevelCode(1);
 		}
 	}
 

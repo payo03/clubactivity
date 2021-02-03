@@ -8,34 +8,37 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import clubactivity.dao.AdminDAO;
+import clubactivity.dao.MessageDAO;
 import clubactivity.exception.MemberDuplicateException;
 import clubactivity.exception.MemberInsertException;
-import clubactivity.vo.AdminMemberRegisterCommand;
+import clubactivity.exception.MessageSendException;
+import clubactivity.vo.AdminMemberCommand;
 
 @Component
 public class AdminMemberRegisterService {
 
 	@Autowired
 	private AdminDAO adminDAO;
+	
+	@Autowired
+	private MessageDAO messageDAO;
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
-	@Transactional(rollbackFor = SQLException.class)
-	public int insertMember(AdminMemberRegisterCommand adminMemberRegisterCommand) throws Exception {
-		adminMemberRegisterCommand.insertLevelCode(adminMemberRegisterCommand);
+	public int insertMember(AdminMemberCommand adminMemberCommand) throws Exception {
+		adminMemberCommand.insertLevelCode(adminMemberCommand);
 		
 		String password = passwordEncoder.encode("1234");
-		adminMemberRegisterCommand.setMemberPassword(password);
+		adminMemberCommand.setMemberPassword(password);
 		
-		int cnt = adminDAO.insertMember(adminMemberRegisterCommand);
+		int cnt = adminDAO.insertMember(adminMemberCommand);
 		if (cnt == 0) {
 			throw new MemberInsertException("Insert failed");
 		}
 		return cnt;
 	}
 
-	@Transactional(rollbackFor = SQLException.class)
 	public int selectById(String memberId) throws Exception {
 		int cnt = adminDAO.selectById(memberId);
 		if (cnt != 0) {
@@ -43,10 +46,21 @@ public class AdminMemberRegisterService {
 		}
 		return cnt;
 	}
-
+	
+	public int sendWelcomeMessage(String memberId) {
+		int memberNumber = messageDAO.selectMemberNumberById(memberId);
+		
+		int cnt = messageDAO.sendWelcomeMessage(memberNumber);
+		if(cnt == 0) {
+			throw new MessageSendException("Message Error");
+		}
+		return cnt;
+	}
+	
 	@Transactional(rollbackFor = SQLException.class)
-	public void memberRegister(AdminMemberRegisterCommand adminMemberRegisterCommand) throws Exception {
-		this.selectById(adminMemberRegisterCommand.getMemberId());
-		this.insertMember(adminMemberRegisterCommand);
+	public void memberRegister(AdminMemberCommand adminMemberCommand) throws Exception {
+		this.selectById(adminMemberCommand.getMemberId());
+		this.insertMember(adminMemberCommand);
+		this.sendWelcomeMessage(adminMemberCommand.getMemberId());
 	}
 }

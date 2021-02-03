@@ -16,6 +16,12 @@
 		WHERE MESSAGE_NUMBER = #{messageNumber }
 	</select>
 	
+	<select id="selectMemberNumberById" parameterType="String" resultType="int">
+		SELECT MEMBER_NUMBER
+		FROM club.member
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
 	<update id="updateMessage" parameterType="int" >
 		update club.messagecommand
 		set messagecommand.READ = 1
@@ -27,6 +33,11 @@
 		FROM club.messagecommand
 		WHERE MEMBER_NUMBER = #{memberNumber }
 	</select>
+	
+	<insert id="sendWelcomeMessage" parameterType="int">
+		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE, FROM_MEMBER_NUMBER)
+		VALUES (#{memberNumber}, "KLOROFIL", "회원가입을 축하드립니다.", 15);
+	</insert>
 	
 	<resultMap type="messagecommand" id="messageResultMap">
 		<id column="MESSAGE_NUMBER" property="messageNumber" />
