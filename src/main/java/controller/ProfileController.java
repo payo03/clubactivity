@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import clubactivity.service.MemberListService;
 import clubactivity.vo.ChangeNumberCommand;
 import clubactivity.vo.ChangeWebsiteCommand;
+import clubactivity.vo.ImageUploadRequest;
 import clubactivity.vo.Member;
 
 @Controller
@@ -24,7 +25,7 @@ public class ProfileController {
 
 	@GetMapping
 	public String profile(Model model, HttpSession session, ChangeNumberCommand changeNumberCommand,
-			ChangeWebsiteCommand changeWebsiteCommand) {
+			ChangeWebsiteCommand changeWebsiteCommand, ImageUploadRequest imageUploadRequest) {
 		try {
 			List<Member> memberList = memberListService.selectMemberList(session);
 			model.addAttribute("memberList", memberList);
@@ -32,7 +33,6 @@ public class ProfileController {
 			e.printStackTrace();
 			return "home/main";
 		}
-
 		return "profile/info";
 	}
 
@@ -40,7 +40,10 @@ public class ProfileController {
 	public String refresh(HttpSession session) {
 		session.removeAttribute("updatePhoneNumber");
 		session.removeAttribute("updateWebsite");
-		
+		session.removeAttribute("uploadImage");
+		session.removeAttribute("imageList");
+
 		return "redirect:/profile";
 	}
+
 }

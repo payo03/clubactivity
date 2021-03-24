@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import clubactivity.vo.AlertScript;
+
 public class AuthCheckInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -18,8 +20,7 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
 				return true;
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/login");
-		return false;
+		return AlertScript.write("잘못된 접근입니다", "login", request, response);
 	}
 
 }

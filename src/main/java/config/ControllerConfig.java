@@ -3,12 +3,13 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import controller.ProfileEditController;
 import controller.AdminMemberListController;
 import controller.AdminMemberController;
 import controller.AdminMessageSendController;
+import controller.ImageController;
+import controller.ProfileSettingController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.MemberRegisterController;
@@ -18,11 +19,6 @@ import controller.ProfileController;
 @Configuration
 @EnableWebSecurity
 public class ControllerConfig {
-	
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 	
 	@Bean
 	public LoginController loginController() {
@@ -47,6 +43,16 @@ public class ControllerConfig {
 	@Bean
 	public ProfileEditController profileEditController() {
 		return new ProfileEditController();
+	}
+	
+	@Bean
+	public ImageController imageController() {
+		return new ImageController();
+	}
+	
+	@Bean
+	public ProfileSettingController profileSettingController() {
+		return new ProfileSettingController();
 	}
 	
 	@Bean

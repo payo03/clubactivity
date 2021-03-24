@@ -65,9 +65,10 @@
 								<div class="profile-header">
 									<div class="overlay"></div>
 									<div class="profile-main">
-										<img
+										<a
+											href="${pageContext.request.contextPath }/edit/uploadImage/${sessionScope.login.memberNumber}"><img
 											src="${pageContext.request.contextPath}/assets/img/user-medium.png"
-											class="img-circle" alt="Avatar">
+											class="img-circle"></a>
 										<h3 class="name">${sessionScope.login.memberName }</h3>
 										<c:choose>
 											<c:when
@@ -130,6 +131,51 @@
 								<!-- Profile Update Form -->
 								<div class="awards">
 									<c:choose>
+										<c:when test="${!empty uploadImage }">
+											<div class="filebox">
+												<form id="form" method="post" enctype="multipart/form-data"
+													action="${pageContext.request.contextPath}/edit/uploadImage">
+
+													<label for="ex_file"> <a class="btn btn-info"
+														style="color: white;">Image Upload</a>
+													</label> <input type="file" multiple="multiple" name="file"
+														style="display: none" id="ex_file" /> <br> <br>
+													<span class="input-group-btn"> <input type="hidden"
+														name="memberNumber"
+														value="${sessionScope.login.memberNumber}" />
+													</span>
+												</form>
+											</div>
+											<div class="awards">
+												<c:forEach var="image" items="${imageList}"
+													varStatus="status">
+													<div class="col-md-3 col-sm-6">
+														<div class="award-item">
+															<div class="hexagon">
+																<a
+																	href="${pageContext.request.contextPath}/upload/${image.imagePath}"
+																	class="img-pop-up">
+																	<div
+																		style="background: url(${pageContext.request.contextPath}/upload/${image.imagePath});"></div>
+																</a>
+																<div class="checkBox">
+																	<input type="checkbox" name="chBox" class="chBox"
+																		value="${image.imagePath}" />
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
+
+
+												<%-- <button type="submit" class="btn btn-success">Update</button>
+														&nbsp; <a
+														href="${pageContext.request.contextPath}/profile/refresh">
+															<button type="button" class="btn btn-danger">Cancel</button>
+													</a> --%>
+											</div>
+										</c:when>
+
 										<c:when test="${!empty updateId }">
 
 										</c:when>
@@ -168,12 +214,14 @@
 												action="${pageContext.request.contextPath }/edit/updateWebsite"
 												modelAttribute="changeWebsiteCommand"
 												class="form-auth-small">
-												<textarea name="memberWebsite" class="form-control" rows="3" placeholder="https://...">${sessionScope.login.memberWebsite }</textarea>
+												<textarea name="memberWebsite" class="form-control" rows="3"
+													placeholder="https://...">${sessionScope.login.memberWebsite }</textarea>
 												<input type="hidden" name="memberNumber"
 													value="${sessionScope.login.memberNumber }" />
 												<span class="input-group-btn">
 													<button type="submit" class="btn btn-success">Update</button>
-													&nbsp; <a href="${pageContext.request.contextPath}/profile/refresh">
+													&nbsp; <a
+													href="${pageContext.request.contextPath}/profile/refresh">
 														<button type="button" class="btn btn-danger">Cancel</button>
 												</a>
 												</span>
@@ -337,7 +385,11 @@
 		}
 	</script>
 </body>
-
+<script defer type="text/javascript">
+	document.getElementById("ex_file").onchange = function() {
+		document.getElementById("form").submit();
+	};
+</script>
 <script
 	src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
 <script
@@ -350,5 +402,4 @@
 	src="${pageContext.request.contextPath}/assets/vendor/chartist/js/chartist.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/assets/scripts/klorofil-common.js"></script>
-
 </html>

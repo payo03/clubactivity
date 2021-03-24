@@ -38,6 +38,7 @@ public class AdminMemberController {
 		
 		session.setAttribute("register", true);
 		session.setAttribute("memberlevelList", memberlevelList);
+		
 		return "redirect:/admin/memberList";
 	}
 	
