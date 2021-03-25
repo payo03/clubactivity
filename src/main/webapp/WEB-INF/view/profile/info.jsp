@@ -66,9 +66,11 @@
 									<div class="overlay"></div>
 									<div class="profile-main">
 										<a
-											href="${pageContext.request.contextPath }/edit/uploadImage/${sessionScope.login.memberNumber}"><img
-											src="${pageContext.request.contextPath}/assets/img/user-medium.png"
-											class="img-circle"></a>
+											href="${pageContext.request.contextPath }/edit/uploadImage/${sessionScope.login.memberNumber}">
+											<img
+											src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
+											class="img-circle" width="75" height="75">
+										</a>
 										<h3 class="name">${sessionScope.login.memberName }</h3>
 										<c:choose>
 											<c:when
@@ -130,107 +132,137 @@
 								<h4 class="heading">Update Profile</h4>
 								<!-- Profile Update Form -->
 								<div class="awards">
-									<c:choose>
-										<c:when test="${!empty uploadImage }">
-											<div class="filebox">
-												<form id="form" method="post" enctype="multipart/form-data"
-													action="${pageContext.request.contextPath}/edit/uploadImage">
-
-													<label for="ex_file"> <a class="btn btn-info"
-														style="color: white;">Image Upload</a>
-													</label> <input type="file" multiple="multiple" name="file"
-														style="display: none" id="ex_file" /> <br> <br>
-													<span class="input-group-btn"> <input type="hidden"
-														name="memberNumber"
-														value="${sessionScope.login.memberNumber}" />
-													</span>
-												</form>
-											</div>
-											<div class="awards">
-												<c:forEach var="image" items="${imageList}"
-													varStatus="status">
-													<div class="col-md-3 col-sm-6">
-														<div class="award-item">
-															<div class="hexagon">
-																<a
-																	href="${pageContext.request.contextPath}/upload/${image.imagePath}"
-																	class="img-pop-up">
-																	<div
-																		style="background: url(${pageContext.request.contextPath}/upload/${image.imagePath});"></div>
-																</a>
-																<div class="checkBox">
-																	<input type="checkbox" name="chBox" class="chBox"
-																		value="${image.imagePath}" />
+									<div class="row">
+										<c:choose>
+											<c:when test="${!empty uploadImage }">
+												<c:if test="${empty select }">
+													<form id="form" method="post" enctype="multipart/form-data"
+														action="${pageContext.request.contextPath}/edit/uploadImage">
+														<label for="ex_file"> <a class="btn btn-info"
+															style="color: white;">Image Upload</a>
+														</label> <input type="file" multiple="multiple" name="file"
+															style="display: none" id="ex_file" /> <input
+															type="hidden" name="memberNumber"
+															value="${sessionScope.login.memberNumber}" /> &nbsp;
+														<button type="submit" name="select" value="true"
+															class="btn btn-success">Select</button>
+													</form>
+													<br>
+													<c:forEach var="image" items="${imageList}"
+														varStatus="status">
+														<div class="col-md-3 col-sm-6">
+															<div class="award-item">
+																<div class="profile-main">
+																	<a
+																		href="${pageContext.request.contextPath}/upload/${image.imagePath}"
+																		class="img-circle"> <img width="125" height="125"
+																		class="img-circle"
+																		src="<spring:url value='/upload/${image.imagePath}'/>" />
+																	</a>
+																	<c:if test="${!empty select}">
+																		<div class="checkBox">
+																			<input type="radio" name="radio"
+																				value="${image.imagePath}" />
+																		</div>
+																	</c:if>
 																</div>
 															</div>
 														</div>
-													</div>
-												</c:forEach>
+													</c:forEach>
+												</c:if>
 
-
-												<%-- <button type="submit" class="btn btn-success">Update</button>
+												<c:if test="${!empty select }">
+													<form:form method="post"
+														action="${pageContext.request.contextPath}/edit/updateImage/${sessionScope.login.memberNumber}">
+														<button type="submit" class="btn btn-success">Select</button>
 														&nbsp; <a
-														href="${pageContext.request.contextPath}/profile/refresh">
+															href="${pageContext.request.contextPath}/profile/refresh">
 															<button type="button" class="btn btn-danger">Cancel</button>
-													</a> --%>
-											</div>
-										</c:when>
+														</a>
+														<br>
+														<br>
+														<c:forEach var="image" items="${imageList}"
+															varStatus="status">
+															<div class="col-md-3 col-sm-6">
+																<div class="award-item">
+																	<div class="profile-main">
+																		<a
+																			href="${pageContext.request.contextPath}/upload/${image.imagePath}"
+																			class="img-circle"> <img width="125" height="125"
+																			class="img-circle"
+																			src="<spring:url value='/upload/${image.imagePath}'/>" />
+																		</a>
+																		<c:if test="${!empty select}">
+																			<div class="checkBox">
+																				<input type="radio" name="radio"
+																					value="${image.imagePath}" />
+																			</div>
+																		</c:if>
+																	</div>
+																</div>
+															</div>
+														</c:forEach>
+													</form:form>
+												</c:if>
 
-										<c:when test="${!empty updateId }">
+											</c:when>
 
-										</c:when>
+											<c:when test="${!empty updateId }">
 
-										<c:when test="${!empty updatePhoneNumber }">
-											<div class="btn btn-default">Mobile Update</div>
-											<br>
-											<br>
-											<form:form
-												action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
-												modelAttribute="changeNumberCommand" class="form-auth-small">
-												<div class="input-group">
-													<form:input path="memberPhoneNumber"
-														value="${sessionScope.login.memberPhoneNumber }"
-														onKeyup="inputPhoneNumber(this);" maxlength="13"
-														pattern=".{13,13}" class="form-control" />
+											</c:when>
+
+											<c:when test="${!empty updatePhoneNumber }">
+												<div class="btn btn-default">Mobile Update</div>
+												<br>
+												<br>
+												<form:form
+													action="${pageContext.request.contextPath }/edit/updatePhoneNumber"
+													modelAttribute="changeNumberCommand"
+													class="form-auth-small">
+													<div class="input-group">
+														<form:input path="memberPhoneNumber"
+															value="${sessionScope.login.memberPhoneNumber }"
+															onKeyup="inputPhoneNumber(this);" maxlength="13"
+															pattern=".{13,13}" class="form-control" />
+														<input type="hidden" name="memberNumber"
+															value="${sessionScope.login.memberNumber }" /> <span
+															class="input-group-btn">
+															<button type="submit" class="btn btn-success">Update</button>
+															&nbsp; <a
+															href="${pageContext.request.contextPath}/profile/refresh">
+																<button type="button" class="btn btn-danger">Cancel</button>
+														</a>
+														</span>
+													</div>
+													<form:errors path="memberPhoneNumber" />
+												</form:form>
+											</c:when>
+
+											<c:when test="${!empty updateWebsite }">
+												<div class="btn btn-default">Website Update</div>
+												<br>
+												<br>
+												<form:form
+													action="${pageContext.request.contextPath }/edit/updateWebsite"
+													modelAttribute="changeWebsiteCommand"
+													class="form-auth-small">
+													<textarea name="memberWebsite" class="form-control"
+														rows="3" placeholder="https://...">${sessionScope.login.memberWebsite }</textarea>
 													<input type="hidden" name="memberNumber"
-														value="${sessionScope.login.memberNumber }" /> <span
-														class="input-group-btn">
+														value="${sessionScope.login.memberNumber }" />
+													<span class="input-group-btn">
 														<button type="submit" class="btn btn-success">Update</button>
 														&nbsp; <a
 														href="${pageContext.request.contextPath}/profile/refresh">
 															<button type="button" class="btn btn-danger">Cancel</button>
 													</a>
 													</span>
-												</div>
-												<form:errors path="memberPhoneNumber" />
-											</form:form>
-										</c:when>
-
-										<c:when test="${!empty updateWebsite }">
-											<div class="btn btn-default">Website Update</div>
-											<br>
-											<br>
-											<form:form
-												action="${pageContext.request.contextPath }/edit/updateWebsite"
-												modelAttribute="changeWebsiteCommand"
-												class="form-auth-small">
-												<textarea name="memberWebsite" class="form-control" rows="3"
-													placeholder="https://...">${sessionScope.login.memberWebsite }</textarea>
-												<input type="hidden" name="memberNumber"
-													value="${sessionScope.login.memberNumber }" />
-												<span class="input-group-btn">
-													<button type="submit" class="btn btn-success">Update</button>
-													&nbsp; <a
-													href="${pageContext.request.contextPath}/profile/refresh">
-														<button type="button" class="btn btn-danger">Cancel</button>
-												</a>
-												</span>
-												<form:errors path="memberWebsite" />
-											</form:form>
-										</c:when>
-									</c:choose>
-									<br>
-
+													<form:errors path="memberWebsite" />
+												</form:form>
+											</c:when>
+										</c:choose>
+										<br>
+									</div>
 									<div class="text-center">
 										<a href="${pageContext.request.contextPath}/edit/status">
 											<c:choose>

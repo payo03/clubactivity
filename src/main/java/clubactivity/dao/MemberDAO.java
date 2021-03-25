@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import clubactivity.vo.Image;
 import clubactivity.vo.Member;
 import clubactivity.vo.MemberRegisterRequest;
 
@@ -26,6 +27,8 @@ public interface MemberDAO {
 	int updateOnline(@Param("memberNumber") int memberNumber);
 
 	int updateOffline(@Param("memberNumber") int memberNumber);
+
+	int updateImage(@Param("image") Image image);
 
 	void updatePassword(@Param("member") Member member);
 

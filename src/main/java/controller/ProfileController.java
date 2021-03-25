@@ -6,14 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import clubactivity.service.MemberListService;
-import clubactivity.vo.ChangeNumberCommand;
-import clubactivity.vo.ChangeWebsiteCommand;
-import clubactivity.vo.ImageUploadRequest;
 import clubactivity.vo.Member;
 
 @Controller
@@ -24,11 +20,10 @@ public class ProfileController {
 	private MemberListService memberListService;
 
 	@GetMapping
-	public String profile(Model model, HttpSession session, ChangeNumberCommand changeNumberCommand,
-			ChangeWebsiteCommand changeWebsiteCommand, ImageUploadRequest imageUploadRequest) {
+	public String profile(HttpSession session) {
 		try {
 			List<Member> memberList = memberListService.selectMemberList(session);
-			model.addAttribute("memberList", memberList);
+			session.setAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "home/main";
@@ -38,11 +33,9 @@ public class ProfileController {
 
 	@GetMapping("/refresh")
 	public String refresh(HttpSession session) {
-		session.removeAttribute("updatePhoneNumber");
-		session.removeAttribute("updateWebsite");
-		session.removeAttribute("uploadImage");
+		session.removeAttribute("memberList");
 		session.removeAttribute("imageList");
-
+		
 		return "redirect:/profile";
 	}
 

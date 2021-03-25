@@ -15,6 +15,8 @@ public interface ImageDAO {
 
 	int insertImage(@Param("imageUploadRequest") ImageUploadRequest imageUploadRequest);
 
+	int selectImageNumber(@Param("imagePath") String imagePath);
+
 	List<Image> selectImageList(@Param("memberNumber") int memberNumber);
 
 }

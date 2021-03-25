@@ -10,7 +10,7 @@ public class Image {
 		super();
 	}
 
-	public Image(int petRegistrationNumber, String imagePath, int memberNumber, int imageNumber) {
+	public Image(int memberNumber, String imagePath, int imageNumber) {
 		super();
 		this.imagePath = imagePath;
 		this.memberNumber = memberNumber;

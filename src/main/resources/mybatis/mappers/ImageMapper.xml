@@ -10,6 +10,12 @@
 		VALUES (#{imageUploadRequest.memberNumber}, #{imageUploadRequest.imagePath});
 	</insert>
 	
+	<select id="selectImageNumber" parameterType="String" resultType="int">
+		SELECT IMAGE_NUMBER
+		FROM club.image
+		WHERE IMAGE_PATH = #{imagePath}
+	</select>
+	
 	<select id="selectImageList" parameterType="int" resultMap="imageResultMap">
     	SELECT MEMBER_NUMBER, IMAGE_PATH, IMAGE_NUMBER
     	FROM club.image 

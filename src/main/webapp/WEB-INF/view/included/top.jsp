@@ -83,7 +83,7 @@
 						data-toggle="dropdown"> <c:choose>
 								<c:when test="${!empty sessionScope.login}">
 									<img
-										src="${pageContext.request.contextPath}/assets/img/user.png"
+										src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
 										class="img-circle" alt="image">
 								</c:when>
 								<c:otherwise>

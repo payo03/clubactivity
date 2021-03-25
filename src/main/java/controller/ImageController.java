@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -18,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import clubactivity.exception.ImageUpdateException;
 import clubactivity.exception.ImageUploadException;
+import clubactivity.service.ChangeProfileService;
 import clubactivity.service.ImageListService;
 import clubactivity.service.ImageUploadService;
 import clubactivity.vo.Image;
@@ -35,22 +37,31 @@ public class ImageController {
 	@Autowired
 	private ImageListService imageListService;
 
+	@Autowired
+	private ChangeProfileService changeProfileService;
+
 	@GetMapping("/uploadImage/{memberNumber}")
-	public String form(@PathVariable("memberNumber") int memberNumber, HttpSession session, Model model) {
+	public String selectImage(@PathVariable("memberNumber") int memberNumber, Model model) throws Exception {
 		try {
 			List<Image> imageList = imageListService.selectImageList(memberNumber);
-			session.setAttribute("imageList", imageList);
+			model.addAttribute("imageList", imageList);
+			model.addAttribute("uploadImage", true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		session.setAttribute("uploadImage", true);
 
-		return "redirect:/profile";
+		return "profile/info";
 	}
 
 	@PostMapping("/uploadImage")
-	public String upload(@RequestParam("memberNumber") int memberNumber, HttpSession session,
-			MultipartHttpServletRequest request) throws ImageUploadException {
+	public String upload(@RequestParam("memberNumber") int memberNumber,
+			@RequestParam(value = "select", required = false) String btnSelect, RedirectAttributes redirect,
+			MultipartHttpServletRequest request) throws Exception {
+
+		if (btnSelect != null) {
+			redirect.addFlashAttribute("select", true);
+			return "redirect:/edit/uploadImage/" + memberNumber;
+		}
 
 		try {
 			List<MultipartFile> file = request.getFiles("file");
@@ -63,15 +74,33 @@ public class ImageController {
 				ImageUploadRequest imageUploadRequest = new ImageUploadRequest(memberNumber, savedName);
 				imageUploadService.insertImage(imageUploadRequest);
 			}
-			return "redirect:/edit/uploadImage/"+memberNumber;
-		} catch (IOException e) {
+			return "redirect:/edit/uploadImage/" + memberNumber;
+		} catch (ImageUploadException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/profile/refresh";
+		return "profile/info";
 	}
-	
+
+	@PostMapping("/updateImage/{memberNumber}")
+	public String updateImage(@PathVariable("memberNumber") int memberNumber,
+			@RequestParam(value = "radio", required = false) String imagePath, HttpSession session) throws Exception {
+
+		try {
+			int imageNumber = imageListService.getImageNumber(imagePath);
+			Image image = new Image(memberNumber, imagePath, imageNumber);
+			
+			changeProfileService.updateImage(image, session);
+		} catch (ImageUpdateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/profile";
+	}
+
 	private String uploadFile(String originalName, byte[] fileData, String rootPath) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String rndName = sdf.format(new java.util.Date()) + System.currentTimeMillis();

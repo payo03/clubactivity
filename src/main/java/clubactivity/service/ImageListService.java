@@ -15,12 +15,19 @@ public class ImageListService {
 
 	@Autowired
 	private ImageDAO imageDAO;
-	
+
 	@Transactional(rollbackFor = SQLException.class)
 	public List<Image> selectImageList(int memberNumber) {
 		List<Image> imageList = imageDAO.selectImageList(memberNumber);
-		
+
 		return imageList;
+	}
+
+	@Transactional(rollbackFor = SQLException.class)
+	public int getImageNumber(String imagePath) {
+		int imageNumber = imageDAO.selectImageNumber(imagePath);
+		
+		return imageNumber;
 	}
 
 }

@@ -14,6 +14,7 @@ public class Member {
 	private Memberlevel memberlevel;
 	private String memberWebsite;
 	private Memberonline memberonline;
+	private Image image;
 	private List<Messagecommand> messagecommand;
 
 	public Member() {
@@ -22,7 +23,7 @@ public class Member {
 
 	public Member(int memberNumber, String memberId, String memberPassword, String memberName, String memberPhoneNumber,
 			Date memberRegisterDate, Memberlevel memberlevel, String memberWebsite, Memberonline memberonline,
-			List<Messagecommand> messagecommand) {
+			Image image, List<Messagecommand> messagecommand) {
 		super();
 		this.memberNumber = memberNumber;
 		this.memberId = memberId;
@@ -33,6 +34,7 @@ public class Member {
 		this.memberlevel = memberlevel;
 		this.memberWebsite = memberWebsite;
 		this.memberonline = memberonline;
+		this.image = image;
 		this.messagecommand = messagecommand;
 	}
 
@@ -106,6 +108,14 @@ public class Member {
 
 	public void setMemberonline(Memberonline memberonline) {
 		this.memberonline = memberonline;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public List<Messagecommand> getMessagecommand() {

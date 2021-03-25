@@ -35,7 +35,7 @@ public class LoginService {
 		member.getMemberonline().setMemberStatus(true);
 		
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),
-				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite(), member.getMemberonline(), member.getMessagecommand());
+				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite(), member.getMemberonline(), member.getImage(), member.getMessagecommand());
 	}
 
 }
