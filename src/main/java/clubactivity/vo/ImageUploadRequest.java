@@ -1,6 +1,7 @@
 package clubactivity.vo;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 import org.springframework.util.FileCopyUtils;
 
@@ -34,9 +35,11 @@ public class ImageUploadRequest {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-
+	
 	public static String uploadFile(String originalName, byte[] fileData, String rootPath) throws Exception {
-		String savedName = originalName.substring(originalName.lastIndexOf(".") + 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String rndName = sdf.format(new java.util.Date()) + System.currentTimeMillis();
+		String savedName = rndName + "." + originalName.substring(originalName.lastIndexOf(".") + 1);
 		File target = new File(rootPath, savedName);
 		FileCopyUtils.copy(fileData, target);
 

@@ -1,10 +1,15 @@
 package clubactivity.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Member {
+public class Member implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int memberNumber;
 	private String memberId;
 	private String memberPassword;

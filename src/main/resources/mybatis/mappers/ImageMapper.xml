@@ -10,22 +10,30 @@
 		VALUES (#{imageUploadRequest.memberNumber}, #{imageUploadRequest.imagePath});
 	</insert>
 	
-	<select id="selectImageNumber" parameterType="String" resultType="int">
+	<select id="getImageNumber" parameterType="String" resultType="int">
 		SELECT IMAGE_NUMBER
 		FROM club.image
 		WHERE IMAGE_PATH = #{imagePath}
 	</select>
 	
-	<select id="selectImageList" parameterType="int" resultMap="imageResultMap">
-    	SELECT MEMBER_NUMBER, IMAGE_PATH, IMAGE_NUMBER
-    	FROM club.image 
-    	WHERE MEMBER_NUMBER = #{memberNumber}
-    </select>
+	<select id="checkImage" parameterType="int" resultType="image">
+		SELECT MEMBER_NUMBER, IMAGE_PATH, IMAGE_NUMBER
+		FROM club.image
+		WHERE IMAGE_NUMBER = (SELECT IMAGE_NUMBER
+								FROM club.member
+								WHERE MEMBER_NUMBER = #{memberNumber})
+	</select>
     
     <delete id="deleteImage" parameterType="String">
     	DELETE FROM club.image
     	WHERE IMAGE_PATH = #{imagePath}    
     </delete>
+    
+    <select id="selectImageList" parameterType="int" resultMap="imageResultMap">
+    	SELECT MEMBER_NUMBER, IMAGE_PATH, IMAGE_NUMBER
+    	FROM club.image 
+    	WHERE MEMBER_NUMBER = #{memberNumber}
+    </select>
     
     <resultMap type="image" id="imageResultMap">
 		<id column="IMAGE_NUMBER" property="imageNumber" />

@@ -67,16 +67,8 @@
 									<div class="profile-main">
 										<a
 											href="${pageContext.request.contextPath }/edit/uploadImage/${sessionScope.login.memberNumber}">
-											<c:if test="${!empty sessionScope.login.image.imagePath}">
-												<img
-													src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
-													class="img-circle" width="75" height="75">
-											</c:if>
-											<c:if test="${empty sessionScope.login.image.imagePath }">
-												<img
-													src="${pageContext.request.contextPath}/upload/user-medium.png"
-													class="img-circle">
-											</c:if>
+											<img class="img-circle" width="75" height="75"
+											src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}">
 										</a>
 										<h3 class="name">${sessionScope.login.memberName }</h3>
 										<c:choose>

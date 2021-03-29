@@ -12,7 +12,7 @@ import clubactivity.exception.ImageDeleteException;
 import clubactivity.vo.Image;
 
 @Component
-public class ImageListService {
+public class ImageService {
 
 	@Autowired
 	private ImageDAO imageDAO;
@@ -26,7 +26,7 @@ public class ImageListService {
 
 	@Transactional(rollbackFor = SQLException.class)
 	public int getImageNumber(String imagePath) {
-		int imageNumber = imageDAO.selectImageNumber(imagePath);
+		int imageNumber = imageDAO.getImageNumber(imagePath);
 
 		return imageNumber;
 	}
@@ -35,8 +35,17 @@ public class ImageListService {
 	public void deleteImage(String imagePath) {
 		int result = imageDAO.deleteImage(imagePath);
 		if (result != 1) {
-			throw new ImageDeleteException("image Delete Error");
+			throw new ImageDeleteException("Image Delete Error");
 		}
+	}
+
+	@Transactional(rollbackFor = SQLException.class)
+	public Image checkImageNumber(int memberNumber) {
+		Image image = imageDAO.checkImage(memberNumber);
+		if (image == null) {
+			throw new ImageDeleteException("Image Delete Error");
+		}
+		return image;
 	}
 
 }

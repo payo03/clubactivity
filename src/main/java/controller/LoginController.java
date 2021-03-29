@@ -48,7 +48,7 @@ public class LoginController {
 
 	@PostMapping
 	public String login(@Valid LoginRequest loginRequest, Errors errors, HttpSession session,
-			HttpServletResponse response, HttpServletRequest request) {
+			HttpServletResponse response) {
 		if (errors.hasErrors()) {
 			return "login/login";
 		}

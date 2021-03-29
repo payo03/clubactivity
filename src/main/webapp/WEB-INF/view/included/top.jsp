@@ -82,16 +82,8 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <c:choose>
 								<c:when test="${!empty sessionScope.login}">
-									<c:if test="${!empty sessionScope.login.image.imagePath}">
-										<img
-											src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
-											class="img-circle" width="75" height="75">
-									</c:if>
-									<c:if test="${empty sessionScope.login.image.imagePath }">
-										<img
-											src="${pageContext.request.contextPath}/upload/user-medium.png"
-											class="img-circle">
-									</c:if>
+									<img class="img-circle" width="30" height="20"
+										src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}">
 								</c:when>
 								<c:otherwise>
 									<img
