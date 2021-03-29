@@ -28,7 +28,7 @@ public class LoginController {
 
 	@Autowired
 	private CreateSessionService createSessionService;
-	
+
 	public LoginController() {
 		super();
 	}
@@ -42,8 +42,7 @@ public class LoginController {
 			loginRequest.setMemory(true);
 		}
 		session.setAttribute("refererPage", request.getAttribute("refererPage"));
-		
-		System.out.println("LoginController Get refererPage : " + request.getAttribute("refererPage"));
+
 		return "login/loginFormPage";
 	}
 
@@ -56,11 +55,12 @@ public class LoginController {
 
 		try {
 			List<Messagecommand> messagecommands = createSessionService.createAuthInfoSession(loginRequest, session);
-			
+
 			createSessionService.createMessageSession(messagecommands, session);
-			
+
 			Cookie memoryCookie = new Cookie("memory", loginRequest.getMemberId());
 			memoryCookie.setPath("/");
+			
 			if (loginRequest.isMemory()) {
 				memoryCookie.setMaxAge(60 * 60 * 24 * 30);
 			} else {
@@ -71,10 +71,8 @@ public class LoginController {
 			String refererPage = (String) session.getAttribute("refererPage");
 			if (refererPage == null) {
 				return "redirect:/";
-			} else {
-				return "redirect:" + refererPage;
 			}
-
+			return "redirect:" + refererPage;
 		} catch (MemberNotFoundException e) {
 			errors.reject("notfound");
 			e.printStackTrace();

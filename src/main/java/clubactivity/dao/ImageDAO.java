@@ -17,6 +17,8 @@ public interface ImageDAO {
 
 	int selectImageNumber(@Param("imagePath") String imagePath);
 
+	int deleteImage(@Param("imagePath") String imagePath);
+
 	List<Image> selectImageList(@Param("memberNumber") int memberNumber);
 
 }

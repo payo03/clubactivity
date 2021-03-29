@@ -22,6 +22,11 @@
     	WHERE MEMBER_NUMBER = #{memberNumber}
     </select>
     
+    <delete id="deleteImage" parameterType="String">
+    	DELETE FROM club.image
+    	WHERE IMAGE_PATH = #{imagePath}    
+    </delete>
+    
     <resultMap type="image" id="imageResultMap">
 		<id column="IMAGE_NUMBER" property="imageNumber" />
 		<result column="MEMBER_NUMBER" property="memberNumber" />

@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +56,16 @@ public class ImageController {
 
 	@PostMapping("/uploadImage")
 	public String upload(@RequestParam("memberNumber") int memberNumber,
-			@RequestParam(value = "select", required = false) String btnSelect, RedirectAttributes redirect,
+			@RequestParam(value = "select", required = false) String btnSelect,
+			@RequestParam(value = "delete", required = false) String btnDelete, RedirectAttributes redirect,
 			MultipartHttpServletRequest request) throws Exception {
 
 		if (btnSelect != null) {
-			redirect.addFlashAttribute("select", true);
+			redirect.addFlashAttribute("modifyImage", true);
+			return "redirect:/edit/uploadImage/" + memberNumber;
+		}
+		if (btnDelete != null) {
+			redirect.addFlashAttribute("modifyImage", false);
 			return "redirect:/edit/uploadImage/" + memberNumber;
 		}
 
@@ -84,20 +90,36 @@ public class ImageController {
 	}
 
 	@PostMapping("/updateImage/{memberNumber}")
-	public String updateImage(@PathVariable("memberNumber") int memberNumber,
-			@RequestParam(value = "radio", required = false) String imagePath, HttpSession session) throws Exception {
+	public String updateImage(@PathVariable("memberNumber") int memberNumber, @RequestParam("radio") String imagePath,
+			HttpSession session) throws Exception {
 
 		try {
 			int imageNumber = imageListService.getImageNumber(imagePath);
 			Image image = new Image(memberNumber, imagePath, imageNumber);
-			
+
 			changeProfileService.updateImage(image, session);
 		} catch (ImageUpdateException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return "redirect:/profile";
+	}
 
+	@PostMapping("/deleteImage/{memberNumber}")
+	public String deleteImage(@PathVariable("memberNumber") int memberNumber,
+			@RequestParam("checkbox") String[] imagePath, HttpSession session, HttpServletRequest request)
+			throws Exception {
+		String rootPath = request.getSession().getServletContext().getRealPath("/upload");
+		try {
+			for (int i = 0; i < imagePath.length; i++) {
+				imageListService.deleteImage(imagePath[i]);
+				File file = new File(rootPath + "/" + imagePath[i]);
+				file.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "redirect:/profile";
 	}
 

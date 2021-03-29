@@ -82,9 +82,16 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <c:choose>
 								<c:when test="${!empty sessionScope.login}">
-									<img
-										src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
-										class="img-circle" alt="image">
+									<c:if test="${!empty sessionScope.login.image.imagePath}">
+										<img
+											src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
+											class="img-circle" width="75" height="75">
+									</c:if>
+									<c:if test="${empty sessionScope.login.image.imagePath }">
+										<img
+											src="${pageContext.request.contextPath}/upload/user-medium.png"
+											class="img-circle">
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<img
@@ -104,7 +111,8 @@
 												code="register.member" /></a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${pageContext.request.contextPath}/profile/refresh"><i
+									<li><a
+										href="${pageContext.request.contextPath}/profile/refresh"><i
 											class="lnr lnr-user"></i> <span>Profile</span></a></li>
 									<li><a
 										href="${pageContext.request.contextPath}/profile/message"><i

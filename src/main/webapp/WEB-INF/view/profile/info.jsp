@@ -67,9 +67,16 @@
 									<div class="profile-main">
 										<a
 											href="${pageContext.request.contextPath }/edit/uploadImage/${sessionScope.login.memberNumber}">
-											<img
-											src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
-											class="img-circle" width="75" height="75">
+											<c:if test="${!empty sessionScope.login.image.imagePath}">
+												<img
+													src="${pageContext.request.contextPath}/upload/${sessionScope.login.image.imagePath}"
+													class="img-circle" width="75" height="75">
+											</c:if>
+											<c:if test="${empty sessionScope.login.image.imagePath }">
+												<img
+													src="${pageContext.request.contextPath}/upload/user-medium.png"
+													class="img-circle">
+											</c:if>
 										</a>
 										<h3 class="name">${sessionScope.login.memberName }</h3>
 										<c:choose>
@@ -133,9 +140,11 @@
 								<!-- Profile Update Form -->
 								<div class="awards">
 									<div class="row">
+
+										<!-- Image Update -->
 										<c:choose>
 											<c:when test="${!empty uploadImage }">
-												<c:if test="${empty select }">
+												<c:if test="${empty modifyImage}">
 													<form id="form" method="post" enctype="multipart/form-data"
 														action="${pageContext.request.contextPath}/edit/uploadImage">
 														<label for="ex_file"> <a class="btn btn-info"
@@ -146,6 +155,8 @@
 															value="${sessionScope.login.memberNumber}" /> &nbsp;
 														<button type="submit" name="select" value="true"
 															class="btn btn-success">Select</button>
+														<button type="submit" name="delete" value="true"
+															class="btn btn-danger">Delete</button>
 													</form>
 													<br>
 													<c:forEach var="image" items="${imageList}"
@@ -159,19 +170,13 @@
 																		class="img-circle"
 																		src="<spring:url value='/upload/${image.imagePath}'/>" />
 																	</a>
-																	<c:if test="${!empty select}">
-																		<div class="checkBox">
-																			<input type="radio" name="radio"
-																				value="${image.imagePath}" />
-																		</div>
-																	</c:if>
 																</div>
 															</div>
 														</div>
 													</c:forEach>
 												</c:if>
 
-												<c:if test="${!empty select }">
+												<c:if test="${modifyImage eq true}">
 													<form:form method="post"
 														action="${pageContext.request.contextPath}/edit/updateImage/${sessionScope.login.memberNumber}">
 														<button type="submit" class="btn btn-success">Select</button>
@@ -192,12 +197,42 @@
 																			class="img-circle"
 																			src="<spring:url value='/upload/${image.imagePath}'/>" />
 																		</a>
-																		<c:if test="${!empty select}">
-																			<div class="checkBox">
-																				<input type="radio" name="radio"
-																					value="${image.imagePath}" />
-																			</div>
-																		</c:if>
+																		<div class="checkBox">
+																			<input type="radio" name="radio"
+																				value="${image.imagePath}" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</c:forEach>
+													</form:form>
+												</c:if>
+
+												<c:if test="${modifyImage eq false}">
+													<form:form method="post"
+														action="${pageContext.request.contextPath}/edit/deleteImage/${sessionScope.login.memberNumber}">
+														<button type="submit" class="btn btn-success">Delete</button>
+														&nbsp; <a
+															href="${pageContext.request.contextPath}/profile/refresh">
+															<button type="button" class="btn btn-danger">Cancel</button>
+														</a>
+														<br>
+														<br>
+														<c:forEach var="image" items="${imageList}"
+															varStatus="status">
+															<div class="col-md-3 col-sm-6">
+																<div class="award-item">
+																	<div class="profile-main">
+																		<a
+																			href="${pageContext.request.contextPath}/upload/${image.imagePath}"
+																			class="img-circle"> <img width="125" height="125"
+																			class="img-circle"
+																			src="<spring:url value='/upload/${image.imagePath}'/>" />
+																		</a>
+																		<div class="checkBox">
+																			<input type="checkbox" name="checkbox"
+																				value="${image.imagePath}" />
+																		</div>
 																	</div>
 																</div>
 															</div>
