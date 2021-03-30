@@ -125,7 +125,7 @@ public class ImageController {
 
 	private void insertDefaultImage(int memberNumber, HttpSession session) {
 		try {
-			imageService.checkImageNumber(memberNumber);
+			imageService.checkImage(memberNumber);
 		} catch (ImageDeleteException e) {
 			Image image = new Image(memberNumber, "user-medium.png", 0);
 			changeProfileService.updateImage(image, session);

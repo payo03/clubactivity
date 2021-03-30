@@ -40,7 +40,7 @@ public class ImageService {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public Image checkImageNumber(int memberNumber) {
+	public Image checkImage(int memberNumber) {
 		Image image = imageDAO.checkImage(memberNumber);
 		if (image == null) {
 			throw new ImageDeleteException("Image Delete Error");
