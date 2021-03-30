@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,16 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import clubactivity.exception.MemberNotFoundException;
-import clubactivity.service.CreateSessionService;
+import clubactivity.service.LoginService;
+import clubactivity.vo.AuthInfo;
 import clubactivity.vo.LoginRequest;
-import clubactivity.vo.Messagecommand;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
 	@Autowired
-	private CreateSessionService createSessionService;
+	private LoginService loginService;
 
 	public LoginController() {
 		super();
@@ -54,13 +52,19 @@ public class LoginController {
 		}
 
 		try {
-			List<Messagecommand> messagecommands = createSessionService.createAuthInfoSession(loginRequest, session);
-
-			createSessionService.createMessageSession(messagecommands, session);
+			AuthInfo authInfo = loginService.selectMemberById(loginRequest.getMemberId(),
+					loginRequest.getMemberPassword());
+			int messageLength = loginService.getMessageLength(authInfo.getMessagecommand());
+			
+			if (messageLength != 0) {
+				session.setAttribute("messageLength", messageLength);
+			}
+			session.setAttribute("messagecommands", authInfo.getMessagecommand());
+			session.setAttribute("login", authInfo);
 
 			Cookie memoryCookie = new Cookie("memory", loginRequest.getMemberId());
 			memoryCookie.setPath("/");
-			
+
 			if (loginRequest.isMemory()) {
 				memoryCookie.setMaxAge(60 * 60 * 24 * 30);
 			} else {

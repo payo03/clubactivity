@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import clubactivity.dao.MemberDAO;
-import clubactivity.service.MessageSendService;
+import clubactivity.service.MessageService;
 import clubactivity.vo.Member;
 import clubactivity.vo.Messagecommand;
 
@@ -20,7 +20,7 @@ public class AdminMessageSendController {
 	private MemberDAO memberDAO;
 	
 	@Autowired
-	private MessageSendService messageSendService;
+	private MessageService messageService;
 	
 	@PostMapping("/messageForm")
 	public String messageForm(@RequestParam("memberNumber") int memberNumber, Model model, Messagecommand messagecommand) {
@@ -32,8 +32,8 @@ public class AdminMessageSendController {
 	
 	@PostMapping("messageSend")
 	public String messageSend(Messagecommand messagecommand) {
-		messageSendService.sendMessage(messagecommand);
+		messageService.sendMessage(messagecommand);
 		
-		return "redirect:/admin/memberList";
+		return "redirect:/admin/refresh";
 	}
 }

@@ -1,7 +1,13 @@
 package clubactivity.vo;
 
-public class Messagecommand {
+import java.io.Serializable;
 
+public class Messagecommand implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int memberNumber;
 	private int messageNumber;
 	private String title;

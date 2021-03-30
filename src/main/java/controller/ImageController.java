@@ -23,16 +23,12 @@ import clubactivity.exception.ImageUpdateException;
 import clubactivity.exception.ImageUploadException;
 import clubactivity.service.ChangeProfileService;
 import clubactivity.service.ImageService;
-import clubactivity.service.ImageUploadService;
 import clubactivity.vo.Image;
 import clubactivity.vo.ImageUploadRequest;
 
 @Controller
 @RequestMapping("/edit")
 public class ImageController {
-
-	@Autowired
-	private ImageUploadService imageUploadService;
 
 	@Autowired
 	private ImageService imageService;
@@ -77,7 +73,7 @@ public class ImageController {
 				savedName = ImageUploadRequest.uploadFile(mf.getOriginalFilename(), mf.getBytes(), rootPath);
 
 				ImageUploadRequest imageUploadRequest = new ImageUploadRequest(memberNumber, savedName);
-				imageUploadService.insertImage(imageUploadRequest);
+				imageService.insertImage(imageUploadRequest);
 			}
 			return "redirect:/edit/uploadImage/" + memberNumber;
 		} catch (ImageUploadException e) {

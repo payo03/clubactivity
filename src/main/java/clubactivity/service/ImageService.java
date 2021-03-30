@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import clubactivity.dao.ImageDAO;
 import clubactivity.exception.ImageDeleteException;
+import clubactivity.exception.ImageUploadException;
 import clubactivity.vo.Image;
+import clubactivity.vo.ImageUploadRequest;
 
 @Component
 public class ImageService {
@@ -48,4 +50,12 @@ public class ImageService {
 		return image;
 	}
 
+	@Transactional(rollbackFor = SQLException.class)
+	public int insertImage(ImageUploadRequest imageUploadRequest) {
+		int result = imageDAO.insertImage(imageUploadRequest);
+		if (result != 1) {
+			throw new ImageUploadException("imageUploadException");
+		}
+		return result;
+	}
 }

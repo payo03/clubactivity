@@ -1,6 +1,7 @@
 package clubactivity.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import clubactivity.dao.MemberDAO;
 import clubactivity.exception.MemberNotFoundException;
 import clubactivity.vo.AuthInfo;
 import clubactivity.vo.Member;
+import clubactivity.vo.Messagecommand;
 
 @Component
 public class LoginService {
@@ -36,6 +38,17 @@ public class LoginService {
 		
 		return new AuthInfo(member.getMemberId(), member.getMemberNumber(), member.getMemberName(), member.getMemberPhoneNumber(),
 				member.getMemberRegisterDate(), member.getMemberlevel(), member.getMemberWebsite(), member.getMemberonline(), member.getImage(), member.getMessagecommand());
+	}
+
+	@Transactional(rollbackFor=SQLException.class)
+	public int getMessageLength(List<Messagecommand> messagecommands) {
+		int messageLength = 0;
+		
+		for (Messagecommand messagecommand : messagecommands) {
+			if (!messagecommand.isRead())
+				messageLength++;
+		}
+		return messageLength;
 	}
 
 }

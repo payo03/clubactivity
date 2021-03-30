@@ -2,14 +2,13 @@ package controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import clubactivity.dao.AdminDAO;
 import clubactivity.service.AdminMemberEditService;
@@ -33,13 +32,13 @@ public class AdminMemberController {
 	private static List<Memberlevel> memberlevelList;
 	
 	@GetMapping("/register")
-	public String registerForm(AdminMemberCommand adminMemberCommand, HttpSession session) {
+	public String registerForm(AdminMemberCommand adminMemberCommand, Model model) {
 		memberlevelList = adminDAO.selectMemberlevel();
 		
-		session.setAttribute("register", true);
-		session.setAttribute("memberlevelList", memberlevelList);
+		model.addAttribute("register", true);
+		model.addAttribute("memberlevelList", memberlevelList);
 		
-		return "redirect:/admin/memberList";
+		return "admin/memberList";
 	}
 	
 	@PostMapping("/register")
@@ -49,20 +48,27 @@ public class AdminMemberController {
 		return "redirect:/admin/refresh";
 	}
 
-	@GetMapping("/update")
-	public String updateMemberForm(@RequestParam("memberNumber") int memberNumber, AdminMemberCommand adminMemberCommand, HttpSession session) {
+	@GetMapping("/update/{memberNumber}")
+	public String updateMemberForm(@PathVariable("memberNumber") int memberNumber, AdminMemberCommand adminMemberCommand, Model model) {
 		memberlevelList = adminDAO.selectMemberlevel();
 		
-		session.setAttribute("updateMemberNumber", memberNumber);
-		session.setAttribute("memberlevelList", memberlevelList);
+		model.addAttribute("updateMemberNumber", memberNumber);
+		model.addAttribute("memberlevelList", memberlevelList);
 		
-		return "redirect:/admin/memberList";
+		return "admin/memberList";
 	}
 	
 	@PostMapping("/update")
 	public String updateMember(AdminMemberCommand adminMemberCommand, int memberNumber) throws Exception {
 		adminMemberCommand.setMemberNumber(memberNumber);
 		adminMemberEditService.updateMember(adminMemberCommand);
+		
+		return "redirect:/admin/refresh";
+	}
+	
+	@GetMapping("/delete/{memberNumber}")
+	public String deleteMember(@PathVariable("memberNumber") int memberNumber) {
+		adminDAO.deleteMember(memberNumber);
 		
 		return "redirect:/admin/refresh";
 	}

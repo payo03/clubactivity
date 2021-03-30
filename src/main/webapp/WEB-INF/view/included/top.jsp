@@ -74,7 +74,7 @@
 										</c:if>
 									</c:forEach>
 									<li><a
-										href="${pageContext.request.contextPath}/profile/message"
+										href="${pageContext.request.contextPath}/profile/message/${sessionScope.login.memberNumber}"
 										class="more">See all message</a></li>
 								</ul></li>
 						</c:when>

@@ -133,11 +133,11 @@
 														<td><c:if
 																test="${member.memberlevel.memberLevelCode !=1 }">
 																<a
-																	href="${pageContext.request.contextPath}/admin/update?memberNumber=${member.memberNumber}"><button
+																	href="${pageContext.request.contextPath}/admin/update/${member.memberNumber}"><button
 																		type="button" class="btn btn-info">
 																		<i class="lnr lnr-pencil"></i>
 																	</button></a> &nbsp; <a
-																	href="${pageContext.request.contextPath}/admin/delete?memberNumber=${member.memberNumber}">
+																	href="${pageContext.request.contextPath}/admin/delete/${member.memberNumber}">
 																	<button type="button" class="btn btn-danger">
 																		<i class="fa fa-trash-o"></i>
 																	</button>

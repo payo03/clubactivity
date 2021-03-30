@@ -1,7 +1,13 @@
 package clubactivity.vo;
 
-public class Memberlevel {
+import java.io.Serializable;
+
+public class Memberlevel implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int memberLevelCode;
 	private String memberLevelDescription;
 	

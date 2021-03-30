@@ -6,14 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import clubactivity.service.CreateSessionService;
-import clubactivity.service.MessageDetailService;
-import clubactivity.service.MessageListService;
+import clubactivity.service.LoginService;
+import clubactivity.service.MessageService;
 import clubactivity.vo.Messagecommand;
 
 @Controller
@@ -21,25 +20,34 @@ import clubactivity.vo.Messagecommand;
 public class MessageController {
 
 	@Autowired
-	private MessageDetailService messageDetailService;
+	private MessageService messageService;
 	
 	@Autowired
-	private MessageListService messageListService;
-	
-	@Autowired
-	private CreateSessionService createSessionService;
+	private LoginService loginService;
 
-	@GetMapping("/messageDetail/{messageNumber}")
-	public String detail(@PathVariable("messageNumber") int messageNumber, HttpSession session, Model model) {
-		Messagecommand messagecommand = messageDetailService.viewMessage(messageNumber);
-		List<Messagecommand> messagecommands = messageListService.findListByMemberNumber(messagecommand.getMemberNumber());
+	@GetMapping("/message/{memberNumber}")
+	public String messageList(@PathVariable("memberNumber") int memberNumber, HttpSession session) {
+		List<Messagecommand> messagecommands = messageService.findListByMemberNumber(memberNumber);
+		int messageLength = loginService.getMessageLength(messagecommands);
 		
-		//세션 갱신 역활(read column을 위해)
-		createSessionService.createMessageSession(messagecommands, session);
+		if (messageLength != 0) {
+			session.setAttribute("messageLength", messageLength);
+		} else {
+			session.removeAttribute("messageLength");
+		}
+		session.setAttribute("messagecommands", messagecommands);
 		
-		model.addAttribute("messagecommand", messagecommand);
-
 		return "profile/message";
+	}
+	
+	
+	@GetMapping("/messageDetail/{messageNumber}")
+	public String detail(@PathVariable("messageNumber") int messageNumber, RedirectAttributes redirect) {
+		Messagecommand messagecommand = messageService.viewMessage(messageNumber);
+		
+		redirect.addFlashAttribute("messagecommand", messagecommand);
+
+		return "redirect:/profile/message/" + messagecommand.getMemberNumber();
 	}
 	
 }
