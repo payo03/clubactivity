@@ -57,68 +57,32 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- OVERVIEW -->
-					<div class="col-md-4">
-						<div class="panel panel-headline">
+					<h3 class="page-title">
+						<spring:message code="admin.member.message.send" />
+					</h3>
+					<div class="row">
+						<div class="panel">
 							<div class="panel-heading">
-								<h3 class="panel-title">Message List</h3>
+								<h3>To : ${member.memberName }</h3>
 							</div>
 							<div class="panel-body">
-								<c:forEach var="messagecommand"
-									items="${sessionScope.messagecommands}">
-									<c:if test="${!messagecommand.read }">
-										<div class="metric">
-											<a
-												href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}">
-												<span class="icon"><i class="lnr lnr-envelope"></i></span>
-											</a>
-											<h5>
-												<span class="number">${messagecommand.title }</span>
-											</h5>
-											<p>
-												<span class="title"> From :
-													${messagecommand.member.memberName }</span>
-											</p>
-										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-							<div class="panel-footer">
-								<c:forEach var="messagecommand"
-									items="${sessionScope.messagecommands}">
-									<c:if test="${messagecommand.read }">
-										<div class="metric">
-											<a
-												href="${pageContext.request.contextPath}/profile/messageDetail/${messagecommand.messageNumber}">
-												<span class="icon"><i class="lnr lnr-envelope"></i></span>
-											</a>
-											<h5>
-												<span class="number">${messagecommand.title }</span>
-											</h5>
-											<p>
-												<span class="title"> From :
-													${messagecommand.member.memberName }</span>
-											</p>
-										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="panel panel-headline">
-							<div class="panel-heading">
-								<h3 class="panel-title">From :
-									${messagecommand.member.memberName }</h3>
-							</div>
-							<div class="panel-body">
-								<div class="form-control">${messagecommand.title }</div>
-								<br>
-								<textarea class="form-control" placeholder="message text..."
-									rows="6" readonly>${messagecommand.message }</textarea>
-								<br>
-								<button type="submit" class="btn btn-default">
-									<i class="fa fa-plus-square"></i> REPLY
-								</button>
+								<form:form
+									action="${pageContext.request.contextPath}/profile/messageSend"
+									modelAttribute="messagecommand">
+									<input type="hidden" name="memberNumber"
+										value="${member.memberNumber }" />
+									<input type="hidden" name="fromMemberNumber"
+										value="${sessionScope.login.memberNumber }" />
+									<form:input path="title" class="form-control"
+										placeholder="TITLE" />
+									<br>
+									<form:textarea path="message" class="form-control"
+										placeholder="write message..." rows="6" />
+									<br>
+									<button type="submit" class="btn btn-default">
+										<i class="fa fa-plus-square"></i> SEND
+									</button>
+								</form:form>
 							</div>
 						</div>
 					</div>

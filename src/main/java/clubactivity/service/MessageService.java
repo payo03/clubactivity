@@ -29,6 +29,13 @@ public class MessageService {
 	public List<Messagecommand> findListByMemberNumber(int memberNumber) {
 		List<Messagecommand> messagecommands = messageDAO.findListByMemberNumber(memberNumber);
 
+		String title = null;
+		for(Messagecommand messagecommand : messagecommands) {
+			if(messagecommand.getTitle().length() > 18) {
+				title = messagecommand.getTitle().substring(0, 15) + "...";
+				messagecommand.setTitle(title);
+			}
+		}
 		return messagecommands;
 	}
 	

@@ -18,10 +18,10 @@
 	</select>
 	
 	<select id="selectMemberList" parameterType="int" resultMap="memberListResultMap">
-		select MEMBER_ID, MEMBER_NAME, MEMBER_NUMBER, MEMBER_STATUS
+		select MEMBER_ID, MEMBER_NAME, MEMBER_NUMBER, MEMBER_STATUS, IMAGE_NUMBER
 		from club.member
 		where member.MEMBER_NUMBER != #{memberNumber} 
-		order by MEMBER_STATUS desc
+		order by MEMBER_STATUS desc, MEMBER_NUMBER asc
 	</select>
 
 	<select id="selectById" parameterType="String" resultType="int">
@@ -117,6 +117,8 @@
 		<result column="MEMBER_NAME" property="memberName" />
 		<association select="selectMemberonline"
 			property="memberonline" column="{memberStatus=MEMBER_STATUS}" />
+		<association select="selectImage"
+			property="image" column="{imageNumber=IMAGE_NUMBER}" />
 	</resultMap>
 
 </mapper>

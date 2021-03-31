@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import clubactivity.service.MemberListService;
+import clubactivity.service.MemberService;
 import clubactivity.vo.Member;
 
 @Controller
@@ -17,12 +17,12 @@ import clubactivity.vo.Member;
 public class ProfileController {
 
 	@Autowired
-	private MemberListService memberListService;
+	private MemberService memberService;
 
 	@GetMapping
 	public String profile(HttpSession session) {
 		try {
-			List<Member> memberList = memberListService.selectMemberList(session);
+			List<Member> memberList = memberService.selectMemberList(session);
 			session.setAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();

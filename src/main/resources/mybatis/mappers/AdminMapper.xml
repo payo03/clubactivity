@@ -6,7 +6,7 @@
 <mapper namespace="clubactivity.dao.AdminDAO">
 	
 	<select id="selectMemberList" resultMap="memberListResultMap">
-		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS
+		select MEMBER_ID, MEMBER_NAME, MEMBER_PHONE_NUMBER, MEMBER_REGISTRATION_DATE, MEMBER_LEVEL_CODE, MEMBER_NUMBER, MEMBER_WEBSITE, MEMBER_STATUS, IMAGE_NUMBER
 		from club.member
 		order by MEMBER_LEVEL_CODE desc
 	</select>
@@ -50,6 +50,8 @@
 			property="memberlevel" column="{memberLevelCode=MEMBER_LEVEL_CODE}" />
 		<association select="selectMemberonline"
 			property="memberonline" column="{memberStatus=MEMBER_STATUS}" />
+		<association select="selectImage"
+			property="image" column="{imageNumber=IMAGE_NUMBER}" />
 	</resultMap>
 	
 	<select id="MEMBER_LEVEL" parameterType="memberlevel" resultType="memberlevel">
@@ -60,6 +62,11 @@
 	<select id="selectMemberonline" parameterType="memberonline" resultType="memberonline">
 		SELECT MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION
 		from club.memberonline WHERE MEMBER_STATUS = #{memberStatus}
+	</select>
+	
+	<select id="selectImage" parameterType="image" resultType="image">
+		SELECT MEMBER_NUMBER, IMAGE_NUMBER, IMAGE_PATH
+		from club.image WHERE IMAGE_NUMBER = #{imageNumber}
 	</select>
 	
 </mapper>

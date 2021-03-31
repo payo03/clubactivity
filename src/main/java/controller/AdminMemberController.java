@@ -29,11 +29,9 @@ public class AdminMemberController {
 	@Autowired
 	private AdminMemberEditService adminMemberEditService;
 	
-	private static List<Memberlevel> memberlevelList;
-	
 	@GetMapping("/register")
 	public String registerForm(AdminMemberCommand adminMemberCommand, Model model) {
-		memberlevelList = adminDAO.selectMemberlevel();
+		List<Memberlevel> memberlevelList = adminMemberEditService.selectMemberlevel();
 		
 		model.addAttribute("register", true);
 		model.addAttribute("memberlevelList", memberlevelList);
@@ -50,7 +48,7 @@ public class AdminMemberController {
 
 	@GetMapping("/update/{memberNumber}")
 	public String updateMemberForm(@PathVariable("memberNumber") int memberNumber, AdminMemberCommand adminMemberCommand, Model model) {
-		memberlevelList = adminDAO.selectMemberlevel();
+		List<Memberlevel> memberlevelList = adminMemberEditService.selectMemberlevel();
 		
 		model.addAttribute("updateMemberNumber", memberNumber);
 		model.addAttribute("memberlevelList", memberlevelList);

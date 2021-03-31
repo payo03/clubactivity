@@ -122,14 +122,11 @@
 														<td><fmt:formatDate
 																value="${member.memberRegisterDate}"
 																pattern="yyyy-MM-dd" /></td>
-														<td><form:form
-																action="${pageContext.request.contextPath}/admin/messageForm">
-																<input type="hidden" name="memberNumber"
-																	value="${member.memberNumber }">
-																<button type="submit" class="btn btn-default">
+														<td><a href="${pageContext.request.contextPath}/admin/messageForm/${member.memberNumber}">
+																<button type="button" class="btn btn-default">
 																	<i class="fa fa-plus-square"></i> SEND
 																</button>
-															</form:form></td>
+															</a></td>
 														<td><c:if
 																test="${member.memberlevel.memberLevelCode !=1 }">
 																<a

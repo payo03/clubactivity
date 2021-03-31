@@ -343,6 +343,7 @@
 											<a href="#" class="btn btn-default">See all Notifications</a>
 										</div>
 									</div>
+
 									<div class="tab-pane fade" id="tab-bottom-right">
 										<div class="table-responsive">
 											<div class="col-md-12 text-right">
@@ -352,38 +353,28 @@
 													</button>
 												</a>
 											</div>
-											<table class="table table-striped">
+											<table class="table project-table">
 												<thead>
 													<tr>
-														<th width="10%"><div class="btn btn-default">
-																<spring:message code="name" />
-															</div></th>
-														<th width="20%"><div class="btn btn-default">
-																<spring:message code="memberId" />
-															</div></th>
-														<th width="10%"><div class="btn btn-default">
-																<i class="fa fa-envelope"></i> &nbsp; <i
-																	class="lnr lnr-highlight"></i>
-															</div></th>
-														<th width="3%"><div class="btn btn-default">
-																<spring:message code="memberonline" />
-															</div></th>
+														<th><spring:message code="profile" /></th>
+														<th><spring:message code="memberId" /></th>
+														<th><spring:message code="message" /></th>
+														<th><spring:message code="memberonline" /></th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="member" items="${memberList}"
 														varStatus="status">
 														<tr>
-															<td width="10%">${member.memberName }</td>
-															<td width="20%">${member.memberId }</td>
-															<td width="10%"><form:form action="#">
-																	<input type="hidden" name="memberNumber"
-																		value="${member.memberNumber }">
+															<td><img class="avatar img-circle"
+																src="${pageContext.request.contextPath}/upload/${member.image.imagePath }"> ${member.memberName }</td>
+															<td>${member.memberId }</td>
+															<td><a href="${pageContext.request.contextPath}/profile/messageForm/${member.memberNumber}">
 																	<button type="submit" class="btn btn-default">
 																		<i class="fa fa-plus-square"></i> SEND
 																	</button>
-																</form:form></td>
-															<td width="3%"><c:choose>
+																</a></td>
+															<td><c:choose>
 																	<c:when test="${member.memberonline.memberStatus }">
 																		<a href="#" class="notification-item"><span
 																			class="dot bg-success"></span>Online</a>
