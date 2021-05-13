@@ -44,7 +44,7 @@
 
 				<li><a href="#" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
 
-				<li><a href="#" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
+				<li><a href="${pageContext.request.contextPath}/notification" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
 
 				<li><a href="#" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
 				<c:choose>
