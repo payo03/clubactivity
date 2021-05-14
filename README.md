@@ -63,6 +63,31 @@ CREATE TABLE `messagecommand` (
   CONSTRAINT `messagecommand_FK` FOREIGN KEY (`MEMBER_NUMBER`) REFERENCES `member` (`MEMBER_NUMBER`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+# DB DATA 설정
+
+insert into club.memberlevel (MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION) values (1, "관리자")
+insert into club.memberlevel (MEMBER_LEVEL_CODE, MEMBER_LEVEL_DESCRIPTION) values (0, "회원")
+
+insert into club.memberonline (MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION) values (0, "OFF")
+insert into club.memberonline (MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION) values (1, "ON")
+
+# Server 파일 업로드 설정
+
+-- context.xml
+
+<Context allowCasualMultipartParsing="true" path="/">
+	<Resources cachingAllowed="true" cacheMaxSize="100000" />
+
+ <!-- Default set of monitored resources. If one of these changes, the -->
+	<!-- web application will be reloaded. -->
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+	<WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+	<WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+	<!-- Uncomment this to disable session persistence across Tomcat restarts -->
+	<!-- <Manager pathname="" /> -->
+</Context>
+
 # DB Property 파일 설정
 
 src/main/resources
