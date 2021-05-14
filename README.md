@@ -88,6 +88,12 @@ insert into club.memberonline (MEMBER_STATUS, MEMBER_STATUS_DESCRIPTION) values 
 	<!-- <Manager pathname="" /> -->
 </Context>
 
+# default 이미지 파일
+
+insert into club.image (MEMBER_NUMBER, IMAGE_PATH, IMAGE_NUMBER) values (34, "user-medium.png", 0)
+servlet path + \.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ + upload 폴더 생성
+src\main\webapp\assets\img + user-medium.png 파일 upload폴더로 복사
+
 # DB Property 파일 설정
 
 src/main/resources
