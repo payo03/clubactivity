@@ -30,7 +30,7 @@
 	
 	<insert id="sendWelcomeMessage" parameterType="int">
 		INSERT INTO club.messagecommand (MEMBER_NUMBER, TITLE, MESSAGE, FROM_MEMBER_NUMBER)
-		VALUES (#{memberNumber}, "KLOROFIL", "회원가입을 축하드립니다.", 0;
+		VALUES (#{memberNumber}, "KLOROFIL", "회원가입을 축하드립니다.", 0);
 	</insert>
 	
 	<update id="updateMessage" parameterType="int" >
