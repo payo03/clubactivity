@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:/mybatis/config/S1.properties")
+@PropertySource("classpath:/mybatis/config/S2.properties")
 public class ContextDataSource {
 	@Value("${db.driverClassName}")
 	private String driverClassName;
