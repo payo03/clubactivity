@@ -12,7 +12,7 @@
 
 	<properties>
 		<org.springframework-version>5.0.2.RELEASE</org.springframework-version>
-		<org.apache.tomcat-version>9.0</org.apache.tomcat-version>
+		<org.apache.tomcat-version>9.0.8</org.apache.tomcat-version>
 		<mysql.version>8.0.15</mysql.version>
 	</properties>
 
@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
-			<version>9.0.8</version>
+			<version>${org.apache.tomcat-version}</version>
 		</dependency>
 
 		<!-- MySQL -->
